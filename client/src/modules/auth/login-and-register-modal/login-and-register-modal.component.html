@@ -1,0 +1,164 @@
+<!-- Login/Register Modal -->
+<div
+  id="auth-modal"
+  class="modal fixed inset-0 z-50 flex items-center justify-center p-4"
+>
+  <div
+    class="modal-content bg-darker rounded-lg w-full max-w-md border border-gray-800 overflow-hidden"
+  >
+    <!-- Modal Header -->
+    <div class="flex border-b border-gray-800">
+      <button
+        (click)="openLogin()"
+        id="login-tab"
+        class="tab-login flex-1 py-4 font-medium text-center text-white border-b-3 border-transparent"
+        [ngClass]="isLoginDisplay ? 'active' : ''"
+      >
+        ĐĂNG NHẬP
+      </button>
+      <button
+        (click)="openRegister()"
+        id="register-tab"
+        class="tab-login flex-1 py-4 font-medium text-center text-gray-400 border-b-3 border-transparent"
+        [ngClass]="!isLoginDisplay ? 'active' : ''"
+      >
+        ĐĂNG KÝ
+      </button>
+      <button
+        (click)="closeLoginModal.emit()"
+        id="close-modal"
+        class="px-4 text-gray-400 hover:text-white"
+      >
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form" class="p-6" *ngIf="isLoginDisplay">
+      <div class="mb-4">
+        <label class="block text-gray-400 text-sm mb-2" for="login-email"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="login-email"
+          class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:border-primary"
+          placeholder="Nhập email của bạn"
+        />
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-400 text-sm mb-2" for="login-password"
+          >Mật khẩu</label
+        >
+        <input
+          type="password"
+          id="login-password"
+          class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:border-primary"
+          placeholder="Nhập mật khẩu"
+        />
+        <div class="flex justify-end mt-2">
+          <a href="#" class="text-sm text-primary hover:underline"
+            >Quên mật khẩu?</a
+          >
+        </div>
+      </div>
+      <button
+        class="w-full bg-primary hover:bg-red-700 text-white py-3 rounded-md font-medium mb-4 transition"
+      >
+        Đăng nhập
+      </button>
+      <div class="text-center text-sm text-gray-400">Hoặc đăng nhập bằng</div>
+      <div class="flex justify-center space-x-4 mt-4">
+        <button class="bg-dark hover:bg-gray-800 text-white p-3 rounded-full">
+          <fa-icon [icon]="faFacebook"></fa-icon>
+        </button>
+        <button class="bg-dark hover:bg-gray-800 text-white p-3 rounded-full">
+          <fa-icon [icon]="faGoogle"></fa-icon>
+        </button>
+        <button class="bg-dark hover:bg-gray-800 text-white p-3 rounded-full">
+          <fa-icon [icon]="faApple"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Register Form (Hidden by default) -->
+    <div id="register-form" class="p-6" *ngIf="!isLoginDisplay">
+      <div class="mb-4">
+        <label class="block text-gray-400 text-sm mb-2" for="register-name"
+          >Họ và tên</label
+        >
+        <input
+          type="text"
+          id="register-name"
+          class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:border-primary"
+          placeholder="Nhập họ và tên"
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-400 text-sm mb-2" for="register-email"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="register-email"
+          class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:border-primary"
+          placeholder="Nhập email của bạn"
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-400 text-sm mb-2" for="register-password"
+          >Mật khẩu</label
+        >
+        <input
+          type="password"
+          id="register-password"
+          class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:border-primary"
+          placeholder="Nhập mật khẩu"
+        />
+      </div>
+      <div class="mb-6">
+        <label
+          class="block text-gray-400 text-sm mb-2"
+          for="register-confirm-password"
+          >Xác nhận mật khẩu</label
+        >
+        <input
+          type="password"
+          id="register-confirm-password"
+          class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:border-primary"
+          placeholder="Nhập lại mật khẩu"
+        />
+      </div>
+      <div class="mb-4 flex items-center">
+        <input type="checkbox" id="register-terms" class="mr-2" />
+        <label for="register-terms" class="text-sm text-gray-400"
+          >Tôi đồng ý với
+          <a href="#" class="text-primary hover:underline"
+            >Điều khoản dịch vụ</a
+          >
+          và
+          <a href="#" class="text-primary hover:underline"
+            >Chính sách bảo mật</a
+          ></label
+        >
+      </div>
+      <button
+        class="w-full bg-primary hover:bg-red-700 text-white py-3 rounded-md font-medium mb-4 transition"
+      >
+        Đăng ký
+      </button>
+      <div class="text-center text-sm text-gray-400">Hoặc đăng ký bằng</div>
+      <div class="flex justify-center space-x-4 mt-4">
+        <button class="bg-dark hover:bg-gray-800 text-white p-3 rounded-full">
+          <fa-icon [icon]="faFacebook"></fa-icon>
+        </button>
+        <button class="bg-dark hover:bg-gray-800 text-white p-3 rounded-full">
+          <fa-icon [icon]="faGoogle"></fa-icon>
+        </button>
+        <button class="bg-dark hover:bg-gray-800 text-white p-3 rounded-full">
+          <fa-icon [icon]="faApple"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

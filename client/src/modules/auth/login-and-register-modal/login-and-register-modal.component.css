@@ -1,0 +1,19 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.8);
+  visibility: visible;
+}
+
+.modal-content {
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: translateY(0);
+}
+
+.tab-login.active {
+  border-bottom: 3px solid #e50914;
+  color: #f5f5f5;
+  font-weight: 600;
+}
