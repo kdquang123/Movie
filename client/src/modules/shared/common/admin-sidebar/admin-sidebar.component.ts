@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faFilm,
@@ -13,11 +14,15 @@ import {
   faChevronLeft,
   faChevronRight,
   faNewspaper,
+  faSliders,
+  faTicketAlt,
+  faStore,
+  faCouch,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css',
 })
@@ -34,6 +39,10 @@ export class AdminSidebarComponent {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
   faNewspaper = faNewspaper;
+  faSliders = faSliders;
+  faTicketAlt = faTicketAlt;
+  faStore = faStore;
+  faCouch = faCouch;
 
   @Output() emitToggleSidebar = new EventEmitter<void>();
 

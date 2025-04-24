@@ -1,1 +1,458 @@
-<p>my-ticket works!</p>
+<!-- Main Content Area -->
+<div class="flex-1">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold">
+      <fa-icon [icon]="faTicketAlt" class="text-primary mr-2"></fa-icon> Vé Đã
+      Đặt
+    </h1>
+
+    <div class="flex space-x-2">
+      <button
+        id="upcoming-tab"
+        class="tab-active px-4 py-2 text-sm font-medium"
+      >
+        Sắp chiếu
+      </button>
+      <button
+        id="past-tab"
+        class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white"
+      >
+        Đã xem
+      </button>
+    </div>
+  </div>
+
+  <!-- Upcoming Tickets -->
+  <div id="upcoming-tickets">
+    <!-- Ticket 1 -->
+    <div
+      class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Movie Poster -->
+        <div class="w-full md:w-48 flex-shrink-0">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,poster"
+            alt="Movie Poster"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Ticket Info -->
+        <div class="p-6 flex-1">
+          <div class="flex flex-col md:flex-row md:justify-between">
+            <div class="mb-4 md:mb-0">
+              <span class="text-primary text-sm font-medium"
+                >PHIM ĐANG CHIẾU</span
+              >
+              <h2 class="text-xl font-bold mt-1">John Wick: Chapter 4</h2>
+              <div class="flex items-center mt-2 text-gray-400 text-sm">
+                <span
+                  ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
+                  15/04/2023</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon> 14:30</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faMapMarkerAlt" class="mr-2"></fa-icon> CGV
+                  Vincom Bà Triệu</span
+                >
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span
+                class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full"
+                >ĐÃ THANH TOÁN</span
+              >
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Ticket Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thông tin vé</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Loại vé:</span>
+                  <span>Vé thường</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Số lượng:</span>
+                  <span>2 vé</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ghế:</span>
+                  <span>H12, H13</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Phòng chiếu:</span>
+                  <span>Cinema 5</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Payment Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thanh toán</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Mã đặt vé:</span>
+                  <span>CD23041501</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Phương thức:</span>
+                  <span>Ví điện tử Momo</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Tổng tiền:</span>
+                  <span class="font-bold">180.000đ</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ngày đặt:</span>
+                  <span>12/04/2023</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- QR Code -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="qr-code p-2 rounded-lg mb-3">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CineDark-CD23041501"
+                  alt="QR Code"
+                  class="w-24 h-24"
+                />
+              </div>
+              <button class="text-primary text-sm font-medium hover:underline">
+                <fa-icon [icon]="faDownload" class="mr-1"></fa-icon> Tải vé
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-800 px-6 py-3 bg-gray-900 bg-opacity-50 flex justify-end space-x-3"
+      >
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faPrint" class="mr-1"></fa-icon> In vé
+        </button>
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
+        </button>
+        <button
+          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faUndoAlt" class="mr-1"></fa-icon> Hủy vé
+        </button>
+      </div>
+    </div>
+
+    <!-- Ticket 2 -->
+    <div
+      class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Movie Poster -->
+        <div class="w-full md:w-48 flex-shrink-0">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,poster,scifi"
+            alt="Movie Poster"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Ticket Info -->
+        <div class="p-6 flex-1">
+          <div class="flex flex-col md:flex-row md:justify-between">
+            <div class="mb-4 md:mb-0">
+              <span class="text-primary text-sm font-medium"
+                >PHIM ĐANG CHIẾU</span
+              >
+              <h2 class="text-xl font-bold mt-1">Dune: Part Two</h2>
+              <div class="flex items-center mt-2 text-gray-400 text-sm">
+                <span
+                  ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
+                  20/04/2023</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon> 19:15</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faMapMarkerAlt" class="mr-2"></fa-icon>
+                  Lotte Cinema Hà Nội</span
+                >
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span
+                class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full"
+                >ĐÃ THANH TOÁN</span
+              >
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Ticket Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thông tin vé</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Loại vé:</span>
+                  <span>Vé VIP</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Số lượng:</span>
+                  <span>1 vé</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ghế:</span>
+                  <span>D8</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Phòng chiếu:</span>
+                  <span>IMAX 3</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Payment Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thanh toán</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Mã đặt vé:</span>
+                  <span>CD23042002</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Phương thức:</span>
+                  <span>Thẻ tín dụng</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Tổng tiền:</span>
+                  <span class="font-bold">250.000đ</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ngày đặt:</span>
+                  <span>10/04/2023</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- QR Code -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="qr-code p-2 rounded-lg mb-3">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CineDark-CD23042002"
+                  alt="QR Code"
+                  class="w-24 h-24"
+                />
+              </div>
+              <button class="text-primary text-sm font-medium hover:underline">
+                <fa-icon [icon]="faDownload" class="mr-1"></fa-icon> Tải vé
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-800 px-6 py-3 bg-gray-900 bg-opacity-50 flex justify-end space-x-3"
+      >
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faPrint" class="mr-1"></fa-icon> In vé
+        </button>
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
+        </button>
+        <button
+          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faUndoAlt" class="mr-1"></fa-icon> Hủy vé
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Past Tickets (Hidden by default) -->
+  <div id="past-tickets" class="hidden">
+    <!-- Past Ticket 1 -->
+    <div
+      class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Movie Poster -->
+        <div class="w-full md:w-48 flex-shrink-0">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,poster,action"
+            alt="Movie Poster"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Ticket Info -->
+        <div class="p-6 flex-1">
+          <div class="flex flex-col md:flex-row md:justify-between">
+            <div class="mb-4 md:mb-0">
+              <span class="text-gray-500 text-sm font-medium"
+                >PHIM ĐÃ CHIẾU</span
+              >
+              <h2 class="text-xl font-bold mt-1">Avatar: The Way of Water</h2>
+              <div class="flex items-center mt-2 text-gray-500 text-sm">
+                <span
+                  ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
+                  05/03/2023</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon> 20:00</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faMapMarkerAlt" class="mr-2"></fa-icon> CGV
+                  Vincom Nguyễn Chí Thanh</span
+                >
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span
+                class="bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-full"
+                >ĐÃ XEM</span
+              >
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Ticket Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thông tin vé</h3>
+              <ul class="space-y-2 text-sm text-gray-400">
+                <li class="flex justify-between">
+                  <span>Loại vé:</span>
+                  <span>Vé 3D</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Số lượng:</span>
+                  <span>3 vé</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Ghế:</span>
+                  <span>K5, K6, K7</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Phòng chiếu:</span>
+                  <span>Cinema 2</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Payment Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thanh toán</h3>
+              <ul class="space-y-2 text-sm text-gray-400">
+                <li class="flex justify-between">
+                  <span>Mã đặt vé:</span>
+                  <span>CD23030501</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Phương thức:</span>
+                  <span>Thẻ ghi nợ</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Tổng tiền:</span>
+                  <span class="font-bold">420.000đ</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Ngày đặt:</span>
+                  <span>01/03/2023</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Rating -->
+            <div class="flex flex-col items-start justify-center">
+              <h3 class="font-bold mb-3">Đánh giá của bạn</h3>
+              <div class="flex items-center mb-2">
+                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
+                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
+                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
+                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
+                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
+              </div>
+              <button class="text-primary text-sm font-medium hover:underline">
+                <fa-icon [icon]="faEdit" class="mr-1"></fa-icon> Sửa đánh giá
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-800 px-6 py-3 bg-gray-900 bg-opacity-50 flex justify-end space-x-3"
+      >
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faRedoAlt" class="mr-1"></fa-icon> Đặt lại
+        </button>
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faCommentAlt" class="mr-1"></fa-icon> Viết review
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div id="empty-upcoming" class="hidden text-center py-12">
+    <div class="max-w-md mx-auto">
+      <fa-icon
+        [icon]="faTicketAlt"
+        class="text-5xl text-gray-600 mb-4"
+      ></fa-icon>
+      <h3 class="text-xl font-bold mb-2">Bạn chưa có vé sắp chiếu</h3>
+      <p class="text-gray-400 mb-6">
+        Hãy khám phá các bộ phim đang hot và đặt vé ngay hôm nay!
+      </p>
+      <a
+        href="#"
+        class="bg-primary hover:bg-red-700 px-6 py-3 rounded-md font-medium inline-block"
+      >
+        Xem phim đang chiếu
+      </a>
+    </div>
+  </div>
+
+  <div id="empty-past" class="hidden text-center py-12">
+    <div class="max-w-md mx-auto">
+      <fa-icon [icon]="faHistory" class="text-5xl text-gray-600 mb-4"></fa-icon>
+      <h3 class="text-xl font-bold mb-2">Bạn chưa xem phim nào gần đây</h3>
+      <p class="text-gray-400 mb-6">
+        Các bộ phim bạn đã xem sẽ xuất hiện tại đây.
+      </p>
+      <a
+        href="#"
+        class="bg-primary hover:bg-red-700 px-6 py-3 rounded-md font-medium inline-block"
+      >
+        Xem phim đang chiếu
+      </a>
+    </div>
+  </div>
+</div>

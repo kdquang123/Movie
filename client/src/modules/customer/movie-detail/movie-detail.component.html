@@ -20,12 +20,13 @@
       <button
         class="bg-primary hover:bg-red-700 px-8 py-3 rounded-md font-medium text-lg mr-4"
       >
-        <i class="fas fa-ticket-alt mr-2"></i> Đặt vé ngay
+        <fa-icon [icon]="faTicket" class="mr-2"></fa-icon> Đặt
+        vé ngay
       </button>
       <button
         class="border border-white hover:bg-white hover:bg-opacity-10 px-8 py-3 rounded-md font-medium text-lg"
       >
-        <i class="fas fa-play mr-2"></i> Xem trailer
+        <fa-icon [icon]="faPlay"></fa-icon> Xem trailer
       </button>
     </div>
   </div>
@@ -121,11 +122,11 @@
                 <div>
                   <p class="font-medium">Nguyễn Văn A</p>
                   <div class="flex items-center text-yellow-400 text-sm">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
                     <span class="text-gray-400 ml-2">4.5/5</span>
                   </div>
                 </div>
@@ -148,11 +149,11 @@
                 <div>
                   <p class="font-medium">Trần Thị B</p>
                   <div class="flex items-center text-yellow-400 text-sm">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
                     <span class="text-gray-400 ml-2">5/5</span>
                   </div>
                 </div>
@@ -174,11 +175,26 @@
             ></textarea>
             <div class="flex justify-between items-center">
               <div class="flex items-center text-yellow-400 text-xl">
-                <i class="far fa-star cursor-pointer hover:text-yellow-300"></i>
-                <i class="far fa-star cursor-pointer hover:text-yellow-300"></i>
-                <i class="far fa-star cursor-pointer hover:text-yellow-300"></i>
-                <i class="far fa-star cursor-pointer hover:text-yellow-300"></i>
-                <i class="far fa-star cursor-pointer hover:text-yellow-300"></i>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
               </div>
               <button
                 class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium"
@@ -235,16 +251,6 @@
           <div class="bg-darker border border-gray-800 rounded-lg p-6">
             <h3 class="font-bold text-xl mb-4">CHỌN SUẤT CHIẾU</h3>
             <div class="mb-4">
-              <label class="block text-gray-400 text-sm mb-2">CHỌN RẠP</label>
-              <select
-                class="w-full bg-dark border border-gray-700 rounded-md p-2 focus:outline-none focus:border-primary"
-              >
-                <option>CineDark Vincom (Q.1)</option>
-                <option>CineDark Crescent (Q.7)</option>
-                <option>CineDark AEON (Bình Tân)</option>
-              </select>
-            </div>
-            <div class="mb-4">
               <label class="block text-gray-400 text-sm mb-2">CHỌN NGÀY</label>
               <div class="grid grid-cols-4 gap-2">
                 <button
@@ -268,6 +274,16 @@
                   CN
                 </button>
               </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-400 text-sm mb-2">CHỌN PHÒNG</label>
+              <select
+                class="w-full bg-dark border border-gray-700 rounded-md p-2 focus:outline-none focus:border-primary"
+              >
+                <option>Phòng 1</option>
+                <option>Phòng 2</option>
+                <option>Phòng 3</option>
+              </select>
             </div>
             <div>
               <label class="block text-gray-400 text-sm mb-2">CHỌN SUẤT</label>
