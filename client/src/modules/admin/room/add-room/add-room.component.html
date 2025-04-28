@@ -1,1 +1,271 @@
-<p>add-room works!</p>
+<!-- Add Theater Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <form>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left Column - Basic Info -->
+      <div>
+        <div class="space-y-6">
+          <!-- Cinema Selection -->
+          <div>
+            <label
+              for="cinema"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Rạp chiếu <span class="text-red-500">*</span></label
+            >
+            <select
+              id="cinema"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn rạp --</option>
+              <option value="1">CineDark Hà Nội</option>
+              <option value="2">CineDark Hồ Chí Minh</option>
+              <option value="3">CineDark Đà Nẵng</option>
+              <option value="4">CineDark Hải Phòng</option>
+            </select>
+          </div>
+
+          <!-- Theater Name -->
+          <div>
+            <label
+              for="theater-name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tên phòng chiếu <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="theater-name"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="VD: Phòng 1, Phòng IMAX"
+              required
+            />
+          </div>
+
+          <!-- Theater Type -->
+          <div>
+            <label
+              for="theater-type"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Loại phòng <span class="text-red-500">*</span></label
+            >
+            <select
+              id="theater-type"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn loại phòng --</option>
+              <option value="standard">2D Tiêu chuẩn</option>
+              <option value="3d">3D</option>
+              <option value="imax">IMAX</option>
+              <option value="4dx">4DX</option>
+              <option value="premium">Premium</option>
+            </select>
+          </div>
+
+          <!-- Capacity -->
+          <div>
+            <label
+              for="capacity"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Sức chứa (ghế) <span class="text-red-500">*</span></label
+            >
+            <input
+              type="number"
+              id="capacity"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số lượng ghế"
+              required
+            />
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Trạng thái <span class="text-red-500">*</span></label
+            >
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="active"
+                  name="status"
+                  value="active"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                  checked
+                />
+                <label for="active" class="ml-2 text-sm text-gray-700"
+                  >Hoạt động</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="maintenance"
+                  name="status"
+                  value="maintenance"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="maintenance" class="ml-2 text-sm text-gray-700"
+                  >Bảo trì</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="inactive"
+                  name="status"
+                  value="inactive"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="inactive" class="ml-2 text-sm text-gray-700"
+                  >Ngừng hoạt động</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Seat Map -->
+      <div>
+        <div class="space-y-6">
+          <!-- Seat Map Configuration -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Thiết lập sơ đồ ghế <span class="text-red-500">*</span></label
+            >
+
+            <!-- Seat Map Editor -->
+            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+              <div class="flex justify-between items-center mb-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Số hàng ghế</label
+                  >
+                  <input
+                    type="number"
+                    id="rows"
+                    min="5"
+                    max="20"
+                    value="10"
+                    class="w-20 px-3 py-1 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Số ghế mỗi hàng</label
+                  >
+                  <input
+                    type="number"
+                    id="cols"
+                    min="5"
+                    max="30"
+                    value="15"
+                    class="w-20 px-3 py-1 border border-gray-300 rounded-md"
+                  />
+                </div>
+                <button
+                  type="button"
+                  id="generate-seats"
+                  class="bg-primary text-white px-4 py-1 rounded-md hover:bg-red-700 transition"
+                >
+                  Tạo sơ đồ
+                </button>
+              </div>
+
+              <div class="text-center mb-4 text-gray-500 font-medium">
+                Màn hình
+              </div>
+
+              <div id="seat-map" class="mx-auto overflow-auto max-w-full">
+                <!-- Seat map will be generated here -->
+                <div class="text-center text-gray-400 py-10">
+                  Nhấn "Tạo sơ đồ" để bắt đầu thiết kế
+                </div>
+              </div>
+
+              <div class="mt-4 flex flex-wrap justify-center gap-4">
+                <div class="flex items-center">
+                  <div class="seat seat-normal mr-2"></div>
+                  <span class="text-sm text-gray-600">Ghế thường</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="seat seat-vip mr-2"></div>
+                  <span class="text-sm text-gray-600">Ghế VIP</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="seat seat-disabled mr-2"></div>
+                  <span class="text-sm text-gray-600">Ghế không sử dụng</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="seat seat-selected mr-2"></div>
+                  <span class="text-sm text-gray-600">Ghế đang chọn</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seat Type Configuration -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Cấu hình loại ghế</label
+            >
+            <div class="grid grid-cols-2 gap-4">
+              <div class="border border-gray-200 rounded-lg p-4">
+                <h3 class="font-medium text-gray-700 mb-2">Ghế thường</h3>
+                <div class="flex items-center">
+                  <label
+                    for="normal-price"
+                    class="block text-sm text-gray-700 mr-2"
+                    >Giá:</label
+                  >
+                  <input
+                    type="number"
+                    id="normal-price"
+                    min="0"
+                    class="w-full px-3 py-1 border border-gray-300 rounded-md"
+                    placeholder="Giá vé"
+                  />
+                </div>
+              </div>
+              <div class="border border-gray-200 rounded-lg p-4">
+                <h3 class="font-medium text-gray-700 mb-2">Ghế VIP</h3>
+                <div class="flex items-center">
+                  <label
+                    for="vip-price"
+                    class="block text-sm text-gray-700 mr-2"
+                    >Giá:</label
+                  >
+                  <input
+                    type="number"
+                    id="vip-price"
+                    min="0"
+                    class="w-full px-3 py-1 border border-gray-300 rounded-md"
+                    placeholder="Giá vé"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <i class="fas fa-save mr-2"></i> Lưu phòng chiếu
+      </button>
+    </div>
+  </form>
+</div>

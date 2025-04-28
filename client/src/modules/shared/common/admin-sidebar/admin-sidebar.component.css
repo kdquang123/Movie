@@ -14,6 +14,10 @@
   display: none;
 }
 
+.sidebar-collapsed .action-list nav a {
+  justify-content: center;
+}
+
 .content-area {
   transition: all 0.3s ease;
   margin-left: 250px;

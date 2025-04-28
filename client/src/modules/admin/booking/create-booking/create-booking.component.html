@@ -1,1 +1,339 @@
-<p>create-booking works!</p>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Left Column - Movie & Showtime Selection -->
+  <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+    <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">
+      <i class="fas fa-film text-primary mr-2"></i> Chọn Phim & Suất Chiếu
+    </h2>
+
+    <!-- Step 1: Select Movie -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-3">1. Chọn phim</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Movie Cards -->
+        <div
+          class="border rounded-lg overflow-hidden cursor-pointer hover:border-primary transition"
+        >
+          <img
+            src="https://via.placeholder.com/300x450"
+            alt="Movie Poster"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-3">
+            <h4 class="font-bold">Spider-Man: No Way Home</h4>
+            <p class="text-sm text-gray-600">2h 28m</p>
+          </div>
+        </div>
+        <div
+          class="border rounded-lg overflow-hidden cursor-pointer hover:border-primary transition"
+        >
+          <img
+            src="https://via.placeholder.com/300x450"
+            alt="Movie Poster"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-3">
+            <h4 class="font-bold">The Batman</h4>
+            <p class="text-sm text-gray-600">2h 56m</p>
+          </div>
+        </div>
+        <div
+          class="border rounded-lg overflow-hidden cursor-pointer hover:border-primary transition"
+        >
+          <img
+            src="https://via.placeholder.com/300x450"
+            alt="Movie Poster"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-3">
+            <h4 class="font-bold">Dune: Part Two</h4>
+            <p class="text-sm text-gray-600">2h 46m</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Select Showtime -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-3">2. Chọn suất chiếu</h3>
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <div class="flex space-x-4 mb-4">
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Ngày chiếu</label
+            >
+            <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+              <option>Hôm nay, 15/05/2023</option>
+              <option>Ngày mai, 16/05/2023</option>
+              <option>Thứ 4, 17/05/2023</option>
+            </select>
+          </div>
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Rạp</label
+            >
+            <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+              <option>CineDark Hà Nội</option>
+              <option>CineDark Hồ Chí Minh</option>
+              <option>CineDark Đà Nẵng</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-medium">Các suất chiếu có sẵn:</h4>
+          <div class="flex flex-wrap gap-2">
+            <button
+              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-red-700 transition"
+            >
+              10:00
+            </button>
+            <button
+              class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+            >
+              12:30
+            </button>
+            <button
+              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-red-700 transition"
+            >
+              15:00
+            </button>
+            <button
+              class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+            >
+              17:30
+            </button>
+            <button
+              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-red-700 transition"
+            >
+              20:00
+            </button>
+            <button
+              class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+            >
+              22:30
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Select Seats -->
+    <div>
+      <h3 class="text-lg font-semibold mb-3">3. Chọn ghế</h3>
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <div class="text-center mb-4 font-medium text-gray-700">Màn hình</div>
+
+        <div class="flex justify-center">
+          <div class="grid grid-cols-8 gap-1">
+            <!-- Generate seats -->
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap justify-center gap-4">
+          <div class="flex items-center">
+            <div class="seat seat-normal mr-2"></div>
+            <span class="text-sm text-gray-600">Ghế thường - 80,000 VND</span>
+          </div>
+          <div class="flex items-center">
+            <div class="seat seat-vip mr-2"></div>
+            <span class="text-sm text-gray-600">Ghế VIP - 120,000 VND</span>
+          </div>
+          <div class="flex items-center">
+            <div class="seat seat-disabled mr-2"></div>
+            <span class="text-sm text-gray-600">Ghế đã bán</span>
+          </div>
+          <div class="flex items-center">
+            <div class="seat seat-selected mr-2"></div>
+            <span class="text-sm text-gray-600">Ghế đang chọn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column - Combo & Payment -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">
+      <i class="fas fa-utensils text-primary mr-2"></i> Combo & Thanh Toán
+    </h2>
+
+    <!-- Selected Movie Info -->
+    <div class="bg-gray-50 p-4 rounded-lg mb-6">
+      <div class="flex items-start">
+        <img
+          src="https://via.placeholder.com/100x150"
+          alt="Movie Poster"
+          class="w-16 h-24 object-cover rounded mr-3"
+        />
+        <div>
+          <h3 class="font-bold">Spider-Man: No Way Home</h3>
+          <p class="text-sm text-gray-600">2D Phụ đề</p>
+          <p class="text-sm">
+            <i class="fas fa-calendar-alt text-primary mr-1"></i> Hôm nay,
+            15/05/2023
+          </p>
+          <p class="text-sm">
+            <i class="fas fa-clock text-primary mr-1"></i> 15:00 - 17:28
+          </p>
+          <p class="text-sm">
+            <i class="fas fa-door-open text-primary mr-1"></i> Phòng 5
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selected Seats -->
+    <div class="mb-6">
+      <h3 class="font-semibold mb-2">Ghế đã chọn:</h3>
+      <div id="selected-seats" class="flex flex-wrap gap-2 mb-2">
+        <!-- Selected seats will appear here -->
+      </div>
+      <p class="text-sm text-gray-600">
+        Tổng: <span id="seat-total">0</span> ghế
+      </p>
+    </div>
+
+    <!-- Combo Selection -->
+    <div class="mb-6">
+      <h3 class="font-semibold mb-3">Combo đồ ăn</h3>
+      <div class="space-y-3">
+        <!-- Combo 1 -->
+        <div
+          class="combo-card border rounded-lg p-3 cursor-pointer"
+          onclick="selectCombo(this, 'combo1')"
+        >
+          <div class="flex items-center">
+            <img
+              src="https://via.placeholder.com/80x80"
+              alt="Combo"
+              class="w-16 h-16 object-cover rounded mr-3"
+            />
+            <div class="flex-1">
+              <h4 class="font-bold">Combo Couple</h4>
+              <p class="text-sm text-gray-600">2 bắp lớn + 2 nước lớn</p>
+              <p class="text-primary font-bold">180,000 VND</p>
+            </div>
+            <input
+              type="number"
+              min="0"
+              value="0"
+              class="w-16 px-2 py-1 border border-gray-300 rounded-md"
+              onchange="updateComboQty('combo1', this.value)"
+            />
+          </div>
+        </div>
+
+        <!-- Combo 2 -->
+        <div
+          class="combo-card border rounded-lg p-3 cursor-pointer"
+          onclick="selectCombo(this, 'combo2')"
+        >
+          <div class="flex items-center">
+            <img
+              src="https://via.placeholder.com/80x80"
+              alt="Combo"
+              class="w-16 h-16 object-cover rounded mr-3"
+            />
+            <div class="flex-1">
+              <h4 class="font-bold">Combo Family</h4>
+              <p class="text-sm text-gray-600">
+                3 bắp lớn + 3 nước lớn + 1 khoai tây chiên
+              </p>
+              <p class="text-primary font-bold">250,000 VND</p>
+            </div>
+            <input
+              type="number"
+              min="0"
+              value="0"
+              class="w-16 px-2 py-1 border border-gray-300 rounded-md"
+              onchange="updateComboQty('combo2', this.value)"
+            />
+          </div>
+        </div>
+
+        <!-- Combo 3 -->
+        <div
+          class="combo-card border rounded-lg p-3 cursor-pointer"
+          onclick="selectCombo(this, 'combo3')"
+        >
+          <div class="flex items-center">
+            <img
+              src="https://via.placeholder.com/80x80"
+              alt="Combo"
+              class="w-16 h-16 object-cover rounded mr-3"
+            />
+            <div class="flex-1">
+              <h4 class="font-bold">Combo Solo</h4>
+              <p class="text-sm text-gray-600">1 bắp vừa + 1 nước</p>
+              <p class="text-primary font-bold">100,000 VND</p>
+            </div>
+            <input
+              type="number"
+              min="0"
+              value="0"
+              class="w-16 px-2 py-1 border border-gray-300 rounded-md"
+              onchange="updateComboQty('combo3', this.value)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Summary -->
+    <div class="border-t pt-4">
+      <h3 class="font-semibold mb-3">Tóm tắt thanh toán</h3>
+      <div class="space-y-2 mb-3">
+        <div class="flex justify-between">
+          <span>Vé xem phim:</span>
+          <span id="ticket-amount">0 VND</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Combo đồ ăn:</span>
+          <span id="combo-amount">0 VND</span>
+        </div>
+        <div class="flex justify-between font-bold text-lg">
+          <span>Tổng cộng:</span>
+          <span id="total-amount">0 VND</span>
+        </div>
+      </div>
+
+      <!-- Promotion Code -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Mã khuyến mãi</label
+        >
+        <div class="flex">
+          <input
+            type="text"
+            class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder="Nhập mã khuyến mãi"
+          />
+          <button
+            class="bg-gray-200 px-3 py-2 rounded-r-md border border-l-0 border-gray-300 hover:bg-gray-300 transition"
+          >
+            Áp dụng
+          </button>
+        </div>
+      </div>
+
+      <!-- Payment Buttons -->
+      <div class="space-y-2">
+        <button
+          class="w-full bg-primary text-white py-3 rounded-md font-bold hover:bg-red-700 transition"
+        >
+          <i class="fas fa-credit-card mr-2"></i> Thanh toán bằng thẻ
+        </button>
+        <button
+          class="w-full bg-green-600 text-white py-3 rounded-md font-bold hover:bg-green-700 transition"
+        >
+          <i class="fas fa-money-bill-wave mr-2"></i> Thanh toán tiền mặt
+        </button>
+        <button
+          class="w-full border border-gray-300 py-3 rounded-md font-bold hover:bg-gray-100 transition"
+        >
+          <i class="fas fa-print mr-2"></i> In vé tạm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
