@@ -12,7 +12,7 @@ builder.Services.AddOpenApi();
 //Add DbContext
 builder.Services.AddDbContext<MovieDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnetionString"));
 });
 
 var app = builder.Build();

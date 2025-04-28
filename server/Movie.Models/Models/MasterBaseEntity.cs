@@ -1,6 +1,6 @@
 using System;
 
-namespace Movie.Models.Models;
+namespace Movie.Models;
 
 public class MasterBaseEntity : BaseEntity, IMasterBaseEntity
 {
