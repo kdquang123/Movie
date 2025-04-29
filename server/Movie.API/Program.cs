@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Movie.Business.Mappings;
 using Movie.Data;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
@@ -34,6 +35,10 @@ builder.Services.AddIdentity<User, Role>(options =>
 
 //Register Service
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Register AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
 
 var app = builder.Build();
 
