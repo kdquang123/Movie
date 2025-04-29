@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Movie.Data;
 using Movie.Data.UnitOfWorks;
+using Movie.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,20 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnetionString"));
 });
+
+// Register Identity: UserManager, RoleManager, SignInManager
+builder.Services.AddIdentity<User, Role>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.User.RequireUniqueEmail = true;
+})
+    .AddEntityFrameworkStores<MovieDbContext>()
+    .AddDefaultTokenProviders();
 
 //Register Service
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
