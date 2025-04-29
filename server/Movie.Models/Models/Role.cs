@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace Movie.Models.Models;
+namespace Movie.Models;
 
-public class Role : IdentityRole<int>, IMasterBaseEntity
+public class Role : IdentityRole<Guid>, IMasterBaseEntity
 {
     public bool IsActive { get; set; } = true;
     public DateTime? CreatedAt { get; set; }

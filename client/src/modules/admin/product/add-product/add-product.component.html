@@ -1,0 +1,559 @@
+<!-- Add Product Form -->
+<div
+  class="bg-white border border-gray-200 rounded-lg shadow-sm p-6"
+  id="productForm"
+>
+  <form>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column - Image & Basic Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Product Image -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Hình ảnh sản phẩm <span class="text-red-500">*</span></label
+            >
+            <div
+              class="file-upload relative rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition"
+            >
+              <input
+                type="file"
+                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                accept="image/*"
+              />
+              <div class="flex flex-col items-center justify-center">
+                <i
+                  class="fas fa-cloud-upload-alt text-3xl text-primary mb-2"
+                ></i>
+                <p class="text-sm text-gray-600">
+                  Kéo thả hình ảnh vào đây hoặc click để chọn
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                  Định dạng: JPG, PNG (Tối đa 5MB)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Type -->
+          <div>
+            <label
+              for="product-type"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Loại sản phẩm <span class="text-red-500">*</span></label
+            >
+            <select
+              id="product-type"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn loại --</option>
+              <option value="popcorn">Bỏng ngô</option>
+              <option value="drink">Nước uống</option>
+              <option value="snack">Đồ ăn nhẹ</option>
+            </select>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Trạng thái <span class="text-red-500">*</span></label
+            >
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="active"
+                  name="status"
+                  value="active"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                  checked
+                />
+                <label for="active" class="ml-2 text-sm text-gray-700"
+                  >Đang bán</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="inactive"
+                  name="status"
+                  value="inactive"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="inactive" class="ml-2 text-sm text-gray-700"
+                  >Ngừng bán</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Column - Product Details -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Product Name -->
+          <div>
+            <label
+              for="product-name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tên sản phẩm <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="product-name"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tên sản phẩm"
+              required
+            />
+          </div>
+
+          <!-- Product Code -->
+          <div>
+            <label
+              for="product-code"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Mã sản phẩm <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="product-code"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập mã sản phẩm"
+              required
+            />
+          </div>
+
+          <!-- Price -->
+          <div>
+            <label
+              for="price"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giá bán (VND) <span class="text-red-500">*</span></label
+            >
+            <input
+              type="number"
+              id="price"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập giá bán"
+              required
+            />
+          </div>
+
+          <!-- Size Options -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Kích cỡ (nếu có)</label
+            >
+            <div class="grid grid-cols-3 gap-2">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="size-small"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="size-small" class="ml-2 text-sm text-gray-700"
+                  >Nhỏ</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="size-medium"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="size-medium" class="ml-2 text-sm text-gray-700"
+                  >Vừa</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="size-large"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="size-large" class="ml-2 text-sm text-gray-700"
+                  >Lớn</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Additional Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Description -->
+          <div>
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Mô tả sản phẩm</label
+            >
+            <textarea
+              id="description"
+              rows="4"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập mô tả sản phẩm"
+            ></textarea>
+          </div>
+
+          <!-- Ingredients -->
+          <div>
+            <label
+              for="ingredients"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Thành phần</label
+            >
+            <textarea
+              id="ingredients"
+              rows="3"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập thành phần (nếu có)"
+            ></textarea>
+          </div>
+
+          <!-- Inventory -->
+          <div>
+            <label
+              for="inventory"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Số lượng tồn kho</label
+            >
+            <input
+              type="number"
+              id="inventory"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số lượng"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <i class="fas fa-save mr-2"></i> Lưu sản phẩm
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Add Combo Form (Hidden by default) -->
+<div
+  class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hidden"
+  id="comboForm"
+>
+  <form>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column - Image & Basic Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Combo Image -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Hình ảnh combo <span class="text-red-500">*</span></label
+            >
+            <div
+              class="file-upload relative rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition"
+            >
+              <input
+                type="file"
+                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                accept="image/*"
+              />
+              <div class="flex flex-col items-center justify-center">
+                <i
+                  class="fas fa-cloud-upload-alt text-3xl text-primary mb-2"
+                ></i>
+                <p class="text-sm text-gray-600">
+                  Kéo thả hình ảnh vào đây hoặc click để chọn
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                  Định dạng: JPG, PNG (Tối đa 5MB)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Combo Type -->
+          <div>
+            <label
+              for="combo-type"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Loại combo <span class="text-red-500">*</span></label
+            >
+            <select
+              id="combo-type"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn loại --</option>
+              <option value="couple">Combo cặp đôi</option>
+              <option value="family">Combo gia đình</option>
+              <option value="friends">Combo nhóm bạn</option>
+              <option value="solo">Combo cá nhân</option>
+            </select>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Trạng thái <span class="text-red-500">*</span></label
+            >
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="combo-active"
+                  name="combo-status"
+                  value="active"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                  checked
+                />
+                <label for="combo-active" class="ml-2 text-sm text-gray-700"
+                  >Đang bán</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="combo-inactive"
+                  name="combo-status"
+                  value="inactive"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="combo-inactive" class="ml-2 text-sm text-gray-700"
+                  >Ngừng bán</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Column - Combo Details -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Combo Name -->
+          <div>
+            <label
+              for="combo-name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tên combo <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="combo-name"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tên combo"
+              required
+            />
+          </div>
+
+          <!-- Combo Code -->
+          <div>
+            <label
+              for="combo-code"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Mã combo <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="combo-code"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập mã combo"
+              required
+            />
+          </div>
+
+          <!-- Combo Price -->
+          <div>
+            <label
+              for="combo-price"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giá combo (VND) <span class="text-red-500">*</span></label
+            >
+            <input
+              type="number"
+              id="combo-price"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập giá combo"
+              required
+            />
+          </div>
+
+          <!-- Discount -->
+          <div>
+            <label
+              for="discount"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giảm giá (%)</label
+            >
+            <input
+              type="number"
+              id="discount"
+              min="0"
+              max="100"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập % giảm giá"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Products in Combo -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Description -->
+          <div>
+            <label
+              for="combo-description"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Mô tả combo</label
+            >
+            <textarea
+              id="combo-description"
+              rows="3"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập mô tả combo"
+            ></textarea>
+          </div>
+
+          <!-- Products Selection -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Chọn sản phẩm trong combo
+              <span class="text-red-500">*</span></label
+            >
+            <div
+              class="space-y-3 max-h-60 overflow-y-auto p-2 border border-gray-200 rounded-md"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="product1"
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  />
+                  <label for="product1" class="ml-2 text-sm text-gray-700"
+                    >Bỏng ngô vừa</label
+                  >
+                </div>
+                <input
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-16 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="product2"
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  />
+                  <label for="product2" class="ml-2 text-sm text-gray-700"
+                    >Nước ngọt lớn</label
+                  >
+                </div>
+                <input
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-16 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="product3"
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  />
+                  <label for="product3" class="ml-2 text-sm text-gray-700"
+                    >Hotdog</label
+                  >
+                </div>
+                <input
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-16 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="product4"
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  />
+                  <label for="product4" class="ml-2 text-sm text-gray-700"
+                    >Khoai tây chiên</label
+                  >
+                </div>
+                <input
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-16 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="product5"
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  />
+                  <label for="product5" class="ml-2 text-sm text-gray-700"
+                    >Nước ép cam</label
+                  >
+                </div>
+                <input
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-16 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <i class="fas fa-save mr-2"></i> Lưu combo
+      </button>
+    </div>
+  </form>
+</div>

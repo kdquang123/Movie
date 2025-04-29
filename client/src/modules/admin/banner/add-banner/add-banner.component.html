@@ -1,0 +1,512 @@
+<!-- Add Carousel Form -->
+<div class="bg-white rounded-lg border border-gray-200 mb-6">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-lg font-semibold text-gray-800">Tạo Carousel Mới</h2>
+    <p class="text-sm text-gray-500">
+      Thiết lập carousel mới để hiển thị trên trang chủ
+    </p>
+  </div>
+
+  <form class="p-6">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <!-- Column 1-3: Carousel Details -->
+      <div class="lg:col-span-3 space-y-6">
+        <!-- Basic Information -->
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <label
+              for="carousel-title"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Tiêu đề carousel <span class="text-primary">*</span>
+            </label>
+            <input
+              type="text"
+              id="carousel-title"
+              name="carousel-title"
+              required
+              placeholder="Nhập tiêu đề cho carousel"
+              class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="carousel-description"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Mô tả ngắn
+            </label>
+            <textarea
+              id="carousel-description"
+              name="carousel-description"
+              rows="2"
+              placeholder="Nhập mô tả ngắn gọn (không bắt buộc)"
+              class="form-textarea mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Carousel Type -->
+        <div class="space-y-4">
+          <label class="block text-sm font-medium text-gray-700">
+            Loại carousel <span class="text-primary">*</span>
+          </label>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div
+              class="border border-gray-200 hover:border-primary rounded-lg p-4 cursor-pointer transition-all"
+            >
+              <input
+                type="radio"
+                id="type-movie"
+                name="carousel-type"
+                value="movie"
+                class="hidden"
+                checked
+              />
+              <label for="type-movie" class="cursor-pointer">
+                <div class="flex items-center justify-center mb-3">
+                  <i class="fas fa-film text-primary text-3xl"></i>
+                </div>
+                <h3 class="text-center font-medium">Phim</h3>
+                <p class="text-center text-xs text-gray-500 mt-1">
+                  Liên kết đến phim cụ thể
+                </p>
+              </label>
+            </div>
+
+            <div
+              class="border border-gray-200 hover:border-primary rounded-lg p-4 cursor-pointer transition-all"
+            >
+              <input
+                type="radio"
+                id="type-news"
+                name="carousel-type"
+                value="news"
+                class="hidden"
+              />
+              <label for="type-news" class="cursor-pointer">
+                <div class="flex items-center justify-center mb-3">
+                  <i class="fas fa-newspaper text-primary text-3xl"></i>
+                </div>
+                <h3 class="text-center font-medium">Tin tức</h3>
+                <p class="text-center text-xs text-gray-500 mt-1">
+                  Liên kết đến bài viết tin tức
+                </p>
+              </label>
+            </div>
+
+            <div
+              class="border border-gray-200 hover:border-primary rounded-lg p-4 cursor-pointer transition-all"
+            >
+              <input
+                type="radio"
+                id="type-custom"
+                name="carousel-type"
+                value="custom"
+                class="hidden"
+              />
+              <label for="type-custom" class="cursor-pointer">
+                <div class="flex items-center justify-center mb-3">
+                  <i class="fas fa-link text-primary text-3xl"></i>
+                </div>
+                <h3 class="text-center font-medium">Tùy chỉnh</h3>
+                <p class="text-center text-xs text-gray-500 mt-1">
+                  Liên kết đến URL tùy chỉnh
+                </p>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Selection Based on Type - Movie (Default) -->
+        <div id="movie-content" class="space-y-4">
+          <label
+            for="movie-select"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Chọn phim <span class="text-primary">*</span>
+          </label>
+          <div class="relative">
+            <span
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-search text-gray-400"></i>
+            </span>
+            <input
+              type="text"
+              placeholder="Tìm kiếm phim..."
+              class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+            <div
+              class="border border-gray-200 rounded-lg p-3 hover:border-primary cursor-pointer"
+            >
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <img
+                    src="https://source.unsplash.com/random/120x180/?movie,batman"
+                    class="h-16 w-12 object-cover rounded"
+                    alt="Movie poster"
+                  />
+                </div>
+                <div class="ml-3">
+                  <h4 class="text-sm font-medium">The Batman</h4>
+                  <p class="text-xs text-gray-500">DC Comics • Đang chiếu</p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="border border-gray-200 rounded-lg p-3 hover:border-primary cursor-pointer"
+            >
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <img
+                    src="https://source.unsplash.com/random/120x180/?movie,interstellar"
+                    class="h-16 w-12 object-cover rounded"
+                    alt="Movie poster"
+                  />
+                </div>
+                <div class="ml-3">
+                  <h4 class="text-sm font-medium">Interstellar</h4>
+                  <p class="text-xs text-gray-500">
+                    Paramount Pictures • Đang chiếu
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="border border-gray-200 rounded-lg p-3 hover:border-primary cursor-pointer"
+            >
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <img
+                    src="https://source.unsplash.com/random/120x180/?movie,avengers"
+                    class="h-16 w-12 object-cover rounded"
+                    alt="Movie poster"
+                  />
+                </div>
+                <div class="ml-3">
+                  <h4 class="text-sm font-medium">Avengers: Endgame</h4>
+                  <p class="text-xs text-gray-500">
+                    Marvel Studios • Đã kết thúc
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="border border-gray-200 rounded-lg p-3 hover:border-primary cursor-pointer"
+            >
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <img
+                    src="https://source.unsplash.com/random/120x180/?movie,dune"
+                    class="h-16 w-12 object-cover rounded"
+                    alt="Movie poster"
+                  />
+                </div>
+                <div class="ml-3">
+                  <h4 class="text-sm font-medium">Dune</h4>
+                  <p class="text-xs text-gray-500">Warner Bros • Sắp chiếu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 text-right">
+            <button
+              type="button"
+              class="text-primary hover:text-red-700 text-sm font-medium"
+            >
+              Xem thêm phim
+            </button>
+          </div>
+        </div>
+
+        <!-- News content (hidden by default) -->
+        <div id="news-content" class="hidden space-y-4">
+          <label
+            for="news-select"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Chọn tin tức <span class="text-primary">*</span>
+          </label>
+          <div class="relative">
+            <span
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-search text-gray-400"></i>
+            </span>
+            <input
+              type="text"
+              placeholder="Tìm kiếm tin tức..."
+              class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+          </div>
+
+          <div class="border border-gray-200 rounded-lg divide-y">
+            <div class="p-3 hover:bg-gray-50 cursor-pointer">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-sm font-medium">
+                    Khởi chiếu phim mới: Cuộc phiêu lưu của năm
+                  </h4>
+                  <p class="text-xs text-gray-500 mt-1">
+                    10/04/2023 • Tin tức phim
+                  </p>
+                </div>
+                <span
+                  class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full"
+                  >Đã đăng</span
+                >
+              </div>
+            </div>
+
+            <div class="p-3 hover:bg-gray-50 cursor-pointer">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-sm font-medium">
+                    Sự kiện gặp gỡ diễn viên "Trận chiến cuối cùng"
+                  </h4>
+                  <p class="text-xs text-gray-500 mt-1">08/04/2023 • Sự kiện</p>
+                </div>
+                <span
+                  class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full"
+                  >Đã đăng</span
+                >
+              </div>
+            </div>
+
+            <div class="p-3 hover:bg-gray-50 cursor-pointer">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-sm font-medium">
+                    Khuyến mãi đặc biệt: Mua 1 tặng 1 vào cuối tuần
+                  </h4>
+                  <p class="text-xs text-gray-500 mt-1">
+                    05/04/2023 • Khuyến mãi
+                  </p>
+                </div>
+                <span
+                  class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full"
+                  >Đã đăng</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom URL (hidden by default) -->
+        <div id="custom-content" class="hidden space-y-4">
+          <div class="space-y-2">
+            <label
+              for="custom-url"
+              class="block text-sm font-medium text-gray-700"
+            >
+              URL tùy chỉnh <span class="text-primary">*</span>
+            </label>
+            <input
+              type="url"
+              id="custom-url"
+              name="custom-url"
+              placeholder="Nhập URL đích (ví dụ: https://example.com)"
+              class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="button-text"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Nội dung nút bấm
+            </label>
+            <input
+              type="text"
+              id="button-text"
+              name="button-text"
+              placeholder="Ví dụ: Xem ngay, Mua vé, Tìm hiểu thêm"
+              class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+        </div>
+
+        <!-- Style Settings -->
+        <div class="space-y-4 mt-6 pb-6 border-b border-gray-200">
+          <h3 class="text-md font-medium text-gray-700">Thiết lập hiển thị</h3>
+
+          <div class="space-y-2">
+            <label
+              for="headline"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Tiêu đề lớn
+            </label>
+            <input
+              type="text"
+              id="headline"
+              name="headline"
+              placeholder="Tiêu đề lớn hiển thị trên carousel"
+              class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="subtitle"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Tiêu đề phụ
+            </label>
+            <input
+              type="text"
+              id="subtitle"
+              name="subtitle"
+              placeholder="Tiêu đề phụ hiển thị bên dưới tiêu đề lớn"
+              class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="cta-text"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Nội dung nút CTA
+            </label>
+            <input
+              type="text"
+              id="cta-text"
+              name="cta-text"
+              placeholder="Ví dụ: Đặt vé ngay"
+              class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label
+                for="text-alignment"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Căn chỉnh văn bản
+              </label>
+              <select
+                id="text-alignment"
+                name="text-alignment"
+                class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+              >
+                <option value="left">Trái</option>
+                <option value="center">Giữa</option>
+                <option value="right">Phải</option>
+              </select>
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="text-color"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Màu văn bản
+              </label>
+              <div class="color-selection flex items-center space-x-2 mt-2">
+                <span
+                  class="bg-white border border-gray-300"
+                  title="Trắng"
+                ></span>
+                <span class="bg-gray-100" title="Xám nhạt"></span>
+                <span class="bg-gray-700" title="Xám đậm"></span>
+                <span class="bg-black" title="Đen"></span>
+                <span class="bg-primary active" title="Đỏ"></span>
+                <span class="bg-blue-500" title="Xanh"></span>
+                <span class="bg-yellow-500" title="Vàng"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="overlay-opacity"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Độ mờ nền (overlay)
+            </label>
+            <input
+              type="range"
+              id="overlay-opacity"
+              name="overlay-opacity"
+              min="0"
+              max="100"
+              value="30"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>Không mờ</span>
+              <span>Mờ hoàn toàn</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publishing Settings -->
+        <div class="space-y-4">
+          <h3 class="text-md font-medium text-gray-700">Cài đặt xuất bản</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label
+                for="start-date"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Ngày bắt đầu
+              </label>
+              <input
+                type="date"
+                id="start-date"
+                name="start-date"
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="end-date"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Ngày kết thúc
+              </label>
+              <input
+                type="date"
+                id="end-date"
+                name="end-date"
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+              />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="display-order"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Thứ tự hiển thị
+            </label>
+            <input
+              type="number"
+              id="display-order"
+              name="display-order"
+              min="1"
+              value="1"
+              class="form-input mt-1"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

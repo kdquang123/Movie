@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.3" />
@@ -28,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Movie.Bussiness\Movie.Business.csproj" />
+    <ProjectReference Include="..\Movie.Business\Movie.Business.csproj" />
     <ProjectReference Include="..\Movie.Data\Movie.Data.csproj" />
     <ProjectReference Include="..\Movie.Models\Movie.Models.csproj" />
   </ItemGroup>

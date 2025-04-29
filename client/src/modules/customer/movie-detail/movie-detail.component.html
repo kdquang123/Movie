@@ -1,0 +1,439 @@
+<!-- Movie Hero Section -->
+<section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+  <img
+    src="https://source.unsplash.com/random/1920x1080/?batman,night"
+    alt="The Batman"
+    class="w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 gradient-overlay flex items-end pb-16">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">THE BATMAN</h1>
+      <div class="flex flex-wrap items-center gap-4 mb-6">
+        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full"
+          >9.2/10</span
+        >
+        <span>2022</span>
+        <span>2h 56m</span>
+        <span>16+</span>
+        <span>Hành động, Tội phạm, Giật gân</span>
+      </div>
+      <button
+        class="bg-primary hover:bg-red-700 px-8 py-3 rounded-md font-medium text-lg mr-4"
+      >
+        <fa-icon [icon]="faTicket" class="mr-2"></fa-icon> Đặt
+        vé ngay
+      </button>
+      <button
+        class="border border-white hover:bg-white hover:bg-opacity-10 px-8 py-3 rounded-md font-medium text-lg"
+      >
+        <fa-icon [icon]="faPlay"></fa-icon> Xem trailer
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Movie Details -->
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col lg:flex-row gap-12">
+      <!-- Left Column -->
+      <div class="lg:w-2/3">
+        <h2 class="text-3xl font-bold mb-6">NỘI DUNG PHIM</h2>
+        <p class="text-gray-300 mb-8 leading-relaxed">
+          Trong năm thứ hai đấu tranh chống tội phạm, Batman khám phá ra sự tham
+          nhũng lan rộng trong thành phố Gotham khi một kẻ giết người hàng loạt
+          nhắm vào giới thượng lưu của thành phố bằng một loạt các vụ giết người
+          tàn bạo. Khi các đầu mối dẫn đến câu đố bí ẩn, Batman phải xây dựng
+          các mối quan hệ mới, vạch trần kẻ sát nhân và mang lại công lý cho sự
+          lạm dụng quyền lực và tham nhũng đã từ lâu gây khốn khổ cho Gotham.
+        </p>
+
+        <div class="mb-12">
+          <h3 class="text-xl font-bold mb-4 border-b border-gray-800 pb-2">
+            DIỄN VIÊN
+          </h3>
+          <div class="flex overflow-x-auto pb-4 gap-4 custom-scrollbar">
+            <!-- Cast 1 -->
+            <div class="flex-shrink-0 w-24 text-center">
+              <img
+                src="https://source.unsplash.com/random/200x200/?actor,man,1"
+                alt="Robert Pattinson"
+                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
+              />
+              <p class="text-sm font-medium">Robert Pattinson</p>
+              <p class="text-xs text-gray-400">Bruce Wayne</p>
+            </div>
+            <!-- Cast 2 -->
+            <div class="flex-shrink-0 w-24 text-center">
+              <img
+                src="https://source.unsplash.com/random/200x200/?actor,man,2"
+                alt="Zoë Kravitz"
+                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
+              />
+              <p class="text-sm font-medium">Zoë Kravitz</p>
+              <p class="text-xs text-gray-400">Selina Kyle</p>
+            </div>
+            <!-- Cast 3 -->
+            <div class="flex-shrink-0 w-24 text-center">
+              <img
+                src="https://source.unsplash.com/random/200x200/?actor,man,3"
+                alt="Paul Dano"
+                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
+              />
+              <p class="text-sm font-medium">Paul Dano</p>
+              <p class="text-xs text-gray-400">Riddler</p>
+            </div>
+            <!-- Cast 4 -->
+            <div class="flex-shrink-0 w-24 text-center">
+              <img
+                src="https://source.unsplash.com/random/200x200/?actor,man,4"
+                alt="Colin Farrell"
+                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
+              />
+              <p class="text-sm font-medium">Colin Farrell</p>
+              <p class="text-xs text-gray-400">Penguin</p>
+            </div>
+            <!-- Cast 5 -->
+            <div class="flex-shrink-0 w-24 text-center">
+              <img
+                src="https://source.unsplash.com/random/200x200/?actor,man,5"
+                alt="Jeffrey Wright"
+                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
+              />
+              <p class="text-sm font-medium">Jeffrey Wright</p>
+              <p class="text-xs text-gray-400">Gordon</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-4 border-b border-gray-800 pb-2">
+            ĐÁNH GIÁ & BÌNH LUẬN
+          </h3>
+          <div class="space-y-6">
+            <!-- Review 1 -->
+            <div class="bg-darker p-6 rounded-lg border border-gray-800">
+              <div class="flex items-center mb-4">
+                <img
+                  src="https://source.unsplash.com/random/50x50/?user,1"
+                  alt="User"
+                  class="w-10 h-10 rounded-full mr-3"
+                />
+                <div>
+                  <p class="font-medium">Nguyễn Văn A</p>
+                  <div class="flex items-center text-yellow-400 text-sm">
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <span class="text-gray-400 ml-2">4.5/5</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-300">
+                Phim hay, hình ảnh đẹp, diễn xuất tốt. Robert Pattinson thể hiện
+                rất tốt vai Batman. Âm nhạc và hình ảnh tạo không khí rất tốt
+                cho phim.
+              </p>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="bg-darker p-6 rounded-lg border border-gray-800">
+              <div class="flex items-center mb-4">
+                <img
+                  src="https://source.unsplash.com/random/50x50/?user,2"
+                  alt="User"
+                  class="w-10 h-10 rounded-full mr-3"
+                />
+                <div>
+                  <p class="font-medium">Trần Thị B</p>
+                  <div class="flex items-center text-yellow-400 text-sm">
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <span class="text-gray-400 ml-2">5/5</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-300">
+                Một trong những phiên bản Batman hay nhất từ trước đến nay! Cốt
+                truyện hấp dẫn, nhân vật phản diện được xây dựng rất ấn tượng.
+                Đáng xem!
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h4 class="font-bold mb-3">VIẾT ĐÁNH GIÁ CỦA BẠN</h4>
+            <textarea
+              class="w-full bg-darker border border-gray-800 rounded-lg p-4 mb-3 focus:outline-none focus:border-primary"
+              rows="4"
+              placeholder="Nhận xét của bạn về phim..."
+            ></textarea>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center text-yellow-400 text-xl">
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faStar"
+                  class="cursor-pointer hover:text-yellow-300"
+                ></fa-icon>
+              </div>
+              <button
+                class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium"
+              >
+                Gửi đánh giá
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="lg:w-1/3">
+        <div class="sticky top-24">
+          <div
+            class="bg-darker border border-gray-800 rounded-lg overflow-hidden mb-8"
+          >
+            <img
+              src="https://source.unsplash.com/random/300x450/?movie,poster,batman"
+              alt="The Batman Poster"
+              class="w-full movie-poster"
+            />
+            <div class="p-6">
+              <h3 class="font-bold text-xl mb-4">THÔNG TIN CHI TIẾT</h3>
+              <div class="space-y-4">
+                <div>
+                  <p class="text-gray-400 text-sm">ĐẠO DIỄN</p>
+                  <p class="font-medium">Matt Reeves</p>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-sm">KỊCH BẢN</p>
+                  <p class="font-medium">Matt Reeves, Peter Craig</p>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-sm">NGÀY CÔNG CHIẾU</p>
+                  <p class="font-medium">04/03/2022</p>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-sm">THỂ LOẠI</p>
+                  <p class="font-medium">Hành động, Tội phạm, Giật gân</p>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-sm">QUỐC GIA</p>
+                  <p class="font-medium">Mỹ</p>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-sm">NGÔN NGỮ</p>
+                  <p class="font-medium">Tiếng Anh - Phụ đề Tiếng Việt</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-darker border border-gray-800 rounded-lg p-6">
+            <h3 class="font-bold text-xl mb-4">CHỌN SUẤT CHIẾU</h3>
+            <div class="mb-4">
+              <label class="block text-gray-400 text-sm mb-2">CHỌN NGÀY</label>
+              <div class="grid grid-cols-4 gap-2">
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  Hôm nay
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  Ngày mai
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  Thứ 7
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  CN
+                </button>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-400 text-sm mb-2">CHỌN PHÒNG</label>
+              <select
+                class="w-full bg-dark border border-gray-700 rounded-md p-2 focus:outline-none focus:border-primary"
+              >
+                <option>Phòng 1</option>
+                <option>Phòng 2</option>
+                <option>Phòng 3</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-400 text-sm mb-2">CHỌN SUẤT</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  10:00
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  13:30
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  16:45
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  19:00
+                </button>
+                <button
+                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                >
+                  21:30
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Similar Movies -->
+<section class="py-12 bg-darker">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8">PHIM TƯƠNG TỰ</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Movie 1 -->
+      <div
+        class="bg-dark rounded-lg overflow-hidden border border-gray-800 hover:border-primary transition"
+      >
+        <div class="relative">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,joker"
+            alt="Movie Poster"
+            class="w-full h-64 object-cover"
+          />
+          <div
+            class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+          >
+            8.4
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Joker</h3>
+          <p class="text-gray-400 text-sm mb-4">2h 2m • Tâm lý</p>
+          <button
+            class="w-full bg-primary hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition"
+          >
+            Đặt vé
+          </button>
+        </div>
+      </div>
+
+      <!-- Movie 2 -->
+      <div
+        class="bg-dark rounded-lg overflow-hidden border border-gray-800 hover:border-primary transition"
+      >
+        <div class="relative">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,darkknight"
+            alt="Movie Poster"
+            class="w-full h-64 object-cover"
+          />
+          <div
+            class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+          >
+            9.0
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">The Dark Knight</h3>
+          <p class="text-gray-400 text-sm mb-4">2h 32m • Hành động</p>
+          <button
+            class="w-full bg-primary hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition"
+          >
+            Đặt vé
+          </button>
+        </div>
+      </div>
+
+      <!-- Movie 3 -->
+      <div
+        class="bg-dark rounded-lg overflow-hidden border border-gray-800 hover:border-primary transition hidden md:block"
+      >
+        <div class="relative">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,watchmen"
+            alt="Movie Poster"
+            class="w-full h-64 object-cover"
+          />
+          <div
+            class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+          >
+            7.6
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Watchmen</h3>
+          <p class="text-gray-400 text-sm mb-4">2h 43m • Siêu anh hùng</p>
+          <button
+            class="w-full bg-primary hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition"
+          >
+            Đặt vé
+          </button>
+        </div>
+      </div>
+
+      <!-- Movie 4 -->
+      <div
+        class="bg-dark rounded-lg overflow-hidden border border-gray-800 hover:border-primary transition hidden md:block"
+      >
+        <div class="relative">
+          <img
+            src="https://source.unsplash.com/random/300x450/?movie,vforvendetta"
+            alt="Movie Poster"
+            class="w-full h-64 object-cover"
+          />
+          <div
+            class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+          >
+            8.2
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">V for Vendetta</h3>
+          <p class="text-gray-400 text-sm mb-4">2h 12m • Chính kịch</p>
+          <button
+            class="w-full bg-primary hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition"
+          >
+            Đặt vé
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

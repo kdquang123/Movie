@@ -1,0 +1,155 @@
+<div
+  class="sidebar bg-darker text-white h-full fixed top-0 left-0 w-64 overflow-y-auto transition-all duration-300"
+  [ngClass]="{ 'sidebar-collapsed w-20': collapsed }"
+>
+  <!-- Logo -->
+  <div class="p-4 flex items-center space-x-2 border-b border-gray-800 h-16">
+    <fa-icon [icon]="faFilm" class="text-primary text-2xl"></fa-icon>
+    <span class="logo-text text-xl font-bold" *ngIf="!collapsed">
+      KD<span class="text-primary">Cinema</span>
+    </span>
+  </div>
+
+  <!-- Navigation -->
+  <div class="p-4 action-list">
+    <div
+      class="text-gray-400 uppercase text-xs font-bold mb-4 sidebar-text"
+      *ngIf="!collapsed"
+    >
+      BẢNG ĐIỀU KHIỂN
+    </div>
+
+    <nav>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/dashboard"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faTachometerAlt" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Tổng quan</span>
+      </a>
+
+      <div
+        class="text-gray-400 uppercase text-xs font-bold mt-6 mb-4 sidebar-text"
+        *ngIf="!collapsed"
+      >
+        QUẢN LÝ
+      </div>
+
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/movies"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faFilm" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Phim</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/news"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faNewspaper" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Tin tức</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/banners"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faSliders" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Banner</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/bookings"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faTicketAlt" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Vé đặt</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/products"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faStore" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Sản phẩm</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/showtimes"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faCalendarAlt" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Lịch chiếu</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/promotions"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faTags" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Khuyến mãi</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/rooms"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faCouch" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Phòng</span>
+      </a>
+
+      <div
+        class="text-gray-400 uppercase text-xs font-bold mt-6 mb-4 sidebar-text"
+        *ngIf="!collapsed"
+      >
+        NGƯỜI DÙNG
+      </div>
+
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/members"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faUsers" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Thành viên</span>
+      </a>
+      <a
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+        routerLink="/admin/employees"
+        routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
+      >
+        <fa-icon [icon]="faUserShield" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Nhân viên</span>
+      </a>
+
+      <div
+        class="text-gray-400 uppercase text-xs font-bold mt-6 mb-4 sidebar-text"
+        *ngIf="!collapsed"
+      >
+        KHÁC
+      </div>
+
+      <a
+        href="#"
+        class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
+      >
+        <fa-icon [icon]="faCog" class="w-5 text-center"></fa-icon>
+        <span class="sidebar-text" *ngIf="!collapsed">Cài đặt</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Toggle Button -->
+  <div class="p-4 border-t border-gray-800">
+    <button
+      (click)="toggleSidebar()"
+      class="text-gray-400 hover:text-white flex items-center space-x-2"
+    >
+      <fa-icon [icon]="collapsed ? faChevronRight : faChevronLeft"></fa-icon>
+      <span class="sidebar-text" *ngIf="!collapsed">Thu gọn</span>
+    </button>
+  </div>
+</div>

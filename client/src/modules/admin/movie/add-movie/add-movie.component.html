@@ -1,0 +1,376 @@
+<!-- Add Movie Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <form>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column - Poster & Media -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Movie Title -->
+          <div>
+            <label
+              for="title"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tên phim <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="title"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tên phim"
+              required
+            />
+          </div>
+
+          <!-- Release Date -->
+          <div>
+            <label
+              for="release-date"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Ngày phát hành <span class="text-red-500">*</span></label
+            >
+            <input
+              type="date"
+              id="release-date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <!-- End Date -->
+          <div>
+            <label
+              for="release-date"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Ngày kết thúc <span class="text-red-500">*</span></label
+            >
+            <input
+              title="movie end date"
+              type="date"
+              id="end-date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <!-- Duration -->
+          <div>
+            <label
+              for="duration"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Thời lượng (phút) <span class="text-red-500">*</span></label
+            >
+            <input
+              type="number"
+              id="duration"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="120"
+              required
+            />
+          </div>
+
+          <!-- Categories -->
+          <div>
+            <label
+              for="category"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Thể loại <span class="text-red-500">*</span></label
+            >
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="action"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="action" class="ml-2 text-sm text-gray-700"
+                  >Hành động</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="adventure"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="adventure" class="ml-2 text-sm text-gray-700"
+                  >Phiêu lưu</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="comedy"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="comedy" class="ml-2 text-sm text-gray-700"
+                  >Hài</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="drama"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="drama" class="ml-2 text-sm text-gray-700"
+                  >Drama</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="horror"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="horror" class="ml-2 text-sm text-gray-700"
+                  >Kinh dị</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="scifi"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="scifi" class="ml-2 text-sm text-gray-700"
+                  >Sci-Fi</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="romance"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="romance" class="ml-2 text-sm text-gray-700"
+                  >Lãng mạn</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="animation"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="animation" class="ml-2 text-sm text-gray-700"
+                  >Hoạt hình</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Column - Basic Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Director -->
+          <div>
+            <label
+              for="director"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Đạo diễn</label
+            >
+            <input
+              type="text"
+              id="director"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tên đạo diễn"
+            />
+          </div>
+
+          <!-- Cast -->
+          <div>
+            <label
+              for="cast"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Diễn viên</label
+            >
+            <textarea
+              id="cast"
+              rows="3"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tên các diễn viên, cách nhau bằng dấu phẩy"
+            ></textarea>
+          </div>
+
+          <!-- Rating -->
+          <div>
+            <label
+              for="rating"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Đánh giá (IMDb)</label
+            >
+            <div class="flex items-center">
+              <input
+                type="number"
+                id="rating"
+                min="0"
+                max="10"
+                step="0.1"
+                class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+                placeholder="8.5"
+              />
+              <div class="ml-4 flex">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star-half-alt text-yellow-400"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Age Limit -->
+          <div>
+            <label
+              for="age-limit"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giới hạn tuổi</label
+            >
+            <select
+              id="age-limit"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+            >
+              <option value="P">P - Mọi lứa tuổi</option>
+              <option value="C13">C13 - Trên 13 tuổi</option>
+              <option value="C16">C16 - Trên 16 tuổi</option>
+              <option value="C18">C18 - Trên 18 tuổi</option>
+            </select>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label
+              for="status"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Trạng thái <span class="text-red-500">*</span></label
+            >
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="coming-soon"
+                  name="status"
+                  value="coming-soon"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                  checked
+                />
+                <label for="coming-soon" class="ml-2 text-sm text-gray-700"
+                  >Sắp chiếu</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="now-showing"
+                  name="status"
+                  value="now-showing"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="now-showing" class="ml-2 text-sm text-gray-700"
+                  >Đang chiếu</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="stopped"
+                  name="status"
+                  value="stopped"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="stopped" class="ml-2 text-sm text-gray-700"
+                  >Ngừng chiếu</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Additional Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Poster Upload -->
+          <div>
+            <label
+              for="poster"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Poster phim</label
+            >
+            <div
+              class="file-upload relative rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition"
+            >
+              <input
+                title="movie poster input"
+                type="file"
+                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                accept="image/*"
+              />
+              <div class="flex flex-col items-center justify-center">
+                <i
+                  class="fas fa-cloud-upload-alt text-3xl text-primary mb-2"
+                ></i>
+                <p class="text-sm text-gray-600">
+                  Kéo thả poster vào đây hoặc click để chọn
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                  Định dạng: JPG, PNG (Tối đa 5MB)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trailer Link -->
+          <div>
+            <label
+              for="trailer"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Link Trailer (YouTube)</label
+            >
+            <input
+              type="url"
+              id="trailer"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="https://youtube.com/watch?v=..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mt-8">
+      <label
+        for="description"
+        class="block text-sm font-medium text-gray-700 mb-2"
+        >Mô tả phim <span class="text-red-500">*</span></label
+      >
+      <textarea
+        id="description"
+        rows="5"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+        placeholder="Nhập mô tả chi tiết về phim"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <i class="fas fa-save mr-2"></i> Lưu phim
+      </button>
+    </div>
+  </form>
+</div>

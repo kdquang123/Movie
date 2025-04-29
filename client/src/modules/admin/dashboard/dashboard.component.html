@@ -1,0 +1,355 @@
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-gray-500 text-sm">Tổng doanh thu</p>
+        <h3 class="text-2xl font-bold mt-1">
+          245.8 <span class="text-lg">triệu</span>
+        </h3>
+      </div>
+      <div class="bg-red-100 p-3 rounded-full text-primary">
+        <i class="fas fa-wallet"></i>
+      </div>
+    </div>
+    <div class="mt-4 flex items-center text-sm text-green-500">
+      <i class="fas fa-arrow-up mr-1"></i>
+      <span>12.5% so với tháng trước</span>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-gray-500 text-sm">Tổng vé bán</p>
+        <h3 class="text-2xl font-bold mt-1">8,542</h3>
+      </div>
+      <div class="bg-blue-100 p-3 rounded-full text-blue-500">
+        <i class="fas fa-ticket-alt"></i>
+      </div>
+    </div>
+    <div class="mt-4 flex items-center text-sm text-green-500">
+      <i class="fas fa-arrow-up mr-1"></i>
+      <span>8.2% so với tháng trước</span>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-gray-500 text-sm">Phim đang chiếu</p>
+        <h3 class="text-2xl font-bold mt-1">24</h3>
+      </div>
+      <div class="bg-purple-100 p-3 rounded-full text-purple-500">
+        <i class="fas fa-film"></i>
+      </div>
+    </div>
+    <div class="mt-4 flex items-center text-sm text-gray-500">
+      <i class="fas fa-minus mr-1"></i>
+      <span>Không đổi</span>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-gray-500 text-sm">Thành viên mới</p>
+        <h3 class="text-2xl font-bold mt-1">1,245</h3>
+      </div>
+      <div class="bg-green-100 p-3 rounded-full text-green-500">
+        <i class="fas fa-users"></i>
+      </div>
+    </div>
+    <div class="mt-4 flex items-center text-sm text-green-500">
+      <i class="fas fa-arrow-up mr-1"></i>
+      <span>15.3% so với tháng trước</span>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Orders -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm mb-8">
+  <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+    <h2 class="text-lg font-semibold text-gray-800">Đơn đặt vé gần đây</h2>
+    <a href="#" class="text-sm text-primary hover:underline">Xem tất cả</a>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Mã vé
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Phim
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Rạp
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Ngày
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Tổng tiền
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Trạng thái
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr>
+          <td
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+          >
+            #CD20230001
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            The Batman
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            CineDark Vincom
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            15/04/2023
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            320,000đ
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+              >Hoàn thành</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+          >
+            #CD20230002
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            Dune: Part Two
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            CineDark Crescent
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            14/04/2023
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            240,000đ
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+              >Hoàn thành</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+          >
+            #CD20230003
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            Oppenheimer
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            CineDark AEON
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            13/04/2023
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            180,000đ
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800"
+              >Đang xử lý</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+          >
+            #CD20230004
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            The Marvels
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            CineDark Vincom
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            12/04/2023
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            280,000đ
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+              >Hoàn thành</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+          >
+            #CD20230005
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            John Wick 4
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            CineDark Crescent
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            11/04/2023
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            200,000đ
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+              >Đã hủy</span
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Recent Movies -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="p-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-800">Phim mới thêm</h2>
+    </div>
+    <div class="p-4">
+      <div class="space-y-4">
+        <div class="flex items-start space-x-4">
+          <img
+            src="https://source.unsplash.com/random/100x150/?movie,poster"
+            alt="Movie"
+            class="w-16 h-24 object-cover rounded"
+          />
+          <div>
+            <h3 class="font-medium text-gray-900">The Batman</h3>
+            <p class="text-sm text-gray-500">Hành động, Tội phạm</p>
+            <div class="flex items-center mt-1">
+              <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">9.2/10</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <img
+            src="https://source.unsplash.com/random/100x150/?movie,poster,2"
+            alt="Movie"
+            class="w-16 h-24 object-cover rounded"
+          />
+          <div>
+            <h3 class="font-medium text-gray-900">Dune: Part Two</h3>
+            <p class="text-sm text-gray-500">Khoa học viễn tưởng</p>
+            <div class="flex items-center mt-1">
+              <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">9.1/10</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <img
+            src="https://source.unsplash.com/random/100x150/?movie,poster,3"
+            alt="Movie"
+            class="w-16 h-24 object-cover rounded"
+          />
+          <div>
+            <h3 class="font-medium text-gray-900">Oppenheimer</h3>
+            <p class="text-sm text-gray-500">Tiểu sử, Lịch sử</p>
+            <div class="flex items-center mt-1">
+              <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">8.7/10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="p-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-800">Hoạt động gần đây</h2>
+    </div>
+    <div class="p-4">
+      <div class="space-y-4">
+        <div class="flex items-start space-x-3">
+          <div class="bg-blue-100 p-2 rounded-full text-blue-500">
+            <i class="fas fa-user-plus text-sm"></i>
+          </div>
+          <div>
+            <p class="text-sm text-gray-800">
+              Admin đã thêm tài khoản quản trị mới
+            </p>
+            <p class="text-xs text-gray-500">2 giờ trước</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-3">
+          <div class="bg-green-100 p-2 rounded-full text-green-500">
+            <i class="fas fa-film text-sm"></i>
+          </div>
+          <div>
+            <p class="text-sm text-gray-800">
+              Phim "John Wick 4" đã được cập nhật
+            </p>
+            <p class="text-xs text-gray-500">5 giờ trước</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-3">
+          <div class="bg-purple-100 p-2 rounded-full text-purple-500">
+            <i class="fas fa-tags text-sm"></i>
+          </div>
+          <div>
+            <p class="text-sm text-gray-800">Khuyến mãi mới đã được tạo</p>
+            <p class="text-xs text-gray-500">1 ngày trước</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-3">
+          <div class="bg-red-100 p-2 rounded-full text-red-500">
+            <i class="fas fa-trash-alt text-sm"></i>
+          </div>
+          <div>
+            <p class="text-sm text-gray-800">Phim "Ant-Man 3" đã bị xóa</p>
+            <p class="text-xs text-gray-500">2 ngày trước</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

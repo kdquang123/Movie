@@ -1,0 +1,28 @@
+.sidebar {
+  transition: all 0.3s ease;
+}
+
+.sidebar-collapsed {
+  width: 80px;
+}
+
+.sidebar-collapsed .sidebar-text {
+  display: none;
+}
+
+.sidebar-collapsed .logo-text {
+  display: none;
+}
+
+.sidebar-collapsed .action-list nav a {
+  justify-content: center;
+}
+
+.content-area {
+  transition: all 0.3s ease;
+  margin-left: 250px;
+}
+
+.sidebar-collapsed + .content-area {
+  margin-left: 80px;
+}

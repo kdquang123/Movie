@@ -1,0 +1,35 @@
+<header class="bg-darker sticky top-0 z-40 border-b border-gray-800">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <fa-icon [icon]="faFilm" class="text-primary text-2xl"></fa-icon>
+      <span class="text-2xl font-bold">
+        KD<span class="text-primary">Cinema</span>
+      </span>
+    </div>
+
+    <nav class="hidden md:flex space-x-8 items-center">
+      <a [routerLink]="['/home']" class="hover:text-primary transition"
+        >Trang chủ</a
+      >
+      <a [routerLink]="['/movies']" class="hover:text-primary transition"
+        >Phim</a
+      >
+      <a [routerLink]="['/news']" class="hover:text-primary transition"
+        >Tin tức và khuyến mãi</a
+      >
+    </nav>
+
+    <div class="flex items-center space-x-4">
+      <button
+        id="login-btn"
+        class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md font-medium transition"
+        (click)="openLogin.emit()"
+      >
+        Đăng nhập
+      </button>
+      <button title="menu-bar" class="md:hidden text-gray-400">
+        <fa-icon [icon]="faBars" class="text-xl"></fa-icon>
+      </button>
+    </div>
+  </div>
+</header>

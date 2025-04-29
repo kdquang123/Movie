@@ -1,0 +1,118 @@
+<!-- List Items -->
+<div class="overflow-x-auto rounded-lg border border-gray-200 mb-6">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+      <tr
+        class="*:px-4 *:py-3 *:text-left *:text-xs *:font-medium *:text-gray-500 *:uppercase *:tracking-wider"
+      >
+        <th *ngIf="isShowNumber">No</th>
+        <th *ngFor="let item of columns">
+          {{ item.name }}
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <ng-container *ngIf="data && data.items.length != 0; else emptyData">
+        <tr
+          *ngFor="let item of data.items; let i = index"
+          class="table-row *:px-4 *:py-4 *:whitespace-nowrap"
+        >
+          <td *ngIf="isShowNumber">
+            {{ currentPageSize * (currentPage - 1) + i + 1 }}
+          </td>
+          <td *ngFor="let column of columns">
+            {{ item[column.value] }}
+          </td>
+          <td>
+            <div class="flex space-x-2 *:cursor-pointer">
+              <button
+                class="border-0"
+                title="Edit"
+                type="button"
+                (click)="onEdit.emit(item.id)"
+              >
+                <fa-icon
+                  [icon]="faEdit"
+                  class="text-blue-500 hover:text-blue-700"
+                ></fa-icon>
+              </button>
+              <button
+                class="border-0"
+                title="Edit"
+                type="button"
+                (click)="onDelete.emit(item.id)"
+              >
+                <fa-icon
+                  [icon]="faTrash"
+                  class="text-red-500 hover:text-red-700"
+                ></fa-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #emptyData>
+        <tr>
+          <td colspan="4" class="text-center">No data found</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination -->
+<div class="flex justify-center md:justify-end">
+  <!-- Page Size -->
+  <div class="page-size">
+    <label for="page-size" class="mr-4">Số phần tử mỗi trang:</label>
+    <select
+      id="page-size"
+      class="p-2 border border-gray-200 rounded-sm"
+      [(ngModel)]="currentPageSize"
+      (change)="onPageSizeChange.emit($event)"
+    >
+      <option *ngFor="let item of pageSizeOptions" [value]="item">
+        {{ item }}
+      </option>
+    </select>
+  </div>
+  <!--Page Items-->
+  <div class="flex items-center">
+    <div class="text-sm text-gray-500 mr-4">{{generatePageInfo()}}</div>
+    <div class="flex space-x-1">
+      <button
+        (click)="onPageChange.emit(currentPage - 1)"
+        title="First"
+        type="button"
+        [disabled]="data && currentPage === data.totalPages"
+        class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+      >
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+      </button>
+      <ng-container *ngFor="let item of generatePageItems()">
+        <button
+          (click)="onPageChange.emit(item)"
+          class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500 px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
+          title="First"
+          type="button"
+          [ngClass]="{
+            ' border-primary bg-primary text-white rounded-md':
+              item == currentPage
+          }"
+        >
+          {{ item }}
+        </button>
+      </ng-container>
+      <button
+        (click)="onPageChange.emit(currentPage + 1)"
+        title="First"
+        type="button"
+        [disabled]="data && currentPage === data.totalPages"
+        class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-slate-500"
+      >
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

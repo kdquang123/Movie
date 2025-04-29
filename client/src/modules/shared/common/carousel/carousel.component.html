@@ -1,0 +1,57 @@
+<section class="carousel h-screen max-h-[800px]" #carousel>
+  <div class="carousel-inner" #carouselInner>
+    <div class="carousel-item" *ngFor="let banner of banners; let i = index">
+      <img [src]="banner.image" [alt]="banner.title" />
+      <div class="gradient-overlay w-full flex items-center h-full">
+        <div class="container mx-auto px-4">
+          <div class="max-w-2xl">
+            <span class="text-primary font-medium">PHIM ĐANG HOT</span>
+            <h1 class="text-5xl md:text-6xl font-bold my-4">
+              {{ banner.title }}
+            </h1>
+            <div class="flex items-center space-x-4 mb-6">
+              <span class="text-primary">
+                <fa-icon [icon]="faStar" class="mr-1"></fa-icon>
+                {{ banner.rating }}/10
+              </span>
+              <span>{{ banner.duration }}</span>
+              <span>{{ banner.genre }}</span>
+            </div>
+            <p class="text-gray-300 mb-8">{{ banner.description }}</p>
+            <div class="flex space-x-4">
+              <button
+                class="bg-primary hover:bg-red-700 px-6 py-3 rounded-md font-medium flex items-center"
+              >
+                <fa-icon [icon]="faTicketAlt" class="mr-2"></fa-icon> Đặt vé
+                ngay
+              </button>
+              <button
+                class="border border-gray-400 hover:border-primary hover:text-primary px-6 py-3 rounded-md font-medium flex items-center"
+              >
+                <fa-icon [icon]="faPlay" class="mr-2"></fa-icon> Xem trailer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <button class="carousel-nav prev" (click)="prevSlide()">
+    <fa-icon [icon]="faChevronLeft"></fa-icon>
+  </button>
+  <button class="carousel-nav next" (click)="nextSlide()">
+    <fa-icon [icon]="faChevronRight"></fa-icon>
+  </button>
+
+  <!-- Dots -->
+  <div class="carousel-dots">
+    <div
+      class="carousel-dot"
+      *ngFor="let banner of banners; let i = index"
+      [class.active]="currentIndex === i"
+      (click)="goToSlide(i)"
+    ></div>
+  </div>
+</section>
