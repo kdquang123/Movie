@@ -49,6 +49,8 @@ public interface IUnitOfWork : IDisposable
 
     IRepository<FilmReview> FilmReviewRepository { get; }
 
+    IRepository<RefreshToken> RefreshTokenRepository { get; }
+
     IRepository<T> Repository<T>() where T : BaseEntity, IBaseEntity;
 
     #endregion

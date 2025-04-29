@@ -72,6 +72,9 @@ public class UnitOfWork : IUnitOfWork
     private IGenericRepository<BookingDetail>? _bookingDetailRepository;
     public IGenericRepository<BookingDetail> BookingDetailRepository => _bookingDetailRepository ??= new GenericRepository<BookingDetail>(_context);
 
+     private IRepository<RefreshToken>? _refreshTokenRepository;
+    public IRepository<RefreshToken> RefreshTokenRepository => _refreshTokenRepository ??= new Repository<RefreshToken>(_context);
+
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
