@@ -107,6 +107,8 @@ if (app.Environment.IsDevelopment())
     await DbInitializer.Seed(context, userManager, roleManager);
 }
 
+app.UseCors("CorsPolicy");
+
 app.MapControllers();
 
 app.UseHttpsRedirection();

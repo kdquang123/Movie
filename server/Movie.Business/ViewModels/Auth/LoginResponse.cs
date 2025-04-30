@@ -8,7 +8,7 @@ public class LoginResponse
     public required string RefreshToken { get; set; }
     public DateTime ExpiresAt { get; set; }
 
-    public UserInformation? User { get; set; }
+    public UserInformation? UserInfo { get; set; }
 }
 
 public class UserInformation

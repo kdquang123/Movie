@@ -31,5 +31,15 @@ namespace Movie.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpPost("logout")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> LogoutAsync([FromBody] LogoutRequestCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

@@ -38,7 +38,5 @@ public interface ITokenService
     /// Revokes a specific refresh token
     /// </summary>
     /// <param name="token">The refresh token</param>
-    /// <param name="replacedByToken">The new token replacing this one</param>
-    /// <param name="reason">The reason for revocation</param>
-    Task RevokeRefreshTokenAsync(RefreshToken token, string? replacedByToken, string reason);
+    Task<bool> RevokeRefreshTokenAsync(string token);
 }

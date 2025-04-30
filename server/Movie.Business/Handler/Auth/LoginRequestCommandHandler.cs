@@ -78,7 +78,7 @@ public class LoginRequestCommandHandler : BaseHandler, IRequestHandler<LoginRequ
             AccessToken = accessToken,
             RefreshToken = refreshTokenEntity.Token,
             ExpiresAt = DateTime.UtcNow.AddMinutes(expiryMinutes),
-            User = new UserInformation
+            UserInfo = new UserInformation
             {
                 Id = user.Id,
                 Username = user.UserName,

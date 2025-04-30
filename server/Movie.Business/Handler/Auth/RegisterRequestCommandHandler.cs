@@ -85,7 +85,7 @@ public class RegisterRequestCommandHandler : BaseHandler, IRequestHandler<Regist
             AccessToken = accessToken,
             RefreshToken = refreshToken.Token,
             ExpiresAt = DateTime.UtcNow.AddMinutes(expiryMinutes),
-            User = new UserInformation
+            UserInfo = new UserInformation
             {
                 Id = user.Id,
                 Username = user.UserName,

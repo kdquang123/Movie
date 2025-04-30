@@ -1,25 +1,78 @@
-<header class="bg-white shadow">
+<header class="bg-white shadow sticky top-0 z-50">
   <div class="flex justify-between items-center px-6 py-4">
+    <!-- Left side - Title -->
     <div class="flex items-center">
       <h1 class="text-xl font-bold text-gray-800">Tổng quan hệ thống</h1>
     </div>
 
+    <!-- Right side - User info and dropdown -->
     <div class="flex items-center space-x-4">
-      <button class="text-gray-500 hover:text-gray-700 relative">
-        <i class="fas fa-bell text-xl"></i>
-        <span
-          class="absolute top-0 right-0 h-2 w-2 rounded-full bg-primary"
-        ></span>
-      </button>
+      <div class="relative group" (click)="toggleDropdown()">
+        <!-- User info -->
+        <div class="flex items-center space-x-2 cursor-pointer">
+          <img
+            [src]="'https://source.unsplash.com/random/40x40/?portrait'"
+            alt="Admin"
+            class="w-8 h-8 rounded-full border-2 border-gray-200 hover:border-primary transition"
+          />
+          <span class="text-gray-700 font-medium hidden md:inline">
+            Xin chào, {{ currentUser?.fullName || "Admin" }}
+          </span>
+          <fa-icon
+            [icon]="faChevronDown"
+            class="text-gray-500 text-xs transition-transform duration-200"
+            [ngClass]="{ 'rotate-180': isDropdownOpen }"
+          >
+          </fa-icon>
+        </div>
 
-      <div class="flex items-center space-x-2">
-        <img
-          src="https://source.unsplash.com/random/40x40/?portrait"
-          alt="Admin"
-          class="w-8 h-8 rounded-full"
-        />
-        <span class="text-gray-700 font-medium hidden md:inline">Admin</span>
-        <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
+        <!-- Dropdown menu -->
+        <div
+          *ngIf="isDropdownOpen"
+          class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100 divide-y divide-gray-100"
+        >
+          <!-- User info section -->
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-900">
+              {{ currentUser?.fullName }}
+            </p>
+            <p class="text-xs text-gray-500 truncate">
+              {{ currentUser?.email || "admin@example.com" }}
+            </p>
+          </div>
+
+          <!-- Menu items -->
+          <div class="py-1">
+            <a
+              href="#"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition"
+            >
+              <fa-icon [icon]="faUserCog" class="mr-3 text-gray-400"></fa-icon>
+              Tài khoản của tôi
+            </a>
+            <a
+              href="#"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition"
+            >
+              <fa-icon [icon]="faCog" class="mr-3 text-gray-400"></fa-icon>
+              Cài đặt
+            </a>
+          </div>
+
+          <!-- Logout section -->
+          <div class="py-1">
+            <button
+              (click)="logout()"
+              class="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-500 transition"
+            >
+              <fa-icon
+                [icon]="faSignOutAlt"
+                class="mr-3 text-gray-400"
+              ></fa-icon>
+              Đăng xuất
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

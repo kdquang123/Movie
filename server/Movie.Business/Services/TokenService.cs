@@ -121,12 +121,26 @@ public class TokenService : ITokenService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task RevokeRefreshTokenAsync(RefreshToken token, string? replacedByToken, string reason)
+    public async Task<bool> RevokeRefreshTokenAsync(string token)
     {
-        token.IsRevoked = true;
-        token.ReasonRevoked = reason;
-        token.ReplacedByToken = replacedByToken;
+        if (string.IsNullOrEmpty(token))
+        {
+            throw new ArgumentException("Invalid refresh token");
+        }
 
-        await _unitOfWork.SaveChangesAsync();
+        var tokens = _unitOfWork.RefreshTokenRepository.GetQuery();
+
+        var revokeToken =await tokens.FirstOrDefaultAsync(x => x.Token == token);
+
+        if (revokeToken == null)
+        {
+            throw new ArgumentException("Refresh token not found");
+        }
+
+        revokeToken.IsRevoked = true;
+
+        _unitOfWork.RefreshTokenRepository.Update(revokeToken);
+
+        return true;
     }
 }
