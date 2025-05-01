@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Storage;
 using Movie.Data.Repositories;
 using Movie.Models;
+using Movie.Models.Models;
 
 namespace Movie.Data.UnitOfWorks;
 
@@ -71,6 +72,12 @@ public class UnitOfWork : IUnitOfWork
 
     private IGenericRepository<BookingDetail>? _bookingDetailRepository;
     public IGenericRepository<BookingDetail> BookingDetailRepository => _bookingDetailRepository ??= new GenericRepository<BookingDetail>(_context);
+
+    private IGenericRepository<FilmCategory>? _filmCategoryRepository;
+    public IGenericRepository<FilmCategory> FilmCategoryRepository => _filmCategoryRepository ??= new GenericRepository<FilmCategory>(_context);
+
+    private IRepository<RefreshToken>? _refreshTokenRepository;
+    public IRepository<RefreshToken> RefreshTokenRepository => _refreshTokenRepository ??= new Repository<RefreshToken>(_context);
 
     protected virtual void Dispose(bool disposing)
     {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Movie.Models;
+using Movie.Models.Models;
 
 namespace Movie.Data;
 
@@ -23,6 +24,9 @@ public class MovieDbContext : IdentityDbContext<User, Role, Guid>
     public DbSet<Room> Rooms { get; set; }
     public DbSet<RoomType> RoomTypes { get; set; }
     public DbSet<Seat> Seats { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+    public DbSet<FilmCategory> FilmCategories { get; set; }
 
     public MovieDbContext(DbContextOptions options) : base(options)
     {
@@ -41,7 +45,10 @@ public class MovieDbContext : IdentityDbContext<User, Role, Guid>
         builder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens");
 
         builder.Entity<BookingDetail>()
-       .HasKey(bd => new { bd.BookingId, bd.ProductId });
+            .HasKey(bd => new { bd.BookingId, bd.ProductId });
+
+        builder.Entity<FilmCategory>()
+           .HasKey(fc => new { fc.FilmId, fc.CategoryId });
 
         builder.Entity<Booking>()
             .Property(b => b.BookingStatus)
@@ -59,19 +66,22 @@ public class MovieDbContext : IdentityDbContext<User, Role, Guid>
             .Property(s => s.Type)
             .HasConversion<string>();
 
-        // Cascade delete cho mối quan hệ giữa Booking và BookingDetail
+        builder.Entity<RefreshToken>()
+            .HasOne(r => r.User)
+            .WithMany()
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.Entity<Booking>()
             .HasMany(b => b.BookingDetails)
             .WithOne(bd => bd.Booking)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Cascade delete cho mối quan hệ giữa Ticket và Booking
         builder.Entity<Ticket>()
             .HasOne(t => t.Booking)
             .WithMany(b => b.Tickets)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Cascade delete cho mối quan hệ giữa Seat và Room
         builder.Entity<Seat>()
             .HasOne(s => s.Room)
             .WithMany(r => r.Seats)

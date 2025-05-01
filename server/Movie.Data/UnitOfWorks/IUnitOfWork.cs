@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Storage;
 using Movie.Data.Repositories;
 using Movie.Models;
+using Movie.Models.Models;
 
 namespace Movie.Data.UnitOfWorks;
 
@@ -49,11 +50,14 @@ public interface IUnitOfWork : IDisposable
 
     IRepository<FilmReview> FilmReviewRepository { get; }
 
+    IRepository<RefreshToken> RefreshTokenRepository { get; }
+
     IRepository<T> Repository<T>() where T : BaseEntity, IBaseEntity;
 
     #endregion
 
     IGenericRepository<BookingDetail> BookingDetailRepository { get; }
+    IGenericRepository<FilmCategory> FilmCategoryRepository { get; }
 
     int SaveChanges();
 
