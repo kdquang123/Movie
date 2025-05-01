@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Storage;
 using Movie.Data.Repositories;
 using Movie.Models;
+using Movie.Models.Models;
 
 namespace Movie.Data.UnitOfWorks;
 
@@ -56,6 +57,7 @@ public interface IUnitOfWork : IDisposable
     #endregion
 
     IGenericRepository<BookingDetail> BookingDetailRepository { get; }
+    IGenericRepository<FilmCategory> FilmCategoryRepository { get; }
 
     int SaveChanges();
 

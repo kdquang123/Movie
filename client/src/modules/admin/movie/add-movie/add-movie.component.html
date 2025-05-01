@@ -1,6 +1,6 @@
 <!-- Add Movie Form -->
 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-  <form>
+  <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Left Column - Poster & Media -->
       <div class="lg:col-span-1">
@@ -15,9 +15,9 @@
             <input
               type="text"
               id="title"
+              formControlName="title"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
               placeholder="Nhập tên phim"
-              required
             />
           </div>
 
@@ -31,15 +31,15 @@
             <input
               type="date"
               id="release-date"
+              formControlName="releaseDate"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-              required
             />
           </div>
 
           <!-- End Date -->
           <div>
             <label
-              for="release-date"
+              for="end-date"
               class="block text-sm font-medium text-gray-700 mb-2"
               >Ngày kết thúc <span class="text-red-500">*</span></label
             >
@@ -47,8 +47,8 @@
               title="movie end date"
               type="date"
               id="end-date"
+              formControlName="endDate"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-              required
             />
           </div>
 
@@ -62,10 +62,10 @@
             <input
               type="number"
               id="duration"
+              formControlName="duration"
               min="1"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
               placeholder="120"
-              required
             />
           </div>
 
@@ -77,84 +77,22 @@
               >Thể loại <span class="text-red-500">*</span></label
             >
             <div class="grid grid-cols-2 gap-2">
-              <div class="flex items-center">
+              <div
+                *ngFor="let category of categoryList; let i = index"
+                class="flex items-center"
+              >
                 <input
                   type="checkbox"
-                  id="action"
+                  [id]="`category-${ i }`"
                   class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  (change)="
+                    onCategoryChange(category.id, $event.target.checked)
+                  "
                 />
-                <label for="action" class="ml-2 text-sm text-gray-700"
-                  >Hành động</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="adventure"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="adventure" class="ml-2 text-sm text-gray-700"
-                  >Phiêu lưu</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="comedy"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="comedy" class="ml-2 text-sm text-gray-700"
-                  >Hài</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="drama"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="drama" class="ml-2 text-sm text-gray-700"
-                  >Drama</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="horror"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="horror" class="ml-2 text-sm text-gray-700"
-                  >Kinh dị</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="scifi"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="scifi" class="ml-2 text-sm text-gray-700"
-                  >Sci-Fi</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="romance"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="romance" class="ml-2 text-sm text-gray-700"
-                  >Lãng mạn</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="animation"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="animation" class="ml-2 text-sm text-gray-700"
-                  >Hoạt hình</label
+                <label
+                  [for]="`category-${ i }`"
+                  class="ml-2 text-sm text-gray-700"
+                  >{{ category.name }}</label
                 >
               </div>
             </div>
@@ -212,13 +150,6 @@
                 class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
                 placeholder="8.5"
               />
-              <div class="ml-4 flex">
-                <i class="fas fa-star text-yellow-400"></i>
-                <i class="fas fa-star text-yellow-400"></i>
-                <i class="fas fa-star text-yellow-400"></i>
-                <i class="fas fa-star text-yellow-400"></i>
-                <i class="fas fa-star-half-alt text-yellow-400"></i>
-              </div>
             </div>
           </div>
 
@@ -233,59 +164,13 @@
               id="age-limit"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
             >
-              <option value="P">P - Mọi lứa tuổi</option>
-              <option value="C13">C13 - Trên 13 tuổi</option>
-              <option value="C16">C16 - Trên 16 tuổi</option>
-              <option value="C18">C18 - Trên 18 tuổi</option>
+              <option
+                *ngFor="let ageRestriction of ageRestrictionList"
+                [value]="ageRestriction.id"
+              >
+                {{`${ageRestriction.code} - ${ageRestriction.description}`}}
+              </option>
             </select>
-          </div>
-
-          <!-- Status -->
-          <div>
-            <label
-              for="status"
-              class="block text-sm font-medium text-gray-700 mb-2"
-              >Trạng thái <span class="text-red-500">*</span></label
-            >
-            <div class="space-y-2">
-              <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="coming-soon"
-                  name="status"
-                  value="coming-soon"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
-                  checked
-                />
-                <label for="coming-soon" class="ml-2 text-sm text-gray-700"
-                  >Sắp chiếu</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="now-showing"
-                  name="status"
-                  value="now-showing"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
-                />
-                <label for="now-showing" class="ml-2 text-sm text-gray-700"
-                  >Đang chiếu</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="stopped"
-                  name="status"
-                  value="stopped"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
-                />
-                <label for="stopped" class="ml-2 text-sm text-gray-700"
-                  >Ngừng chiếu</label
-                >
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -308,11 +193,13 @@
                 type="file"
                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 accept="image/*"
+                (change)="onFileChange($event)"
               />
               <div class="flex flex-col items-center justify-center">
-                <i
-                  class="fas fa-cloud-upload-alt text-3xl text-primary mb-2"
-                ></i>
+                <fa-icon
+                  [icon]="faCloudUploadAlt"
+                  class="text-3xl text-primary mb-2"
+                ></fa-icon>
                 <p class="text-sm text-gray-600">
                   Kéo thả poster vào đây hoặc click để chọn
                 </p>
@@ -350,6 +237,7 @@
       >
       <textarea
         id="description"
+        formControlName="description"
         rows="5"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
         placeholder="Nhập mô tả chi tiết về phim"
@@ -369,7 +257,7 @@
         type="submit"
         class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
       >
-        <i class="fas fa-save mr-2"></i> Lưu phim
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Lưu phim
       </button>
     </div>
   </form>
