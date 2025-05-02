@@ -60,11 +60,11 @@ export class AddMovieComponent implements OnInit {
       duration: new FormControl(null, [Validators.required, Validators.min(1)]),
       categories: new FormArray([]),
       director: new FormControl(''),
-      cast: new FormControl(''),
-      rating: new FormControl(null, [Validators.min(0), Validators.max(10)]),
-      ageLimit: new FormControl(''),
+      actors: new FormControl(''),
+      IMDbScore: new FormControl(null, [Validators.min(0), Validators.max(10)]),
+      ageRestrictionId: new FormControl(''),
       poster: new FormControl(null),
-      trailer: new FormControl(''),
+      trailerUrl: new FormControl(''),
       description: new FormControl('', Validators.required),
     });
   }
@@ -78,8 +78,11 @@ export class AddMovieComponent implements OnInit {
     }
   }
 
-  onCategoryChange(categoryId: string, isChecked: boolean): void {
+  onCategoryChange(categoryId: string, event: Event): void {
     const categories = this.movieForm.get('categories') as FormArray;
+    const checkbox = event.target as HTMLInputElement;
+    const isChecked = checkbox.checked;
+
     if (isChecked) {
       categories.push(new FormControl(categoryId));
     } else {

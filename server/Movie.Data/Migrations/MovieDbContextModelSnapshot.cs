@@ -285,6 +285,9 @@ namespace Movie.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("FilmId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -299,6 +302,8 @@ namespace Movie.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FilmId");
 
                     b.ToTable("Categories");
                 });
@@ -365,7 +370,7 @@ namespace Movie.Data.Migrations
 
                     b.HasIndex("AgeRestrictionId");
 
-                    b.ToTable("Film");
+                    b.ToTable("Films");
                 });
 
             modelBuilder.Entity("Movie.Models.FilmReview", b =>
@@ -408,7 +413,7 @@ namespace Movie.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FilmReview");
+                    b.ToTable("FilmReviews");
                 });
 
             modelBuilder.Entity("Movie.Models.Models.FilmCategory", b =>
@@ -1102,6 +1107,13 @@ namespace Movie.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Movie.Models.Category", b =>
+                {
+                    b.HasOne("Movie.Models.Film", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("FilmId");
+                });
+
             modelBuilder.Entity("Movie.Models.Film", b =>
                 {
                     b.HasOne("Movie.Models.AgeRestriction", "AgeRestriction")
@@ -1116,7 +1128,7 @@ namespace Movie.Data.Migrations
             modelBuilder.Entity("Movie.Models.FilmReview", b =>
                 {
                     b.HasOne("Movie.Models.Film", "Film")
-                        .WithMany("MovieReviews")
+                        .WithMany("FilmReviews")
                         .HasForeignKey("FilmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1243,9 +1255,11 @@ namespace Movie.Data.Migrations
 
             modelBuilder.Entity("Movie.Models.Film", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("FilmCategories");
 
-                    b.Navigation("MovieReviews");
+                    b.Navigation("FilmReviews");
                 });
 
             modelBuilder.Entity("Movie.Models.Room", b =>

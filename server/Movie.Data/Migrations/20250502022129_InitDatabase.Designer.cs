@@ -12,8 +12,8 @@ using Movie.Data;
 namespace Movie.Data.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20250428172111_CreateModels")]
-    partial class CreateModels
+    [Migration("20250502022129_InitDatabase")]
+    partial class InitDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -288,6 +288,9 @@ namespace Movie.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("FilmId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -303,6 +306,8 @@ namespace Movie.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FilmId");
+
                     b.ToTable("Categories");
                 });
 
@@ -316,9 +321,6 @@ namespace Movie.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("AgeRestrictionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -371,9 +373,7 @@ namespace Movie.Data.Migrations
 
                     b.HasIndex("AgeRestrictionId");
 
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Film");
+                    b.ToTable("Films");
                 });
 
             modelBuilder.Entity("Movie.Models.FilmReview", b =>
@@ -416,7 +416,22 @@ namespace Movie.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FilmReview");
+                    b.ToTable("FilmReviews");
+                });
+
+            modelBuilder.Entity("Movie.Models.Models.FilmCategory", b =>
+                {
+                    b.Property<Guid>("FilmId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FilmId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("FilmCategories");
                 });
 
             modelBuilder.Entity("Movie.Models.News", b =>
@@ -559,6 +574,53 @@ namespace Movie.Data.Migrations
                     b.ToTable("Promotions");
                 });
 
+            modelBuilder.Entity("Movie.Models.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReasonRevoked")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReplacedByToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Movie.Models.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -624,13 +686,24 @@ namespace Movie.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("RoomTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("SeatQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalColumns")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalRows")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoomTypeId");
 
                     b.ToTable("Rooms");
                 });
@@ -1037,6 +1110,13 @@ namespace Movie.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Movie.Models.Category", b =>
+                {
+                    b.HasOne("Movie.Models.Film", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("FilmId");
+                });
+
             modelBuilder.Entity("Movie.Models.Film", b =>
                 {
                     b.HasOne("Movie.Models.AgeRestriction", "AgeRestriction")
@@ -1045,21 +1125,13 @@ namespace Movie.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AgeRestriction");
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Movie.Models.FilmReview", b =>
                 {
                     b.HasOne("Movie.Models.Film", "Film")
-                        .WithMany("MovieReviews")
+                        .WithMany("FilmReviews")
                         .HasForeignKey("FilmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1073,6 +1145,47 @@ namespace Movie.Data.Migrations
                     b.Navigation("Film");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Movie.Models.Models.FilmCategory", b =>
+                {
+                    b.HasOne("Movie.Models.Category", "Category")
+                        .WithMany("FilmCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Movie.Models.Film", "Film")
+                        .WithMany("FilmCategories")
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Film");
+                });
+
+            modelBuilder.Entity("Movie.Models.RefreshToken", b =>
+                {
+                    b.HasOne("Movie.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Movie.Models.Room", b =>
+                {
+                    b.HasOne("Movie.Models.RoomType", "RoomType")
+                        .WithMany("Rooms")
+                        .HasForeignKey("RoomTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RoomType");
                 });
 
             modelBuilder.Entity("Movie.Models.Seat", b =>
@@ -1138,14 +1251,28 @@ namespace Movie.Data.Migrations
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("Movie.Models.Category", b =>
+                {
+                    b.Navigation("FilmCategories");
+                });
+
             modelBuilder.Entity("Movie.Models.Film", b =>
                 {
-                    b.Navigation("MovieReviews");
+                    b.Navigation("Categories");
+
+                    b.Navigation("FilmCategories");
+
+                    b.Navigation("FilmReviews");
                 });
 
             modelBuilder.Entity("Movie.Models.Room", b =>
                 {
                     b.Navigation("Seats");
+                });
+
+            modelBuilder.Entity("Movie.Models.RoomType", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("Movie.Models.Seat", b =>

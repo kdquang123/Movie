@@ -17,6 +17,6 @@ export const ApiEndpoints = {
   getMovieById: ``,
   deleteMovie: ``,
   updateMovie: ``,
-  createMovie: ``,
-  searchMovie: `${environment.apiUrl}/Movies/add`,
+  createMovie: `${environment.apiUrl}/Movies/add`,
+  searchMovie: ``,
 };

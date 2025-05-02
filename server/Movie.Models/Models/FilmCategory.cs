@@ -7,6 +7,7 @@ public class FilmCategory
 {
     [ForeignKey(nameof(Film))]
     public Guid FilmId { get; set; }
+    
     [ForeignKey(nameof(Category))]
     public Guid CategoryId { get; set; }
 

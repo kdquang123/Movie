@@ -8,7 +8,7 @@ namespace Movie.Data;
 
 public class MovieDbContext : IdentityDbContext<User, Role, Guid>
 {
-    public DbSet<FilmReview> Films { get; set; }
+    public DbSet<Film> Films { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Banner> Banners { get; set; }

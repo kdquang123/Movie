@@ -7,5 +7,5 @@ public class Category : MasterBaseEntity
 {
     public required string Name { get; set; }
     public string? Description { get; set; }
-    public ICollection<FilmCategory> FilmCategories { get; set; } = [];
+    public ICollection<FilmCategory>? FilmCategories { get; set; }
 }
