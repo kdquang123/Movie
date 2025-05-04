@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IMovieService } from './movie-service.interface';
 import { Observable } from 'rxjs';
-import { MovieDetailModel } from '../../models/movie/movie-detail.model';
 import { MovieModel } from '../../models/movie/movie.model';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../../constants/api-endpoint/api-endpoint';
@@ -12,16 +11,25 @@ import { PaginatedResult } from '../../models/paginated-result.model';
 })
 export class MovieService implements IMovieService {
   constructor(private readonly httpClient: HttpClient) {}
+  getCommingSoonMovies(): Observable<MovieModel[]> {
+    return this.httpClient.get<MovieModel[]>(ApiEndpoints.getCommingSoonMovies);
+  }
+  getNowPlayingMovies(): Observable<MovieModel[]> {
+    return this.httpClient.get<MovieModel[]>(ApiEndpoints.getNowPlayingMovies);
+  }
   search(filter: any): Observable<PaginatedResult<MovieModel>> {
-    throw new Error('Method not implemented.');
+    return this.httpClient.post<PaginatedResult<MovieModel>>(
+      ApiEndpoints.searchMovie,
+      filter
+    );
   }
 
   getAllMovie(): Observable<MovieModel[]> {
     return this.httpClient.get<MovieModel[]>(ApiEndpoints.getAllMovie);
   }
 
-  getMovieById(id: string): Observable<MovieDetailModel> {
-    return this.httpClient.get<MovieDetailModel>(
+  getMovieById(id: string): Observable<MovieModel> {
+    return this.httpClient.get<MovieModel>(
       `${ApiEndpoints.getMovieById}/${id}`
     );
   }
@@ -34,7 +42,10 @@ export class MovieService implements IMovieService {
     return this.httpClient.post<boolean>(ApiEndpoints.createMovie, movie);
   }
 
-  updateMovie(movie: any): Observable<boolean> {
-    return this.httpClient.put<boolean>(ApiEndpoints.updateMovie, movie);
+  updateMovie(movie: any, id: string): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      `${ApiEndpoints.updateMovie}/${id}`,
+      movie
+    );
   }
 }

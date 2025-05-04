@@ -5,4 +5,5 @@ import { AgeRestrictionModel } from '../../models/age-restriction/age-restrictio
 export interface ICommonService {
   getAllCategory(): Observable<CategoryModel[]>;
   getAllAgeRestriction(): Observable<AgeRestrictionModel[]>;
+  getAllMovieStatus(): Observable<any[]>;
 }

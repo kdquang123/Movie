@@ -11,12 +11,15 @@ export const ApiEndpoints = {
   //Common api
   getAllCategory: `${environment.apiUrl}/Common/categories`,
   getAllAgeRestriction: `${environment.apiUrl}/Common/age-restrictions`,
+  getAllMovieStatus: `${environment.apiUrl}/Common/movie-statuses`,
 
   //Movie api
   getAllMovie: ``,
-  getMovieById: ``,
-  deleteMovie: ``,
-  updateMovie: ``,
+  getMovieById: `${environment.apiUrl}/Movies`,
+  deleteMovie: `${environment.apiUrl}/Movies`,
+  updateMovie: `${environment.apiUrl}/Movies`,
   createMovie: `${environment.apiUrl}/Movies/add`,
-  searchMovie: ``,
+  searchMovie: `${environment.apiUrl}/Movies/search`,
+  getNowPlayingMovies: `${environment.apiUrl}/Movies/now-playing`,
+  getCommingSoonMovies: `${environment.apiUrl}/Movies/comming-soon`,
 };

@@ -6,13 +6,10 @@ import {
 import { PaginatedResult } from '../../../../models/paginated-result.model';
 import { CommonModule } from '@angular/common';
 import {
-  faAngleDoubleLeft,
-  faAngleDoubleRight,
-  faAngleLeft,
-  faAngleRight,
   faChevronLeft,
   faChevronRight,
   faEdit,
+  faEye,
   faPlus,
   faRotate,
   faSearch,
@@ -20,10 +17,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TableColumn } from './table-column.model';
 import { FormsModule } from '@angular/forms';
+import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-table',
-  imports: [FontAwesomeModule, CommonModule, FormsModule],
+  imports: [
+    FontAwesomeModule,
+    CommonModule,
+    FormsModule,
+    ConfirmModalComponent,
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })
@@ -35,6 +38,7 @@ export class TableComponent {
   public faRotate: IconDefinition = faRotate;
   public faChevronRight: IconDefinition = faChevronRight;
   public faChevronLeft: IconDefinition = faChevronLeft;
+  public faEye: IconDefinition = faEye;
 
   @Input() columns: TableColumn[] = [];
   @Input() public isShowNumber?: boolean = true;
@@ -45,7 +49,7 @@ export class TableComponent {
 
   @Input() public pageSizeOptions: number[] = [5, 10, 25, 50, 100];
 
-  @Output() public onEdit: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public onView: EventEmitter<string> = new EventEmitter<string>();
 
   @Output() public onDelete: EventEmitter<string> = new EventEmitter<string>();
 
@@ -54,6 +58,10 @@ export class TableComponent {
 
   @Output() public onPageChange: EventEmitter<number> =
     new EventEmitter<number>();
+
+  public isOpenModal: boolean = false;
+
+  private selectedId: string = '';
 
   public generatePageItems(): number[] {
     if (!this.data) {
@@ -75,5 +83,20 @@ export class TableComponent {
     }
 
     return '';
+  }
+
+  onHandleDetele(): void {
+    this.isOpenModal = false;
+    this.onDelete.emit(this.selectedId);
+  }
+
+  public onCloseModal(): void {
+    this.isOpenModal = false;
+    this.selectedId = '';
+  }
+
+  public openModal(id: string): void {
+    this.isOpenModal = true;
+    this.selectedId = id;
   }
 }

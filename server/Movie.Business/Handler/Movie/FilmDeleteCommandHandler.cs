@@ -11,8 +11,15 @@ public class FimlDeleteCommandHandler : BaseHandler, IRequestHandler<FilmDeleteC
     {
     }
 
-    public Task<bool> Handle(FilmDeleteCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(FilmDeleteCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var film = _unitOfWork.FilmRepository.GetById(request.Id);
+        if (film == null)
+            return false;
+
+        film.IsDelete = true;
+        film.DeletedAt = DateTime.UtcNow;
+        _unitOfWork.SaveChanges();
+        return true;
     }
 }
