@@ -11,6 +11,9 @@ import { ApiEndpoints } from '../../constants/api-endpoint/api-endpoint';
 })
 export class CommonService implements ICommonService {
   constructor(private readonly httpClient: HttpClient) {}
+  getAllMovieStatus(): Observable<any[]> {
+    return this.httpClient.get<any[]>(ApiEndpoints.getAllMovieStatus);
+  }
 
   getAllCategory(): Observable<CategoryModel[]> {
     return this.httpClient.get<CategoryModel[]>(ApiEndpoints.getAllCategory);

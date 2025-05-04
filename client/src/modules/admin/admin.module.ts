@@ -10,7 +10,6 @@ import { ShowtimeListComponent } from './showtime/showtime-list/showtime-list.co
 import { PromotionListComponent } from './promotion/promotion-list/promotion-list.component';
 import { BookingListComponent } from './booking/booking-list/booking-list.component';
 import { RoomListComponent } from './room/room-list/room-list.component';
-import { MovieDetailComponent } from '../customer/movie-detail/movie-detail.component';
 import { AddMovieComponent } from './movie/add-movie/add-movie.component';
 import { NewsDetailComponent } from './news/news-detail/news-detail.component';
 import { AddNewsComponent } from './news/add-news/add-news.component';
@@ -32,6 +31,7 @@ import { AddBannerComponent } from './banner/add-banner/add-banner.component';
 import { BannerListComponent } from './banner/banner-list/banner-list.component';
 import { CreateBookingComponent } from './booking/create-booking/create-booking.component';
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
+import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },

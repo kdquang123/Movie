@@ -1,7 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Movie.Business.Handler;
 using Movie.Business.Handler.Movie;
+using Movie.Models;
 
 namespace Movie.API.Controllers;
 
@@ -16,30 +18,52 @@ public class MoviesController : ControllerBase
         _mediator = mediator;
     }
 
-    // public async Task<IActionResult> GetAll()
-    // {
-    //     return Ok();
-    // }
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _mediator.Send(new FilmGetAllQuery());
+        return Ok(result);
+    }
 
-    // public async Task<IActionResult> GetById(Guid id)
-    // {
-    //     return Ok();
-    // }
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var result = await _mediator.Send(new FilmGetByIdQuery { Id = id });
+        return Ok(result);
+    }
 
-    // public async Task<IActionResult> Update(Guid id)
-    // {
-    //     return Ok();
-    // }
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Update(Guid id, [FromForm] FilmUpdateCommand command)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        command.Id = id;
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
 
-    // public async Task<IActionResult> Delete(Guid id)
-    // {
-    //     return Ok();
-    // }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var resutl = await _mediator.Send(new FilmDeleteCommand { Id = id });
+        return Ok(resutl);
+    }
 
-    // public async Task<IActionResult> Search(Guid id)
-    // {
-    //     return Ok();
-    // }
+    [HttpPost("search")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Search([FromBody] FilmSearchQuery query)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 
     [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,4 +77,27 @@ public class MoviesController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("comming-soon")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> CommingSoon()
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = await _mediator.Send(new FilmCommingSoonGetQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("now-playing")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> NowPlaying()
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = await _mediator.Send(new FilmNowPlayingGetQuery());
+        return Ok(result);
+    }
 }

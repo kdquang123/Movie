@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
+using Movie.Models;
 
 namespace Movie.API.Controllers;
 
@@ -21,7 +22,16 @@ public class CommonController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetFilmAgeRestrictions()
     {
         var result = await _mediator.Send(new AgeRestrictionGetAllQuery());
-        return Ok(result); 
+        return Ok(result);
     }
 
+    [HttpGet("movie-statuses")]
+    public async Task<IActionResult> GetFilmStatuses()
+    {
+        var statuses = Enum.GetValues(typeof(FilmStatus))
+                          .Cast<FilmStatus>()
+                          .Select(s => new { Id = (int)s, Name = s.ToString() })
+                          .ToList();
+        return Ok(statuses);
+    }
 }

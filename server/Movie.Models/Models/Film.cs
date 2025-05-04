@@ -15,12 +15,18 @@ public class Film : MasterBaseEntity
     public DateTime EndDate { get; set; }
     public required string ImageUrl { get; set; }
     public string? TrailerUrl { get; set; }
-    public int IMDbScore { get; set; }
-
+    [Column(TypeName = "decimal(3,1)")]
+    public decimal IMDbScore { get; set; }
     [ForeignKey(nameof(AgeRestriction))]
     public Guid AgeRestrictionId { get; set; }
     public AgeRestriction? AgeRestriction { get; set; }
     public ICollection<FilmReview>? FilmReviews { get; set; }
     public ICollection<FilmCategory>? FilmCategories { get; set; }
-    public ICollection<Category>? Categories { get; set; }
+}
+
+public enum FilmStatus
+{
+    ComingSoon,
+    NowPlaying,
+    Ended
 }

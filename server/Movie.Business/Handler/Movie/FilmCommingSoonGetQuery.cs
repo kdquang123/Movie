@@ -4,7 +4,8 @@ using Movie.Business.ViewModels;
 
 namespace Movie.Business.Handler;
 
-public class FilmGetByIdQuery : IRequest<FilmViewModel>
+public class FilmCommingSoonGetQuery : IRequest<IEnumerable<FilmViewModel>>
 {
-    public Guid Id { get; set; }
+
 }
+
