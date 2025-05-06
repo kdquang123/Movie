@@ -5,8 +5,8 @@ namespace Movie.Models;
 
 public class Showtime : MasterBaseEntity
 {
-    [ForeignKey(nameof(Movie))]
-    public Guid MovieId { get; set; }
+    [ForeignKey(nameof(Film))]
+    public Guid FilmId { get; set; }
     public Film? Film { get; set; }
     public DateTime DateTime { get; set; }
     [ForeignKey(nameof(Room))]

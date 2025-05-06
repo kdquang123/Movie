@@ -1,0 +1,29 @@
+.seat {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.seat-normal {
+  background-color: #e5e7eb;
+}
+
+.seat-vip {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.seat-disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.seat-selected {
+  border: 2px solid #e50914;
+}

@@ -17,7 +17,7 @@
 
 <!-- Search and Filter Tools -->
 <div class="bg-gray-50 p-4 rounded-lg mb-6">
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+  <div [formGroup]="searchForm" class="grid grid-cols-1 md:grid-cols-5 gap-4">
     <div class="relative">
       <span
         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
@@ -25,6 +25,7 @@
         <i class="fas fa-search text-gray-400"></i>
       </span>
       <input
+        formControlName="keyword"
         type="text"
         placeholder="Tìm kiếm phòng chiếu..."
         class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
@@ -33,33 +34,32 @@
 
     <div>
       <select
+        formControlName="roomTypeId"
         title="roomType"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
       >
-        <option value="">Tất cả công nghệ</option>
-        <option value="2d">2D Digital</option>
-        <option value="3d">3D Digital</option>
-        <option value="imax">IMAX</option>
-        <option value="4dx">4DX</option>
-        <option value="screenx">ScreenX</option>
+        <option value="">Tất cả loại phòng</option>
+        <option *ngFor="let roomType of roomTypeList" [value]="roomType.id">
+          {{ roomType.name }}
+        </option>
       </select>
     </div>
 
     <div>
       <select
+        formControlName="status"
         title="roomStatus"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
       >
         <option value="">Tất cả trạng thái</option>
-        <option value="active">Hoạt động</option>
-        <option value="maintenance">Đang bảo trì</option>
-        <option value="renovation">Đang nâng cấp</option>
-        <option value="upcoming">Sắp hoạt động</option>
+        <option [value]="1">Hoạt động</option>
+        <option [value]="0">Dừng hoạt động</option>
       </select>
     </div>
 
     <div class="flex space-x-2">
       <button
+        (click)="onSubmit()"
         class="bg-primary px-4 py-2 rounded-md text-white font-medium hover:bg-red-700 transition"
       >
         <fa-icon [icon]="faFilter"></fa-icon> Lọc
@@ -83,5 +83,7 @@
   [pageSizeOptions]="pageSizeOptions"
   (onPageChange)="onPageChange($event)"
   (onPageSizeChange)="onPageSizeChange($event)"
+  (onDelete)="delete($event)"
+  (onView)="detail($event)"
 >
 </app-table>

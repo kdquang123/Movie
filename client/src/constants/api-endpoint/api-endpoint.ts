@@ -22,4 +22,18 @@ export const ApiEndpoints = {
   searchMovie: `${environment.apiUrl}/Movies/search`,
   getNowPlayingMovies: `${environment.apiUrl}/Movies/now-playing`,
   getCommingSoonMovies: `${environment.apiUrl}/Movies/comming-soon`,
+
+  //Room api
+  getAllRoom: `${environment.apiUrl}/Rooms`,
+  getRoomById: `${environment.apiUrl}/Rooms`,
+  deleteRoom: `${environment.apiUrl}/Rooms`,
+  updateRoom: `${environment.apiUrl}/Rooms`,
+  createRoom: `${environment.apiUrl}/Rooms/add`,
+  getRoomByMovieId: `${environment.apiUrl}/Rooms/movie`,
+  searchRoom: `${environment.apiUrl}/Rooms/search`,
+  getRoomByShowTimeId: `${environment.apiUrl}/Rooms/showtime`,
+  getAllRoomType: `${environment.apiUrl}/Common/room-types`,
+
+  //Seat api
+  changeSeatType: `${environment.apiUrl}/Seats/change-type`,
 };

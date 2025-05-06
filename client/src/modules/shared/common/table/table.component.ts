@@ -44,6 +44,7 @@ export class TableComponent {
   @Input() public isShowNumber?: boolean = true;
   @Input() public currentPage: number = 1;
   @Input() public currentPageSize: number = 10;
+  @Input() public message: string = '';
 
   @Input() public data!: PaginatedResult<any>;
 

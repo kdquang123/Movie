@@ -34,4 +34,11 @@ public class CommonController(IMediator mediator) : ControllerBase
                           .ToList();
         return Ok(statuses);
     }
+
+    [HttpGet("room-types")]
+    public async Task<IActionResult> GetRoomTypes()
+    {
+        var result = await _mediator.Send(new RoomTypeGetAllQuery());
+        return Ok(result);
+    }
 }
