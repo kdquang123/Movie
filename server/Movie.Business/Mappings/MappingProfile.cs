@@ -1,4 +1,5 @@
 using System;
+using System.Formats.Tar;
 using AutoMapper;
 using Movie.Business.ViewModels;
 using Movie.Models;
@@ -16,5 +17,8 @@ public class MappingProfile : Profile
         CreateMap<FilmDetailViewModel, Film>().ReverseMap();
         CreateMap<CategoryViewModel, Category>().ReverseMap();
         CreateMap<AgeRestrictionViewModel, AgeRestriction>().ReverseMap();
+        CreateMap<Room, RoomViewModel>().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.IsActive == true ? "Hoạt động" : "Ngừng hoạt động")).ReverseMap();
+        CreateMap<RoomTypeViewModel, RoomType>().ReverseMap();
+        CreateMap<Seat, SeatViewModel>().ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString())).ReverseMap();
     }
 }

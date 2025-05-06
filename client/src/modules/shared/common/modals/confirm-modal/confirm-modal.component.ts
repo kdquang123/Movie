@@ -14,8 +14,6 @@ export class ConfirmModalComponent {
   @Output() onConfirm: EventEmitter<void> = new EventEmitter<void>();
 
   public closeModal() {
-    console.log('closeModal');
-    
     this.onClose.emit();
   }
 
@@ -26,7 +24,7 @@ export class ConfirmModalComponent {
 
   public getMessage() {
     return this.message === ''
-      ? 'Are you sure you want to delete this item?'
+      ? 'Bạn có chắc chắn muốn xóa?'
       : this.message;
   }
 }

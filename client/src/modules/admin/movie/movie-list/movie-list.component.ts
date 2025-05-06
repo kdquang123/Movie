@@ -15,7 +15,6 @@ import { ICommonService } from '../../../../services/common/common-service.inter
 import { CategoryModel } from '../../../../models/category/category.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ConfirmModalComponent } from '../../../shared/common/modals/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-movie-list',

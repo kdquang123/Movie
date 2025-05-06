@@ -11,12 +11,13 @@ public class Seat : BaseEntity
     public SeatType Type { get; set; }
     [ForeignKey(nameof(Room))]
     public Guid RoomId { get; set; }
-    public required Room Room { get; set; }
+    public Room? Room { get; set; }
     public ICollection<Ticket> Tickets { get; set; } = [];
 }
 
 public enum SeatType
 {
     Vip,
-    Normal
+    Normal,
+    Disabled,
 }

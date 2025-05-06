@@ -163,7 +163,38 @@ public class DbInitializer
                     CreatedAt = DateTime.UtcNow
                 }
             });
+            await context.SaveChangesAsync();
+        }
 
+        if (!context.RoomTypes.Any())
+        {
+            await context.RoomTypes.AddRangeAsync(new List<RoomType>()
+                {
+                    new RoomType
+                    {
+                        Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                        Name = "2D",
+                        Description = "Phim chiếu 2D",
+                        ExtraPrice = 10000,
+                        CreatedAt = DateTime.UtcNow
+                    },
+                    new RoomType
+                    {
+                        Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                        Name = "3D",
+                        Description = "Phim chiếu 3D",
+                        ExtraPrice = 15000,
+                        CreatedAt = DateTime.UtcNow
+                    },
+                    new RoomType
+                    {
+                        Id = new Guid("00000000-0000-0000-0000-000000000003"),
+                        Name = "IMAX",
+                        Description = "Phim chiếu IMAX",
+                        ExtraPrice = 30000,
+                        CreatedAt = DateTime.UtcNow
+                    }
+                });
             await context.SaveChangesAsync();
         }
     }

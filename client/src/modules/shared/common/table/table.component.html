@@ -126,7 +126,7 @@
 
 <app-confirm-modal
   [isOpen]="isOpenModal"
-  message="Bạn có chắc chắn muốn xóa phim này không?"
+  [message]="message"
   (onConfirm)="onHandleDetele()"
   (onClose)="onCloseModal()"
 ></app-confirm-modal>

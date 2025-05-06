@@ -1,1 +1,231 @@
-<p>room-detail works!</p>
+<!-- Update Room Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <div class="flex justify-end space-x-3 mb-8">
+    <button
+      (click)="isShowSeatMap = !isShowSeatMap"
+      class="bg-green-500 hover:bg-green-700 px-6 py-2 rounded-md font-medium text-white transition"
+    >
+      Chi tiết ghế
+    </button>
+    <button
+      class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+    >
+      Ngưng hoạt động
+    </button>
+  </div>
+  <form [formGroup]="roomForm">
+    <div class="grid grid-cols-1 gap-8">
+      <!-- Left Column - Basic Info -->
+      <div>
+        <div class="space-y-6">
+          <!-- Theater Name -->
+          <div>
+            <label
+              for="theater-name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tên phòng chiếu <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="name"
+              type="text"
+              id="theater-name"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="VD: Phòng 1, Phòng IMAX"
+              required
+            />
+          </div>
+
+          <!-- Theater Type -->
+          <div>
+            <label
+              for="theater-type"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Loại phòng <span class="text-red-500">*</span></label
+            >
+            <select
+              formControlName="roomTypeId"
+              id="theater-type"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn loại phòng --</option>
+              <option
+                *ngFor="let roomType of roomTypeList"
+                [value]="roomType.id"
+              >
+                {{ roomType.name }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label
+              for="row"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Số ghế ngồi <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="seatQuantity"
+              type="number"
+              id="row"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số lượng ghế"
+              required
+            />
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label
+              for="status"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Trạng thái <span class="text-red-500">*</span></label
+            >
+            <input
+              [disabled]="true"
+              formControlName="status"
+              type="text"
+              id="status"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số lượng ghế"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seat Map-->
+    <div
+      *ngIf="isShowSeatMap"
+      class="border border-gray-200 rounded-lg p-4 bg-gray-50 mt-8"
+      bis_skin_checked="1"
+    >
+      <div class="flex justify-between items-center mb-4" bis_skin_checked="1">
+        <div bis_skin_checked="1">
+          <label for="rows" class="block text-sm font-medium text-gray-700 mb-1"
+            >Số hàng ghế</label
+          >
+          <input
+            disabled
+            type="number"
+            id="rows"
+            [value]="seatRows"
+            class="w-20 px-3 py-1 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div bis_skin_checked="1">
+          <label for="cols" class="block text-sm font-medium text-gray-700 mb-1"
+            >Số ghế mỗi hàng</label
+          >
+          <input
+            disabled
+            type="number"
+            id="cols"
+            min="5"
+            max="30"
+            [value]="seatColumns"
+            class="w-20 px-3 py-1 border border-gray-300 rounded-md"
+          />
+        </div>
+        <button
+          (click)="changeSeatType(1)"
+          type="button"
+          id="generate-seats"
+          class="bg-[#f59e0b] text-white px-4 py-1 rounded-md hover:bg-yellow-500 transition"
+        >
+          Đặt làm ghế vip
+        </button>
+        <button
+          (click)="changeSeatType(0)"
+          type="button"
+          id="generate-seats"
+          class="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-700 transition"
+        >
+          Đặt làm ghế thường
+        </button>
+        <button
+          (click)="changeSeatType(2)"
+          type="button"
+          id="generate-seats"
+          class="bg-primary text-white px-4 py-1 rounded-md hover:bg-red-700 transition"
+        >
+          Ngưng hoạt động
+        </button>
+      </div>
+
+      <div
+        class="text-center mb-4 text-gray-500 font-medium"
+        bis_skin_checked="1"
+      >
+        Màn hình
+      </div>
+
+      <div
+        id="seat-map"
+        class="mx-auto overflow-auto max-w-full"
+        bis_skin_checked="1"
+      >
+        <div>
+          <div
+            *ngFor="let i of generateArray(seatRows)"
+            class="flex justify-center mb-2"
+          >
+            <div
+              (click)="selectSeat(seatMap[i * seatColumns + j]?.id)"
+              *ngFor="let j of generateArray(seatColumns)"
+              class="seat mx-1"
+              [ngClass]="{
+                'seat-normal': seatMap[i * seatColumns + j]?.type === 'Normal',
+                'seat-vip': seatMap[i * seatColumns + j]?.type === 'Vip',
+                'seat-disabled':
+                  seatMap[i * seatColumns + j]?.type === 'Disabled',
+                'seat-selected':
+                  seatMap[i * seatColumns + j]?.id === selectedId,
+              }"
+            >
+              {{ seatMap[i * seatColumns + j]?.seatName }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mt-4 flex flex-wrap justify-center gap-4"
+        bis_skin_checked="1"
+      >
+        <div class="flex items-center" bis_skin_checked="1">
+          <div class="seat seat-normal mr-2" bis_skin_checked="1"></div>
+          <span class="text-sm text-gray-600">Ghế thường</span>
+        </div>
+        <div class="flex items-center" bis_skin_checked="1">
+          <div class="seat seat-vip mr-2" bis_skin_checked="1"></div>
+          <span class="text-sm text-gray-600">Ghế VIP</span>
+        </div>
+        <div class="flex items-center" bis_skin_checked="1">
+          <div class="seat seat-disabled mr-2" bis_skin_checked="1"></div>
+          <span class="text-sm text-gray-600">Ghế không sử dụng</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        routerLink="/admin/rooms"
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        (click)="onSubmit()"
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Lưu phòng chiếu
+      </button>
+    </div>
+  </form>
+</div>
