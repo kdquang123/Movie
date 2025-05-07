@@ -16,7 +16,7 @@ public class RoomGetAllQueryHandler : BaseHandler, IRequestHandler<RoomGetAllQue
     public async Task<IEnumerable<RoomViewModel>> Handle(RoomGetAllQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.RoomRepository.GetQuery();
-        var rooms = await query.Where(r => r.IsDelete == false).ToListAsync(cancellationToken: cancellationToken);
+        var rooms = await query.Where(r => r.IsDelete == false && r.IsActive).Include(x => x.RoomType).ToListAsync(cancellationToken: cancellationToken);
         return _mapper.Map<IEnumerable<RoomViewModel>>(rooms);
     }
 }

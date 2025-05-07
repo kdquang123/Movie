@@ -11,4 +11,5 @@ export interface IMovieService {
   search(filter: any): Observable<PaginatedResult<MovieModel>>;
   getCommingSoonMovies(): Observable<MovieModel[]>;
   getNowPlayingMovies(): Observable<MovieModel[]>;
+  getAllAvailableMovie(): Observable<MovieModel[]>;
 }

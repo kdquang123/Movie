@@ -100,4 +100,12 @@ public class MoviesController : ControllerBase
         var result = await _mediator.Send(new FilmNowPlayingGetQuery());
         return Ok(result);
     }
+
+    [HttpGet("available")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Available()
+    {
+        var result = await _mediator.Send(new FilmGetAllActiveQuery());
+        return Ok(result);
+    }
 }

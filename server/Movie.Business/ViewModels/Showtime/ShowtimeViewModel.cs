@@ -1,18 +1,14 @@
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Movie.Models;
+namespace Movie.Business.ViewModels;
 
-public class Showtime : MasterBaseEntity
+public class ShowtimeViewModel
 {
-    [ForeignKey(nameof(Film))]
+    public Guid Id { get; set; }
     public Guid FilmId { get; set; }
-    public Film? Film { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
-    [ForeignKey(nameof(Room))]
     public Guid RoomId { get; set; }
-    public Room? Room { get; set; }
     public decimal BasePrice { get; set; }
     public decimal WeekendPrice { get; set; }
 }
