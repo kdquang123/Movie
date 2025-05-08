@@ -5,11 +5,11 @@ namespace Movie.Business.Handler;
 
 public class ShowtimeCreateCommand : IRequest<bool>
 {
-    public Guid MovieId { get; set; }
-    public Guid RoomId { get; set; }
-    public DateTime StartTime { get; set; }
-    public decimal BasePrice { get; set; }
-    public decimal WeekendPrice { get; set; }
-    public int Duration { get; set; }
-
+    public required Guid MovieId { get; set; }
+    public required Guid RoomId { get; set; }
+    public required DateTime StartDate { get; set; }
+    public required string StartTime { get; set; }
+    public required decimal BasePrice { get; set; }
+    public required decimal WeekendPrice { get; set; }
+    public required int Duration { get; set; }
 }

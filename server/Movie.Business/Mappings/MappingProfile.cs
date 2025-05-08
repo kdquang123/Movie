@@ -20,6 +20,9 @@ public class MappingProfile : Profile
         CreateMap<Room, RoomViewModel>().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.IsActive == true ? "Hoạt động" : "Ngừng hoạt động")).ReverseMap();
         CreateMap<RoomTypeViewModel, RoomType>().ReverseMap();
         CreateMap<Seat, SeatViewModel>().ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString())).ReverseMap();
-        CreateMap<Showtime, ShowtimeViewModel>().ReverseMap();
+        CreateMap<Showtime, ShowtimeViewModel>()
+        .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.FilmId))
+        .ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Film))
+        .ReverseMap();
     }
 }

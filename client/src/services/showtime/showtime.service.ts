@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ShowtimeModel } from '../../models/showtime/showtime.model';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../../constants/api-endpoint/api-endpoint';
+import { PaginatedResult } from '../../models/paginated-result.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,8 +52,8 @@ export class ShowtimeService implements IShowtimeService {
     );
   }
 
-  search(filter: any): Observable<ShowtimeModel[]> {
-    return this.httpClient.post<ShowtimeModel[]>(
+  search(filter: any): Observable<PaginatedResult<ShowtimeModel>> {
+    return this.httpClient.post<PaginatedResult<ShowtimeModel>>(
       ApiEndpoints.searchShowtime,
       filter
     );

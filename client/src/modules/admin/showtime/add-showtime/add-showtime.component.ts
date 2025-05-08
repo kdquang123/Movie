@@ -12,19 +12,19 @@ import {
   SHOWTIME_SERVICE,
 } from '../../../../constants/injection/injection.constant';
 import { IMovieService } from '../../../../services/movie/movie-service.interface';
-import { RoomService } from '../../../../services/room/room.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MovieModel } from '../../../../models/movie/movie.model';
 import { RoomModel } from '../../../../models/room/room.model';
 import { ShowtimeModel } from '../../../../models/showtime/showtime.model';
 import { IShowtimeService } from '../../../../services/showtime/showtime-service.interface';
+import { IRoomService } from '../../../../services/room/room-service.interface';
 
 @Component({
   selector: 'app-add-showtime',
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterLink],
   templateUrl: './add-showtime.component.html',
   styleUrl: './add-showtime.component.css',
 })
@@ -41,7 +41,7 @@ export class AddShowtimeComponent implements OnInit {
 
   constructor(
     @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
-    @Inject(ROOM_SERVICE) private readonly roomService: RoomService,
+    @Inject(ROOM_SERVICE) private readonly roomService: IRoomService,
     @Inject(SHOWTIME_SERVICE)
     private readonly showtimeService: IShowtimeService,
     private readonly toastr: ToastrService,
@@ -65,56 +65,69 @@ export class AddShowtimeComponent implements OnInit {
         { value: '', disabled: true },
         Validators.required
       ),
-      startTime: new FormControl('', Validators.required),
-      duration: new FormControl({ value: 0, disabled: true }),
+      startDate: new FormControl('', Validators.required),
+      startTime: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      duration: new FormControl(0),
       basePrice: new FormControl('', Validators.required),
       weekendPrice: new FormControl('', Validators.required),
     });
   }
 
   onMovieChange(): void {
+    this.showtimeForm.get('roomId')?.setValue('');
+    this.showtimeForm.get('startTime')?.setValue('');
     if (this.showtimeForm.get('movieId')?.value) {
       this.selectedMovie = this.movieList.filter(
         (m) => m.id === this.showtimeForm.get('movieId')?.value
       )[0];
       this.showtimeForm.get('duration')?.setValue(this.selectedMovie.duration);
-      if (this.showtimeForm.get('startTime')?.value) {
-        this.showtimeForm.get('roomId')?.enable();
-      }
-    } else {
-      this.showtimeForm.get('roomId')?.disable();
     }
-    this.showtimeForm.get('roomId')?.setValue('');
+    this.changeInputStatus();
   }
 
   onDateChange(): void {
-    if (this.showtimeForm.get('startTime')?.value) {
+    this.showtimeForm.get('roomId')?.setValue('');
+    this.showtimeForm.get('startTime')?.setValue('');
+    if (this.showtimeForm.get('startDate')?.value) {
       this.showtimeService
-        .getShowtimeByDate(this.showtimeForm.get('startTime')?.value)
+        .getShowtimeByDate(this.showtimeForm.get('startDate')?.value)
         .subscribe((response) => {
           this.allShowtimesOfDay = response;
-          if (this.showtimeForm.get('movieId')?.value) {
-            this.showtimeForm.get('roomId')?.enable();
-          }
         });
-    } else {
-      this.showtimeForm.get('roomId')?.disable();
     }
-    this.showtimeForm.get('roomId')?.setValue('');
+    this.changeInputStatus();
   }
 
   onRoomChange(): void {
+    this.showtimeForm.get('startTime')?.setValue('')
     if (this.showtimeForm.get('roomId')?.value) {
       this.filteredShowtimes = this.allShowtimesOfDay.filter(
         (s) => s.roomId === this.showtimeForm.get('roomId')?.value
       );
       this.availableTimes = this.generateAvailableTimes(this.filteredShowtimes);
     }
+    this.changeInputStatus();
   }
 
-  onTimeChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedTime = select.value;
+  changeInputStatus() {
+    if (
+      this.showtimeForm.get('movieId')?.value &&
+      this.showtimeForm.get('startDate')?.value
+    ) {
+      this.showtimeForm.get('roomId')?.enable();
+      if (this.showtimeForm.get('roomId')?.value) {
+        this.showtimeForm.get('startTime')?.enable();
+      } else {
+        this.showtimeForm.get('startTime')?.setValue('');
+        this.showtimeForm.get('startTime')?.disable();
+      }
+    } else {
+      this.showtimeForm.get('roomId')?.disable();
+      this.showtimeForm.get('startTime')?.disable();
+    }
   }
 
   generateAvailableTimes(existing: ShowtimeModel[]): string[] {
@@ -167,25 +180,12 @@ export class AddShowtimeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const dateStr = this.showtimeForm.get('startTime')?.value;
-    if (!dateStr || !this.selectedTime) return;
-
-    const timeReset = this.showtimeForm.get('startTime')?.value;
-
-    // Parse ngày và giờ
-    const [year, month, day] = dateStr.split('-').map(Number);
-    const [hour, minute] = this.selectedTime.split(':').map(Number);
-
-    const localDate = new Date(year, month - 1, day, hour + 7, minute);
-
-    this.showtimeForm.get('startTime')?.setValue(localDate);
     this.showtimeService.createShowtime(this.showtimeForm.value).subscribe({
       next: () => {
         this.toastr.success('Thêm lịch chiếu thành công!', 'Success');
         this.router.navigate(['/admin/showtimes']);
       },
       error: (error) => {
-        this.showtimeForm.get('startTime')?.setValue(timeReset);
         this.toastr.error('Thêm thất bại!', 'Lỗi');
       },
     });

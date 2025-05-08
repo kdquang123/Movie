@@ -14,26 +14,25 @@ public class ShowtimeCreateCommandHandler : BaseHandler, IRequestHandler<Showtim
 
     public async Task<bool> Handle(ShowtimeCreateCommand request, CancellationToken cancellationToken)
     {
-        // var query = _unitOfWork.ShowTimeRepository.GetQuery();
-        // var listShowTime = query.Where(x => x.FilmId == request.MovieId && x.RoomId == request.RoomId && x.DateTime.Date == request.Showtime.Date).ToList();
-        // if (listShowTime.Count > 0)
-        // {
-        //     foreach (var item in listShowTime)
-        //     {
-        //         if ((request.Showtime >= item.StartTime && request.Showtime <= item.EndTime) || (request.Showtime.AddMinutes(request.MovieDuration) >= item.StartTime && request.Showtime.AddMinutes(request.MovieDuration) <= item.EndTime))
-        //         {
-        //             return false;
-        //         }
-        //     }
-        // }
+        if (request.StartDate < DateTime.Now)
+        {
+            return false;
+        }
+        var movie = _unitOfWork.FilmRepository.GetById(request.MovieId);
+        if (movie == null) return false;
+        if (request.StartDate < movie.ReleaseDate || request.StartDate > movie.EndDate) return false;
+
+        string[] time = request.StartTime.Split(":");
+        request.StartDate = request.StartDate.AddHours(int.Parse(time[0]));
+        request.StartDate = request.StartDate.AddMinutes(int.Parse(time[1]));
 
         var showtime = new Showtime
         {
             Id = Guid.NewGuid(),
             FilmId = request.MovieId,
             RoomId = request.RoomId,
-            StartTime = request.StartTime,
-            EndTime = request.StartTime.AddMinutes(request.Duration),
+            StartTime = request.StartDate,
+            EndTime = request.StartDate.AddMinutes(request.Duration),
             BasePrice = request.BasePrice,
             WeekendPrice = request.WeekendPrice,
             CreatedAt = DateTime.UtcNow

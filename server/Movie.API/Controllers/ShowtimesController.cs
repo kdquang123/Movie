@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Amazon.S3.Model;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -17,12 +18,12 @@ public class ShowtimesController : ControllerBase
         _mediator = mediator;
     }
 
-    // [HttpGet("{id}")]
-    // public IActionResult GetShowtimeById(int id)
-    // {
-    //     var result = _mediator.Send(new ShowtimeGetByIdQuery(id)).Result;
-    //     return Ok(result);
-    // }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetShowtimeById(Guid id)
+    {
+        var result = await _mediator.Send(new ShowtimeGetByIdQuery { Id = id });
+        return Ok(result);
+    }
 
     // [HttpGet]
     // public IActionResult GetAllShowtimes()
@@ -30,6 +31,17 @@ public class ShowtimesController : ControllerBase
     //     var result = _mediator.Send(new ShowtimeGetAllQuery()).Result;
     //     return Ok(result);
     // }
+
+    [HttpPost("search")]
+    public async Task<IActionResult> SearchShowtimes([FromBody] ShowtimeSearchQuery query)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 
     [HttpPost("add")]
     public IActionResult CreateShowtime([FromBody] ShowtimeCreateCommand command)
@@ -46,6 +58,25 @@ public class ShowtimesController : ControllerBase
     public async Task<IActionResult> GetShowtimeByDate([FromBody] ShowtimeGetByDateQuery query)
     {
         var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteShowtime(Guid id)
+    {
+        var result = await _mediator.Send(new ShowtimeDeleteCommand { Id = id });
+        return Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateShowtime(Guid id, [FromBody] ShowtimeUpdateCommand command)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        command.Id = id;
+        var result = await _mediator.Send(command);
         return Ok(result);
     }
 }

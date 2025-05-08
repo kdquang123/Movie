@@ -14,7 +14,7 @@ export const ApiEndpoints = {
   getAllMovieStatus: `${environment.apiUrl}/Common/movie-statuses`,
 
   //Movie api
-  getAllMovie: ``,
+  getAllMovie: `${environment.apiUrl}/Movies`,
   getMovieById: `${environment.apiUrl}/Movies`,
   deleteMovie: `${environment.apiUrl}/Movies`,
   updateMovie: `${environment.apiUrl}/Movies`,

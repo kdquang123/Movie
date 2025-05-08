@@ -1,8 +1,25 @@
 using System;
+using AutoMapper;
+using MediatR;
+using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
 
-public class ShowtimeDeleteCommandHandler
+public class ShowtimeDeleteCommandHandler : BaseHandler, IRequestHandler<ShowtimeDeleteCommand, bool>
 {
+    public ShowtimeDeleteCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+    {
+    }
 
+    public async Task<bool> Handle(ShowtimeDeleteCommand request, CancellationToken cancellationToken)
+    {
+        var showtime = _unitOfWork.ShowTimeRepository.GetById(request.Id);
+        if (showtime == null)
+            return false;
+
+        showtime.IsDelete = true;
+        showtime.DeletedAt = DateTime.UtcNow;
+        await _unitOfWork.SaveChangesAsync();
+        return true;
+    }
 }

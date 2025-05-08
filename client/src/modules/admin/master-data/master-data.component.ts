@@ -34,7 +34,7 @@ export class MasterDataComponent<T> {
     keyword: '',
     pageNumber: 1,
     pageSize: 5,
-    orderBy: 'name',
+    orderBy: '',
     orderDirection: OrderDirection.ASC,
     includeInactive: true,
   };

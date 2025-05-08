@@ -17,7 +17,7 @@ public class ShowtimeGetByDateQueryHandler : BaseHandler, IRequestHandler<Showti
     public async Task<IEnumerable<ShowtimeViewModel>> Handle(ShowtimeGetByDateQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.ShowTimeRepository.GetQuery();
-        var showtimeList = await query.Where(st => st.StartTime.Date == request.StartDate.Date).ToListAsync();
+        var showtimeList = await query.Where(st => st.StartTime.Date == request.StartDate.Date && st.IsDelete == false).ToListAsync();
         return _mapper.Map<IEnumerable<ShowtimeViewModel>>(showtimeList);
     }
 }
