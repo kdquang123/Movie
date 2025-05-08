@@ -8,7 +8,8 @@ public class Showtime : MasterBaseEntity
     [ForeignKey(nameof(Film))]
     public Guid FilmId { get; set; }
     public Film? Film { get; set; }
-    public DateTime DateTime { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
     [ForeignKey(nameof(Room))]
     public Guid RoomId { get; set; }
     public Room? Room { get; set; }

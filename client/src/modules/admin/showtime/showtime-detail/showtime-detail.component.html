@@ -1,1 +1,151 @@
-<p>showtime-detail works!</p>
+<!-- Add Screening Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <form [formGroup]="showtimeForm">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left Column - Basic Info -->
+      <div>
+        <div class="space-y-6">
+          <!-- Movie Selection -->
+          <div>
+            <label
+              for="movie"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Chọn phim <span class="text-red-500">*</span></label
+            >
+            <select
+              (change)="onMovieChange()"
+              formControlName="movieId"
+              id="movie"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn phim --</option>
+              <option *ngFor="let movie of movieList" [value]="movie.id">
+                {{ movie.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Date Selection -->
+          <div>
+            <label
+              for="date"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Ngày chiếu <span class="text-red-500">*</span></label
+            >
+            <input
+              (change)="onDateChange()"
+              formControlName="startDate"
+              type="date"
+              id="date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <!-- Theater Selection -->
+          <div>
+            <label
+              for="theater"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Chọn phòng chiếu <span class="text-red-500">*</span></label
+            >
+            <select
+              (change)="onRoomChange()"
+              formControlName="roomId"
+              id="theater"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn phòng chiếu --</option>
+              <option *ngFor="let room of roomList" [value]="room.id">
+                {{ room.name }} - {{ room.roomType?.name }}
+              </option>
+            </select>
+          </div>
+
+          <!--Time Selection -->
+          <div>
+            <label
+              for="time"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giờ chiếu <span class="text-red-500">*</span></label
+            >
+            <select
+              id="time"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+              formControlName="startTime"
+            >
+              <option value="">-- Chọn giờ chiếu --</option>
+              <option *ngFor="let time of availableTimes" [value]="time">
+                {{ time }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Time Slots -->
+      <div>
+        <div class="space-y-6">
+          <!-- Price Settings -->
+          <div>
+            <label
+              for="basePrice"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giá vé (VND) <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="basePrice"
+              type="number"
+              id="basePrice"
+              min="50000"
+              step="10000"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="100000"
+              required
+            />
+          </div>
+
+          <!--Weekend Price Settings -->
+          <div>
+            <label
+              for="weekendPrice"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giá vé cuối tuần(VND) <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="weekendPrice"
+              type="number"
+              id="weekendPrice"
+              min="50000"
+              step="10000"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="100000"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        routerLink="/admin/showtimes"
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        (click)="onSubmit()"
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Lưu suất chiếu
+      </button>
+    </div>
+  </form>
+</div>

@@ -11,6 +11,11 @@ import { PaginatedResult } from '../../models/paginated-result.model';
 })
 export class MovieService implements IMovieService {
   constructor(private readonly httpClient: HttpClient) {}
+
+  getAllAvailableMovie(): Observable<MovieModel[]> {
+    return this.httpClient.get<MovieModel[]>(ApiEndpoints.getAllAvailableMovie);
+  }
+
   getCommingSoonMovies(): Observable<MovieModel[]> {
     return this.httpClient.get<MovieModel[]>(ApiEndpoints.getCommingSoonMovies);
   }

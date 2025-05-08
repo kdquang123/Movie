@@ -14,7 +14,7 @@ export const ApiEndpoints = {
   getAllMovieStatus: `${environment.apiUrl}/Common/movie-statuses`,
 
   //Movie api
-  getAllMovie: ``,
+  getAllMovie: `${environment.apiUrl}/Movies`,
   getMovieById: `${environment.apiUrl}/Movies`,
   deleteMovie: `${environment.apiUrl}/Movies`,
   updateMovie: `${environment.apiUrl}/Movies`,
@@ -22,6 +22,7 @@ export const ApiEndpoints = {
   searchMovie: `${environment.apiUrl}/Movies/search`,
   getNowPlayingMovies: `${environment.apiUrl}/Movies/now-playing`,
   getCommingSoonMovies: `${environment.apiUrl}/Movies/comming-soon`,
+  getAllAvailableMovie: `${environment.apiUrl}/Movies/available`,
 
   //Room api
   getAllRoom: `${environment.apiUrl}/Rooms`,
@@ -36,4 +37,14 @@ export const ApiEndpoints = {
 
   //Seat api
   changeSeatType: `${environment.apiUrl}/Seats/change-type`,
+
+  //Showtime api
+  getAllShowtime: `${environment.apiUrl}/Showtimes`,
+  getShowtimeById: `${environment.apiUrl}/Showtimes`,
+  getShowtimeByDate: `${environment.apiUrl}/Showtimes/date`,
+  getShowtimeByMovieId: `${environment.apiUrl}/Showtimes/movie`,
+  deleteShowtime: `${environment.apiUrl}/Showtimes`,
+  updateShowtime: `${environment.apiUrl}/Showtimes`,
+  createShowtime: `${environment.apiUrl}/Showtimes/add`,
+  searchShowtime: `${environment.apiUrl}/Showtimes/search`,
 };

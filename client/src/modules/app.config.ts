@@ -10,6 +10,7 @@ import {
   MOVIE_SERVICE,
   ROOM_SERVICE,
   SEAT_SERVICE,
+  SHOWTIME_SERVICE,
 } from '../constants/injection/injection.constant';
 import { AuthService } from '../services/auth/auth.service';
 import { provideHttpClient } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { CommonService } from '../services/common/common.service';
 import { MovieService } from '../services/movie/movie.service';
 import { RoomService } from '../services/room/room.service';
 import { SeatService } from '../services/seat/seat.service';
+import { ShowtimeService } from '../services/showtime/showtime.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +29,7 @@ export const appConfig: ApplicationConfig = {
     { provide: MOVIE_SERVICE, useClass: MovieService },
     { provide: ROOM_SERVICE, useClass: RoomService },
     { provide: SEAT_SERVICE, useClass: SeatService },
+    { provide: SHOWTIME_SERVICE, useClass: ShowtimeService },
     provideAnimations(),
     provideToastr(),
     provideHttpClient(),
