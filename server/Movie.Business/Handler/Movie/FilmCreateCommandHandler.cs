@@ -39,7 +39,7 @@ public class FilmCreateCommandHandler : BaseHandler, IRequestHandler<FilmCreateC
         };
 
         film.Id = Guid.NewGuid();
-        film.CreatedAt = DateTime.UtcNow;
+        film.CreatedAt = DateTime.Now;
 
         // Save the film to the database
         _unitOfWork.FilmRepository.Add(film);

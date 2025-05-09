@@ -41,6 +41,7 @@ public class FilmUpdateCommandHandler : BaseHandler, IRequestHandler<FilmUpdateC
         film.TrailerUrl = request.TrailerUrl;
         film.IMDbScore = request.IMDbScore;
         film.AgeRestrictionId = request.AgeRestrictionId;
+        film.UpdatedAt = DateTime.Now;
         if (request.Categories != null && request.Categories.Count > 0)
         {
             film.FilmCategories!.Clear();
