@@ -5,6 +5,8 @@ import { IMovieService } from '../../services/movie/movie-service.interface';
 import { IRoomService } from '../../services/room/room-service.interface';
 import { ISeatService } from '../../services/seat/seat-service.interface';
 import { IShowtimeService } from '../../services/showtime/showtime-service.interface';
+import { ISeatHoldService } from '../../services/seat-hold/seathold-service.interface';
+import { IBookingService } from '../../services/booking/booking-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -15,4 +17,10 @@ export const ROOM_SERVICE = new InjectionToken<IRoomService>('ROOM_SERVICE');
 export const SEAT_SERVICE = new InjectionToken<ISeatService>('SEAT_SERVICE');
 export const SHOWTIME_SERVICE = new InjectionToken<IShowtimeService>(
   'SHOWTIME_SERVICE'
+);
+export const SEAT_HOLD_SERVICE = new InjectionToken<ISeatHoldService>(
+  'SEAT_HOLD_SERVICE'
+);
+export const BOOKING_SERVICE = new InjectionToken<IBookingService>(
+  'BOOKING_SERVICE'
 );

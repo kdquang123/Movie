@@ -1,202 +1,281 @@
-<div class="flex flex-col lg:flex-row gap-8">
+<div class="flex flex-col lg:flex-row gap-8 px-4 py-12">
   <!-- Left Column - Seat Selection -->
   <div class="lg:w-2/3">
-    <div class="bg-darker rounded-lg border border-gray-800 p-6 mb-6">
-      <h2 class="text-xl font-bold mb-4">THE BATMAN</h2>
-      <div class="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
-        <span><i class="fas fa-calendar-alt mr-1"></i> 15/04/2023</span>
-        <span><i class="fas fa-clock mr-1"></i> 19:30</span>
-        <span
-          ><i class="fas fa-map-marker-alt mr-1"></i> CineDark Vincom, Q.1</span
+    <!-- Countdown Timer -->
+    <div class="bg-gray-800 text-center py-2 mb-6 rounded">
+      <span class="text-primary font-bold"
+        >Thời gian giữ chỗ: <span id="countdown">15:00</span></span
+      >
+    </div>
+    <div *ngIf="!isShowPayment">
+      <div class="bg-darker rounded-lg border border-gray-800 p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">{{ showtime.movie?.name }}</h2>
+        <div class="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
+          <span
+            ><i class="fas fa-calendar-alt mr-1"></i>
+            {{ formatDate(showtime.startTime) }}</span
+          >
+          <span
+            ><i class="fas fa-clock mr-1"></i>
+            {{ getStartTimeOfShowTime(showtime.startTime) }}</span
+          >
+          <span
+            ><i class="fas fa-door-open mr-1"></i
+            >{{ showtime.room?.name }}</span
+          >
+        </div>
+
+        <!-- Screen -->
+        <div class="bg-gray-800 text-center py-2 mb-8 rounded">
+          <span class="text-gray-400">MÀN HÌNH</span>
+        </div>
+
+        <!-- Seat Map -->
+        <div
+          *ngFor="let i of generateArray(seatRows)"
+          class="flex justify-center mb-4"
         >
-        <span><i class="fas fa-door-open mr-1"></i> Phòng chiếu 5</span>
-      </div>
+          <button
+            *ngFor="let j of generateArray(seatColumns)"
+            class="seat available mx-1"
+            (click)="onSeatClick(seatList[i * seatColumns + j].id)"
+            [ngClass]="{
+                  'vip': seatList[i * seatColumns + j].type === 'Vip',
+                  'reserved':
+                    seatList[i * seatColumns + j].type === 'Disabled' || !checkAvailableSeat(seatList[i * seatColumns + j].id),
+                  'selected':
+                    checkMySeat(seatList[i * seatColumns + j].id),
+                }"
+          >
+            {{ seatList[i * seatColumns + j].seatName }}
+          </button>
+        </div>
 
-      <!-- Screen -->
-      <div class="bg-gray-800 text-center py-2 mb-8 rounded">
-        <span class="text-gray-400">MÀN HÌNH</span>
-      </div>
-
-      <!-- Seat Map -->
-      <div class="flex justify-center mb-10">
-        <div class="grid grid-cols-10 gap-2">
-          <!-- Row 1 -->
-          <div class="seat vip available" data-seat="A1">A1</div>
-          <div class="seat vip available" data-seat="A2">A2</div>
-          <div class="seat vip available" data-seat="A3">A3</div>
-          <div class="seat vip available" data-seat="A4">A4</div>
-          <div class="seat vip available" data-seat="A5">A5</div>
-          <div class="seat vip available" data-seat="A6">A6</div>
-          <div class="seat vip available" data-seat="A7">A7</div>
-          <div class="seat vip available" data-seat="A8">A8</div>
-          <div class="seat vip available" data-seat="A9">A9</div>
-          <div class="seat vip available" data-seat="A10">A10</div>
-
-          <!-- Row 2 -->
-          <div class="seat available" data-seat="B1">B1</div>
-          <div class="seat available" data-seat="B2">B2</div>
-          <div class="seat available" data-seat="B3">B3</div>
-          <div class="seat available" data-seat="B4">B4</div>
-          <div class="seat reserved" data-seat="B5">B5</div>
-          <div class="seat reserved" data-seat="B6">B6</div>
-          <div class="seat available" data-seat="B7">B7</div>
-          <div class="seat available" data-seat="B8">B8</div>
-          <div class="seat available" data-seat="B9">B9</div>
-          <div class="seat available" data-seat="B10">B10</div>
-
-          <!-- Row 3-8 (similar pattern) -->
-          <!-- ... -->
-
-          <!-- Row 9 -->
-          <div class="seat available" data-seat="I1">I1</div>
-          <div class="seat available" data-seat="I2">I2</div>
-          <div class="seat available" data-seat="I3">I3</div>
-          <div class="seat available" data-seat="I4">I4</div>
-          <div class="seat reserved" data-seat="I5">I5</div>
-          <div class="seat reserved" data-seat="I6">I6</div>
-          <div class="seat available" data-seat="I7">I7</div>
-          <div class="seat available" data-seat="I8">I8</div>
-          <div class="seat available" data-seat="I9">I9</div>
-          <div class="seat available" data-seat="I10">I10</div>
+        <!-- Seat Legend -->
+        <div class="flex justify-center gap-6 text-sm">
+          <div class="flex items-center">
+            <div class="seat available mr-2"></div>
+            <span class="text-gray-400">Ghế thường</span>
+          </div>
+          <div class="flex items-center">
+            <div class="seat vip mr-2"></div>
+            <span class="text-gray-400">Ghế VIP</span>
+          </div>
+          <div class="flex items-center">
+            <div class="seat reserved mr-2"></div>
+            <span class="text-gray-400">Đã đặt</span>
+          </div>
+          <div class="flex items-center">
+            <div class="seat selected mr-2"></div>
+            <span class="text-gray-400">Đang chọn</span>
+          </div>
         </div>
       </div>
 
-      <!-- Seat Legend -->
-      <div class="flex justify-center gap-6 text-sm">
-        <div class="flex items-center">
-          <div class="seat available mr-2"></div>
-          <span class="text-gray-400">Ghế thường</span>
-        </div>
-        <div class="flex items-center">
-          <div class="seat vip mr-2"></div>
-          <span class="text-gray-400">Ghế VIP</span>
-        </div>
-        <div class="flex items-center">
-          <div class="seat reserved mr-2"></div>
-          <span class="text-gray-400">Đã đặt</span>
-        </div>
-        <div class="flex items-center">
-          <div class="seat selected mr-2"></div>
-          <span class="text-gray-400">Đang chọn</span>
+      <!-- Combo Section -->
+      <div class="bg-darker rounded-lg border border-gray-800 p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">COMBO BẮP NƯỚC</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Combo 1 -->
+          <div
+            class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
+          >
+            <div class="flex items-start mb-3">
+              <img
+                src="https://via.placeholder.com/80x80?text=Combo+1"
+                alt="Combo 1"
+                class="w-16 h-16 object-cover rounded mr-3"
+              />
+              <div>
+                <h3 class="font-medium">Combo Nhỏ</h3>
+                <p class="text-sm text-gray-400">1 bắp vừa + 1 nước</p>
+                <p class="text-primary font-bold mt-1">79,000đ</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center border border-gray-700 rounded">
+                <button
+                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
+                >
+                  -
+                </button>
+                <span class="quantity px-3">0</span>
+                <button
+                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
+                >
+                  +
+                </button>
+              </div>
+              <button
+                class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
+
+          <!-- Combo 2 -->
+          <div
+            class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
+          >
+            <div class="flex items-start mb-3">
+              <img
+                src="https://via.placeholder.com/80x80?text=Combo+2"
+                alt="Combo 2"
+                class="w-16 h-16 object-cover rounded mr-3"
+              />
+              <div>
+                <h3 class="font-medium">Combo Đôi</h3>
+                <p class="text-sm text-gray-400">1 bắp lớn + 2 nước</p>
+                <p class="text-primary font-bold mt-1">129,000đ</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center border border-gray-700 rounded">
+                <button
+                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
+                >
+                  -
+                </button>
+                <span class="quantity px-3">0</span>
+                <button
+                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
+                >
+                  +
+                </button>
+              </div>
+              <button
+                class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
+
+          <!-- Combo 3 -->
+          <div
+            class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
+          >
+            <div class="flex items-start mb-3">
+              <img
+                src="https://via.placeholder.com/80x80?text=Combo+3"
+                alt="Combo 3"
+                class="w-16 h-16 object-cover rounded mr-3"
+              />
+              <div>
+                <h3 class="font-medium">Combo Gia Đình</h3>
+                <p class="text-sm text-gray-400">2 bắp lớn + 4 nước</p>
+                <p class="text-primary font-bold mt-1">219,000đ</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center border border-gray-700 rounded">
+                <button
+                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
+                >
+                  -
+                </button>
+                <span class="quantity px-3">0</span>
+                <button
+                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
+                >
+                  +
+                </button>
+              </div>
+              <button
+                class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Combo Section -->
-    <div class="bg-darker rounded-lg border border-gray-800 p-6 mb-6">
-      <h2 class="text-xl font-bold mb-4">COMBO BẮP NƯỚC</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Combo 1 -->
-        <div
-          class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
-        >
-          <div class="flex items-start mb-3">
-            <img
-              src="https://via.placeholder.com/80x80?text=Combo+1"
-              alt="Combo 1"
-              class="w-16 h-16 object-cover rounded mr-3"
-            />
-            <div>
-              <h3 class="font-medium">Combo Nhỏ</h3>
-              <p class="text-sm text-gray-400">1 bắp vừa + 1 nước</p>
-              <p class="text-primary font-bold mt-1">79,000đ</p>
+    <!--Payment section-->
+    <div *ngIf="isShowPayment">
+      <div class="bg-darker rounded-lg border border-gray-800 p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">PHƯƠNG THỨC THANH TOÁN</h2>
+        <!-- Payment Options -->
+        <div class="space-y-4">
+          <!-- ZaloPay Payment -->
+          <div
+            class="payment-option border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
+          >
+            <div class="flex items-center">
+              <input
+                title="VNPAY"
+                type="radio"
+                name="payment"
+                id="vnpay"
+                class="mr-3"
+                (click)="selectPaymentMethod('VNPay')"
+              />
+              <img
+                src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png"
+                alt="VNPAY"
+                class="w-10 h-10 mr-3"
+              />
+              <div>
+                <h3 class="font-medium">Cổng thanh toán VNPAY</h3>
+                <p class="text-sm text-gray-400">Thanh toán qua VNPAY</p>
+              </div>
             </div>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center border border-gray-700 rounded">
-              <button
-                class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-              >
-                -
-              </button>
-              <span class="quantity px-3">0</span>
-              <button
-                class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-              >
-                +
-              </button>
-            </div>
-            <button
-              class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-            >
-              Thêm
-            </button>
-          </div>
-        </div>
 
-        <!-- Combo 2 -->
-        <div
-          class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
-        >
-          <div class="flex items-start mb-3">
-            <img
-              src="https://via.placeholder.com/80x80?text=Combo+2"
-              alt="Combo 2"
-              class="w-16 h-16 object-cover rounded mr-3"
-            />
-            <div>
-              <h3 class="font-medium">Combo Đôi</h3>
-              <p class="text-sm text-gray-400">1 bắp lớn + 2 nước</p>
-              <p class="text-primary font-bold mt-1">129,000đ</p>
+          <!-- Momo Payment -->
+          <div
+            class="payment-option border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
+          >
+            <div class="flex items-center">
+              <input
+                title="Momo"
+                type="radio"
+                name="payment"
+                id="momo"
+                class="mr-3"
+                (click)="selectPaymentMethod('Momo')"
+              />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
+                alt="Momo"
+                class="w-10 h-10 mr-3"
+              />
+              <div>
+                <h3 class="font-medium">Ví điện tử MoMo</h3>
+                <p class="text-sm text-gray-400">
+                  Thanh toán nhanh chóng qua ví MoMo
+                </p>
+              </div>
             </div>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center border border-gray-700 rounded">
-              <button
-                class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-              >
-                -
-              </button>
-              <span class="quantity px-3">0</span>
-              <button
-                class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-              >
-                +
-              </button>
-            </div>
-            <button
-              class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-            >
-              Thêm
-            </button>
-          </div>
-        </div>
 
-        <!-- Combo 3 -->
-        <div
-          class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
-        >
-          <div class="flex items-start mb-3">
-            <img
-              src="https://via.placeholder.com/80x80?text=Combo+3"
-              alt="Combo 3"
-              class="w-16 h-16 object-cover rounded mr-3"
-            />
-            <div>
-              <h3 class="font-medium">Combo Gia Đình</h3>
-              <p class="text-sm text-gray-400">2 bắp lớn + 4 nước</p>
-              <p class="text-primary font-bold mt-1">219,000đ</p>
+          <!-- Banking Payment -->
+          <div
+            class="payment-option border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
+          >
+            <div class="flex items-center">
+              <input
+                title="Banking"
+                type="radio"
+                name="payment"
+                id="banking"
+                class="mr-3"
+                (click)="selectPaymentMethod('Banking')"
+              />
+              <img
+                src="https://png.pngtree.com/png-vector/20190225/ourmid/pngtree-concept-banking-logo-png-image_712961.jpg"
+                alt="Banking"
+                class="w-10 h-10 mr-3"
+              />
+              <div>
+                <h3 class="font-medium">Thẻ ngân hàng</h3>
+                <p class="text-sm text-gray-400">
+                  Thanh toán bằng thẻ Visa/MasterCard
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center border border-gray-700 rounded">
-              <button
-                class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-              >
-                -
-              </button>
-              <span class="quantity px-3">0</span>
-              <button
-                class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-              >
-                +
-              </button>
-            </div>
-            <button
-              class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-            >
-              Thêm
-            </button>
           </div>
         </div>
       </div>
@@ -204,15 +283,17 @@
 
     <div class="flex justify-between">
       <button
+        (click)="handleGoBack()"
         class="border border-gray-700 hover:border-primary hover:text-primary px-6 py-3 rounded-md font-medium transition"
       >
-        <i class="fas fa-arrow-left mr-2"></i> Quay lại
+        <fa-icon [icon]="faArrowLeft" class="mr-2"></fa-icon> Quay lại
       </button>
       <button
+        (click)="handleContinue()"
         id="next-btn"
         class="bg-primary hover:bg-red-700 px-6 py-3 rounded-md font-medium transition"
       >
-        Tiếp tục <i class="fas fa-arrow-right ml-2"></i>
+        Tiếp tục <fa-icon [icon]="faArrowRight" class="ml-2"></fa-icon>
       </button>
     </div>
   </div>
@@ -225,19 +306,18 @@
         <div class="space-y-3 text-sm">
           <div class="flex justify-between">
             <span class="text-gray-400">Phim:</span>
-            <span class="font-medium">The Batman</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-400">Rạp:</span>
-            <span class="font-medium">CineDark Vincom, Q.1</span>
+            <span class="font-medium">{{ showtime.movie?.name }}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-gray-400">Suất chiếu:</span>
-            <span class="font-medium">19:30 - 15/04/2023</span>
+            <span
+              class="font-medium"
+              >{{`${getStartTimeOfShowTime(showtime.startTime)} - ${formatDate(showtime.startTime)}`}}</span
+            >
           </div>
           <div class="flex justify-between">
             <span class="text-gray-400">Phòng chiếu:</span>
-            <span class="font-medium">Phòng 5</span>
+            <span class="font-medium">{{ showtime.room?.name }}</span>
           </div>
         </div>
       </div>
@@ -245,41 +325,46 @@
       <div class="p-6 border-b border-gray-800">
         <h3 class="font-bold mb-3">GHẾ ĐÃ CHỌN</h3>
         <div id="selected-seats" class="space-y-2 mb-4">
-          <!-- Selected seats will be added here dynamically -->
-          <div class="text-gray-400 text-sm">Chưa chọn ghế</div>
-        </div>
-
-        <!-- Phần combo đã chọn -->
-        <div class="p-6 border-b border-gray-800">
-          <h3 class="font-bold mb-3">COMBO ĐÃ CHỌN</h3>
-          <div id="selected-combos" class="space-y-2 mb-4">
-            <div class="text-gray-400 text-sm">Chưa chọn combo</div>
+          <div *ngIf="myListSeats.length" class="text-gray-400 text-sm">
+            {{ getMySeatNameList() }}
           </div>
-        </div>
-
-        <!-- Phần tổng cộng -->
-        <div class="p-6">
-          <div class="space-y-3 text-sm">
-            <div class="flex justify-between">
-              <span class="text-gray-400">Tổng ghế:</span>
-              <span id="total-seats" class="font-medium">0</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Tổng combo:</span>
-              <span id="total-combos" class="font-medium">0</span>
-            </div>
-            <div
-              class="flex justify-between border-t border-gray-800 pt-3 mt-3"
-            >
-              <span class="text-gray-400">Tổng tiền:</span>
-              <span id="total-price" class="text-primary font-bold text-lg"
-                >0đ</span
-              >
-            </div>
+          <div *ngIf="!myListSeats.length" class="text-gray-400 text-sm">
+            Chưa chọn ghế
           </div>
         </div>
       </div>
 
+      <!-- Phần combo đã chọn -->
+      <div class="p-6 border-b border-gray-800">
+        <h3 class="font-bold mb-3">COMBO ĐÃ CHỌN</h3>
+        <div id="selected-combos" class="space-y-2 mb-4">
+          <div class="text-gray-400 text-sm">Chưa chọn combo</div>
+        </div>
+      </div>
+
+      <!-- Phần tổng cộng -->
+      <div class="p-6">
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-400">Tổng ghế:</span>
+            <span
+              id="total-seats"
+              class="font-medium"
+              >{{`${getTotalSeatPrice()} đ`}}</span
+            >
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Tổng combo:</span>
+            <span id="total-combos" class="font-medium">0</span>
+          </div>
+          <div class="flex justify-between border-t border-gray-800 pt-3 mt-3">
+            <span class="text-gray-400">Tổng tiền:</span>
+            <span id="total-price" class="text-primary font-bold text-lg"
+              >0đ</span
+            >
+          </div>
+        </div>
+      </div>
       <div class="p-6">
         <h3 class="font-bold mb-3">KHUYẾN MÃI</h3>
         <div class="flex mb-4">

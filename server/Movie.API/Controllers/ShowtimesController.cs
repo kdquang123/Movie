@@ -79,4 +79,11 @@ public class ShowtimesController : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpGet("movie/{id}")]
+    public async Task<IActionResult> GetShowtimeByMovieId(Guid id)
+    {
+        var result = await _mediator.Send(new ShowtimeGetByMovieIdQuery { MovieId = id });
+        return Ok(result);
+    }
 }

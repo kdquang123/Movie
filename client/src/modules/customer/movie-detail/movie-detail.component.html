@@ -1,30 +1,30 @@
 <!-- Movie Hero Section -->
 <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
   <img
-    src="https://source.unsplash.com/random/1920x1080/?batman,night"
+    [src]="movie.imageUrl"
     alt="The Batman"
     class="w-full h-full object-cover"
   />
   <div class="absolute inset-0 gradient-overlay flex items-end pb-16">
     <div class="container mx-auto px-4">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">THE BATMAN</h1>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ movie.name }}</h1>
       <div class="flex flex-wrap items-center gap-4 mb-6">
         <span class="bg-primary text-white text-sm px-3 py-1 rounded-full"
-          >9.2/10</span
+          >{{ movie.imDbScore }}/10</span
         >
-        <span>2022</span>
-        <span>2h 56m</span>
-        <span>16+</span>
-        <span>Hành động, Tội phạm, Giật gân</span>
+        <span>{{ getYearOfDate(movie.releaseDate) }}</span>
+        <span>{{ formatMinuteToHour(movie.duration) }}</span>
+        <span>{{ movie.ageRestriction?.code }}</span>
+        <span>{{ formatCategories(movie) }}</span>
       </div>
       <button
         class="bg-primary hover:bg-red-700 px-8 py-3 rounded-md font-medium text-lg mr-4"
       >
-        <fa-icon [icon]="faTicket" class="mr-2"></fa-icon> Đặt
-        vé ngay
+        <fa-icon [icon]="faTicket" class="mr-2"></fa-icon> Đặt vé ngay
       </button>
       <button
-        class="border border-white hover:bg-white hover:bg-opacity-10 px-8 py-3 rounded-md font-medium text-lg"
+        (click)="isShowTrailer = true"
+        class="border border-white hover:bg-white hover:bg-opacity-10 hover:text-black px-8 py-3 rounded-md font-medium text-lg"
       >
         <fa-icon [icon]="faPlay"></fa-icon> Xem trailer
       </button>
@@ -40,71 +40,8 @@
       <div class="lg:w-2/3">
         <h2 class="text-3xl font-bold mb-6">NỘI DUNG PHIM</h2>
         <p class="text-gray-300 mb-8 leading-relaxed">
-          Trong năm thứ hai đấu tranh chống tội phạm, Batman khám phá ra sự tham
-          nhũng lan rộng trong thành phố Gotham khi một kẻ giết người hàng loạt
-          nhắm vào giới thượng lưu của thành phố bằng một loạt các vụ giết người
-          tàn bạo. Khi các đầu mối dẫn đến câu đố bí ẩn, Batman phải xây dựng
-          các mối quan hệ mới, vạch trần kẻ sát nhân và mang lại công lý cho sự
-          lạm dụng quyền lực và tham nhũng đã từ lâu gây khốn khổ cho Gotham.
+          {{ movie.description }}
         </p>
-
-        <div class="mb-12">
-          <h3 class="text-xl font-bold mb-4 border-b border-gray-800 pb-2">
-            DIỄN VIÊN
-          </h3>
-          <div class="flex overflow-x-auto pb-4 gap-4 custom-scrollbar">
-            <!-- Cast 1 -->
-            <div class="flex-shrink-0 w-24 text-center">
-              <img
-                src="https://source.unsplash.com/random/200x200/?actor,man,1"
-                alt="Robert Pattinson"
-                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
-              />
-              <p class="text-sm font-medium">Robert Pattinson</p>
-              <p class="text-xs text-gray-400">Bruce Wayne</p>
-            </div>
-            <!-- Cast 2 -->
-            <div class="flex-shrink-0 w-24 text-center">
-              <img
-                src="https://source.unsplash.com/random/200x200/?actor,man,2"
-                alt="Zoë Kravitz"
-                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
-              />
-              <p class="text-sm font-medium">Zoë Kravitz</p>
-              <p class="text-xs text-gray-400">Selina Kyle</p>
-            </div>
-            <!-- Cast 3 -->
-            <div class="flex-shrink-0 w-24 text-center">
-              <img
-                src="https://source.unsplash.com/random/200x200/?actor,man,3"
-                alt="Paul Dano"
-                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
-              />
-              <p class="text-sm font-medium">Paul Dano</p>
-              <p class="text-xs text-gray-400">Riddler</p>
-            </div>
-            <!-- Cast 4 -->
-            <div class="flex-shrink-0 w-24 text-center">
-              <img
-                src="https://source.unsplash.com/random/200x200/?actor,man,4"
-                alt="Colin Farrell"
-                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
-              />
-              <p class="text-sm font-medium">Colin Farrell</p>
-              <p class="text-xs text-gray-400">Penguin</p>
-            </div>
-            <!-- Cast 5 -->
-            <div class="flex-shrink-0 w-24 text-center">
-              <img
-                src="https://source.unsplash.com/random/200x200/?actor,man,5"
-                alt="Jeffrey Wright"
-                class="w-24 h-24 rounded-full object-cover mb-2 mx-auto"
-              />
-              <p class="text-sm font-medium">Jeffrey Wright</p>
-              <p class="text-xs text-gray-400">Gordon</p>
-            </div>
-          </div>
-        </div>
 
         <div>
           <h3 class="text-xl font-bold mb-4 border-b border-gray-800 pb-2">
@@ -212,37 +149,24 @@
           <div
             class="bg-darker border border-gray-800 rounded-lg overflow-hidden mb-8"
           >
-            <img
-              src="https://source.unsplash.com/random/300x450/?movie,poster,batman"
-              alt="The Batman Poster"
-              class="w-full movie-poster"
-            />
             <div class="p-6">
               <h3 class="font-bold text-xl mb-4">THÔNG TIN CHI TIẾT</h3>
               <div class="space-y-4">
                 <div>
                   <p class="text-gray-400 text-sm">ĐẠO DIỄN</p>
-                  <p class="font-medium">Matt Reeves</p>
+                  <p class="font-medium">{{ movie.director }}</p>
                 </div>
                 <div>
-                  <p class="text-gray-400 text-sm">KỊCH BẢN</p>
-                  <p class="font-medium">Matt Reeves, Peter Craig</p>
+                  <p class="text-gray-400 text-sm">DIỄN VIÊN</p>
+                  <p class="font-medium">{{ movie.actors }}</p>
                 </div>
                 <div>
                   <p class="text-gray-400 text-sm">NGÀY CÔNG CHIẾU</p>
-                  <p class="font-medium">04/03/2022</p>
+                  <p class="font-medium">{{ formatDate(movie.releaseDate) }}</p>
                 </div>
                 <div>
                   <p class="text-gray-400 text-sm">THỂ LOẠI</p>
-                  <p class="font-medium">Hành động, Tội phạm, Giật gân</p>
-                </div>
-                <div>
-                  <p class="text-gray-400 text-sm">QUỐC GIA</p>
-                  <p class="font-medium">Mỹ</p>
-                </div>
-                <div>
-                  <p class="text-gray-400 text-sm">NGÔN NGỮ</p>
-                  <p class="font-medium">Tiếng Anh - Phụ đề Tiếng Việt</p>
+                  <p class="font-medium">{{ formatCategories(movie) }}</p>
                 </div>
               </div>
             </div>
@@ -254,64 +178,26 @@
               <label class="block text-gray-400 text-sm mb-2">CHỌN NGÀY</label>
               <div class="grid grid-cols-4 gap-2">
                 <button
+                  *ngFor="let date of dateList"
+                  (click)="onDateSelect(date)"
+                  [ngClass]="
+                    selectedDate == date ? ' bg-primary text-white' : ''
+                  "
                   class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
                 >
-                  Hôm nay
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  Ngày mai
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  Thứ 7
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  CN
+                  {{ formatDate(date).slice(0, 5) }}
                 </button>
               </div>
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-400 text-sm mb-2">CHỌN PHÒNG</label>
-              <select
-                class="w-full bg-dark border border-gray-700 rounded-md p-2 focus:outline-none focus:border-primary"
-              >
-                <option>Phòng 1</option>
-                <option>Phòng 2</option>
-                <option>Phòng 3</option>
-              </select>
             </div>
             <div>
               <label class="block text-gray-400 text-sm mb-2">CHỌN SUẤT</label>
               <div class="grid grid-cols-3 gap-2">
                 <button
+                  *ngFor="let showtime of showtimesOfMovieByDate"
                   class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
+                  (click)="onSelectShowtime(showtime.id)"
                 >
-                  10:00
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  13:30
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  16:45
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  19:00
-                </button>
-                <button
-                  class="bg-dark hover:bg-primary hover:text-white py-2 rounded-md text-sm border border-gray-700"
-                >
-                  21:30
+                  {{`${getStartTimeOfShowTime(showtime.startTime)} - ${showtime.room!.name} : ${showtime.room!.roomType?.name}`}}
                 </button>
               </div>
             </div>
@@ -437,3 +323,19 @@
     </div>
   </div>
 </section>
+
+<div
+  *ngIf="isShowTrailer"
+  (click)="isShowTrailer = false"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md"
+>
+  <iframe
+    width="928"
+    height="522"
+    [src]="youtubeUrl"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</div>

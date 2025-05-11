@@ -6,9 +6,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import {
   AUTH_SERVICE,
+  BOOKING_SERVICE,
   COMMON_SERVICE,
   MOVIE_SERVICE,
   ROOM_SERVICE,
+  SEAT_HOLD_SERVICE,
   SEAT_SERVICE,
   SHOWTIME_SERVICE,
 } from '../constants/injection/injection.constant';
@@ -19,6 +21,8 @@ import { MovieService } from '../services/movie/movie.service';
 import { RoomService } from '../services/room/room.service';
 import { SeatService } from '../services/seat/seat.service';
 import { ShowtimeService } from '../services/showtime/showtime.service';
+import { SeatHoldService } from '../services/seat-hold/seathold.service';
+import { BookingService } from '../services/booking/booking.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +34,8 @@ export const appConfig: ApplicationConfig = {
     { provide: ROOM_SERVICE, useClass: RoomService },
     { provide: SEAT_SERVICE, useClass: SeatService },
     { provide: SHOWTIME_SERVICE, useClass: ShowtimeService },
+    { provide: SEAT_HOLD_SERVICE, useClass: SeatHoldService },
+    { provide: BOOKING_SERVICE, useClass: BookingService },
     provideAnimations(),
     provideToastr(),
     provideHttpClient(),

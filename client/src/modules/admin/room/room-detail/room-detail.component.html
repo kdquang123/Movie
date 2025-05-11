@@ -173,19 +173,19 @@
             class="flex justify-center mb-2"
           >
             <div
-              (click)="selectSeat(seatMap[i * seatColumns + j]?.id)"
+              (click)="selectSeat(seatMap[i * seatColumns + j].id)"
               *ngFor="let j of generateArray(seatColumns)"
               class="seat mx-1"
               [ngClass]="{
-                'seat-normal': seatMap[i * seatColumns + j]?.type === 'Normal',
-                'seat-vip': seatMap[i * seatColumns + j]?.type === 'Vip',
+                'seat-normal': seatMap[i * seatColumns + j].type === 'Normal',
+                'seat-vip': seatMap[i * seatColumns + j].type === 'Vip',
                 'seat-disabled':
-                  seatMap[i * seatColumns + j]?.type === 'Disabled',
+                  seatMap[i * seatColumns + j].type === 'Disabled',
                 'seat-selected':
-                  seatMap[i * seatColumns + j]?.id === selectedId,
+                  seatMap[i * seatColumns + j].id === selectedId,
               }"
             >
-              {{ seatMap[i * seatColumns + j]?.seatName }}
+              {{ seatMap[i * seatColumns + j].seatName }}
             </div>
           </div>
         </div>

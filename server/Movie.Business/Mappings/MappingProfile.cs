@@ -24,5 +24,6 @@ public class MappingProfile : Profile
         .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.FilmId))
         .ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Film))
         .ReverseMap();
+        CreateMap<SeatHold, SeatHoldViewModel>().ReverseMap();
     }
 }
