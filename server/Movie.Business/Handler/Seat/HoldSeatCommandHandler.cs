@@ -20,7 +20,7 @@ public class HoldSeatCommandHandler : BaseHandler, IRequestHandler<HoldSeatComma
         var existSeatHold = await _unitOfWork.SeatHoldRepository.GetQuery().Where(sh => sh.ShowtimeId == request.ShowtimeId && sh.UserId == request.UserId).FirstOrDefaultAsync(cancellationToken);
         if (existSeatHold == null)
         {
-            seatHold = new SeatHold { SeatId = request.SeatId, ShowtimeId = request.ShowtimeId, UserId = request.UserId, CreatedAt = DateTime.Now, ExpireAt = DateTime.Now.AddMinutes(15) };
+            seatHold = new SeatHold { SeatId = request.SeatId, ShowtimeId = request.ShowtimeId, UserId = request.UserId, CreatedAt = DateTime.Now, ExpireAt = DateTime.Now.AddMinutes(16) };
         }
         else
         {

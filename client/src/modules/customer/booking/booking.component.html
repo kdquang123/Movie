@@ -4,7 +4,10 @@
     <!-- Countdown Timer -->
     <div class="bg-gray-800 text-center py-2 mb-6 rounded">
       <span class="text-primary font-bold"
-        >Thời gian giữ chỗ: <span id="countdown">15:00</span></span
+        >Thời gian giữ chỗ:
+        <span id="countdown">{{
+          formatCountDownTime(countdownTime)
+        }}</span></span
       >
     </div>
     <div *ngIf="!isShowPayment">

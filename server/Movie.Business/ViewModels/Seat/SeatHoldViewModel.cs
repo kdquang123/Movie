@@ -9,4 +9,6 @@ public class SeatHoldViewModel
     public Guid ShowtimeId { get; set; }
     public Guid UserId { get; set; }
     public User? User { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime ExpireAt { get; set; }
 }

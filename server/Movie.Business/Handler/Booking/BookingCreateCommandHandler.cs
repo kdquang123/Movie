@@ -47,15 +47,16 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
         }
 
         decimal totalPrice = seatTotalPrice + productTotalPrice;
-
-
+        var bookingCode = "ORD" + DateTime.UtcNow.Ticks.ToString().Substring(0, 10);
         var existSeatHold = await _unitOfWork.SeatHoldRepository.GetQuery().Where(sh => sh.ShowtimeId == request.Showtime.Id && sh.UserId == request.UserId).FirstOrDefaultAsync(cancellationToken);
         var newBooking = new Booking
         {
             ShowTimeId = request.Showtime.Id,
             UserId = request.UserId,
-            ExpireAt = existSeatHold!.ExpireAt.AddMinutes(-1),
-            BookingStatus = BookingStatus.Pending
+            ExpireAt = existSeatHold!.ExpireAt,
+            BookingStatus = BookingStatus.Pending,
+            BookingCode = bookingCode,
+            CreatedAt = DateTime.Now
         };
 
         if (request.PromotionCode != null)
@@ -67,7 +68,7 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
         _unitOfWork.BookingRepository.Add(newBooking);
         await _unitOfWork.SaveChangesAsync();
 
-        string paymentUrl = _vnPayService.CreatePaymentUrl(totalPrice, newBooking.Id.ToString());
+        string paymentUrl = _vnPayService.CreatePaymentUrl(newBooking);
 
         return paymentUrl;
     }

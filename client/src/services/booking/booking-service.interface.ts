@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { BookingCreateModel } from '../../models/booking/booking-create.model';
+import { BookingResponseModel } from '../../models/booking/booking-response.model';
 
 export interface IBookingService {
-  createBooking(bookingCreateModel: any): Observable<string>;
+  createBooking(bookingCreateModel: any): Observable<BookingResponseModel>;
 }

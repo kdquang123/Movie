@@ -41,6 +41,9 @@ builder.Services.AddIdentity<User, Role>(options =>
     .AddEntityFrameworkStores<MovieDbContext>()
     .AddDefaultTokenProviders();
 
+//Register IHttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 //Register Service
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITokenService, TokenService>();

@@ -44,6 +44,10 @@ export class BookingComponent implements OnInit, OnDestroy {
   isShowPayment: boolean = false;
   paymentMethod: string = '';
 
+  isCountdownStarted: boolean = false;
+  countdownTime: number = 15 * 60;
+  countdownInterval: any;
+
   constructor(
     @Inject(SHOWTIME_SERVICE)
     private readonly showtimeService: IShowtimeService,
@@ -122,11 +126,20 @@ export class BookingComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.seatHoldService
-      .holdSeats(this.showtimeId, seatId, this.userId)
-      .then(() => {
-        console.log(this.heldSeats);
-      });
+    this.seatHoldService.holdSeats(this.showtimeId, seatId, this.userId);
+    if (!this.isCountdownStarted) {
+      this.isCountdownStarted = true;
+
+      this.countdownInterval = setInterval(() => {
+        if (this.countdownTime > 0) {
+          this.countdownTime--;
+        } else {
+          clearInterval(this.countdownInterval);
+          this.toastr.error('Hết giờ', 'Thông báo');
+          this.router.navigate(['/movies', this.showtime.movie?.id]);
+        }
+      }, 1000);
+    }
   }
 
   getMyListHoldSeatId(): string[] {
@@ -216,8 +229,13 @@ export class BookingComponent implements OnInit, OnDestroy {
           paymentMethod: this.paymentMethod,
           promotionCode: '',
         })
-        .subscribe((response) => {
-          console.log(response);
+        .subscribe({
+          next: (response) => {
+            window.location.href = response.paymentUrl;
+          },
+          error: (error) => {
+            console.log(error);
+          },
         });
     } else if (this.isShowPayment == true && this.paymentMethod == '') {
       this.toastr.error('Chưa chọn hình thức thanh toán', 'Thông báo');
@@ -232,6 +250,13 @@ export class BookingComponent implements OnInit, OnDestroy {
 
   selectPaymentMethod(method: string) {
     this.paymentMethod = method;
-    console.log(this.paymentMethod);
+  }
+
+  formatCountDownTime(seconds: number): string {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min.toString().padStart(2, '0')}:${sec
+      .toString()
+      .padStart(2, '0')}`;
   }
 }
