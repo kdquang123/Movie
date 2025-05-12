@@ -22,6 +22,7 @@ public class RoomCreateCommandHandler : BaseHandler, IRequestHandler<RoomCreateC
             TotalColumns = request.TotalColumns,
             RoomTypeId = request.RoomTypeId,
             SeatQuantity = request.TotalRows * request.TotalColumns,
+            CreatedAt = DateTime.Now
         };
 
         newRoom.Seats = new List<Seat>();

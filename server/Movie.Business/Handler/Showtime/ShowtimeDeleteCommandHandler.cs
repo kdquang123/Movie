@@ -18,7 +18,7 @@ public class ShowtimeDeleteCommandHandler : BaseHandler, IRequestHandler<Showtim
             return false;
 
         showtime.IsDelete = true;
-        showtime.DeletedAt = DateTime.UtcNow;
+        showtime.DeletedAt = DateTime.Now;
         await _unitOfWork.SaveChangesAsync();
         return true;
     }

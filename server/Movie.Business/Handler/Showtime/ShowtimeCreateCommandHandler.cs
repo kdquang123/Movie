@@ -35,7 +35,7 @@ public class ShowtimeCreateCommandHandler : BaseHandler, IRequestHandler<Showtim
             EndTime = request.StartDate.AddMinutes(request.Duration),
             BasePrice = request.BasePrice,
             WeekendPrice = request.WeekendPrice,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.Now
         };
 
         _unitOfWork.ShowTimeRepository.Add(showtime);

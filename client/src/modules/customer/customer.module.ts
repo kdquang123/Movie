@@ -7,6 +7,8 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { BookingComponent } from './booking/booking.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
+import { BookingSuccessComponent } from './booking-result/booking-success/booking-success.component';
+import { BookingFailedComponent } from './booking-result/booking-failed/booking-failed.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'booking/:id', component: BookingComponent },
   { path: 'my-ticket', component: MyTicketComponent },
+  { path: 'booking-success', component: BookingSuccessComponent },
+  { path: 'booking-failed', component: BookingFailedComponent },
   { path: '**', redirectTo: 'home' },
 ];
 

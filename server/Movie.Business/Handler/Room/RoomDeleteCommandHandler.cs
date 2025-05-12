@@ -17,7 +17,7 @@ public class RoomDeleteCommandHandler : BaseHandler, IRequestHandler<RoomDeleteC
         var room = await _unitOfWork.RoomRepository.GetByIdAsync(request.Id);
         if (room == null) return false;
         room.IsDelete = true;
-        room.DeletedAt = DateTime.UtcNow;
+        room.DeletedAt = DateTime.Now;
         return await _unitOfWork.SaveChangesAsync() > 0;
     }
 }

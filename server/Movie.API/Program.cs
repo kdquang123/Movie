@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Movie.API.Hubs;
 using Movie.Business.Handler;
 using Movie.Business.Mappings;
 using Movie.Business.Services;
@@ -40,10 +41,16 @@ builder.Services.AddIdentity<User, Role>(options =>
     .AddEntityFrameworkStores<MovieDbContext>()
     .AddDefaultTokenProviders();
 
+//Register IHttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 //Register Service
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IVNPayService, VNPayService>();
+
+builder.Services.AddHostedService<SeatHoldAndBookingCleanUpService>();
 
 // Register AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
@@ -74,12 +81,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", opt => opt
       .WithOrigins(builder.Configuration.GetSection("CORs:AllowedOrigins").Get<string[]>() ?? [])
-      .WithHeaders(builder.Configuration.GetSection("CORs:AllowedHeaders").Get<string[]>() ?? [])
-      .WithMethods(builder.Configuration.GetSection("CORs:AllowedMethods").Get<string[]>() ?? []));
+      .AllowAnyHeader()
+      .WithMethods(builder.Configuration.GetSection("CORs:AllowedMethods").Get<string[]>() ?? [])
+      .AllowCredentials());
 
     options.AddPolicy("AllowAnyOrigin", opt => opt
         .AllowAnyOrigin()
@@ -87,6 +96,8 @@ builder.Services.AddCors(options =>
         .AllowAnyHeader());
 });
 
+// Add SignalR
+builder.Services.AddSignalR();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -107,10 +118,12 @@ if (app.Environment.IsDevelopment())
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
     await DbInitializer.Seed(context, userManager, roleManager);
 }
-
+app.UseRouting();
 app.UseCors("CorsPolicy");
 
 app.MapControllers();
+
+app.MapHub<SeatHub>("/seathub");
 
 app.UseHttpsRedirection();
 

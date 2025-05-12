@@ -212,6 +212,10 @@ namespace Movie.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BookingCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("BookingStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -220,6 +224,9 @@ namespace Movie.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelete")
@@ -783,13 +790,13 @@ namespace Movie.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BookingId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelete")
@@ -801,15 +808,15 @@ namespace Movie.Data.Migrations
                     b.Property<Guid>("ShowtimeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("SeatHolds");
                 });
@@ -1186,11 +1193,13 @@ namespace Movie.Data.Migrations
 
             modelBuilder.Entity("Movie.Models.SeatHold", b =>
                 {
-                    b.HasOne("Movie.Models.Booking", "Booking")
+                    b.HasOne("Movie.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("BookingId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Booking");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Movie.Models.Showtime", b =>

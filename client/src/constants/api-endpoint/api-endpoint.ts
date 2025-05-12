@@ -47,4 +47,10 @@ export const ApiEndpoints = {
   updateShowtime: `${environment.apiUrl}/Showtimes`,
   createShowtime: `${environment.apiUrl}/Showtimes/add`,
   searchShowtime: `${environment.apiUrl}/Showtimes/search`,
+
+  //
+  seatHubUrl: `http://localhost:5095/seathub`,
+
+  //Booking api
+  createBooking: `${environment.apiUrl}/Bookings/create`,
 };

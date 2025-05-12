@@ -18,7 +18,7 @@ public class FimlDeleteCommandHandler : BaseHandler, IRequestHandler<FilmDeleteC
             return false;
 
         film.IsDelete = true;
-        film.DeletedAt = DateTime.UtcNow;
+        film.DeletedAt = DateTime.Now;
         _unitOfWork.SaveChanges();
         return true;
     }

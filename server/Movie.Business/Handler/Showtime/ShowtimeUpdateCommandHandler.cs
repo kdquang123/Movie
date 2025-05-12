@@ -35,7 +35,7 @@ public class ShowtimeUpdateCommandHandler : BaseHandler, IRequestHandler<Showtim
         showtime.EndTime = request.StartDate.AddMinutes(request.Duration);
         showtime.BasePrice = request.BasePrice;
         showtime.WeekendPrice = request.WeekendPrice;
-        showtime.UpdatedAt = DateTime.UtcNow;
+        showtime.UpdatedAt = DateTime.Now;
         await _unitOfWork.SaveChangesAsync();
         return true;
     }

@@ -14,6 +14,7 @@
       <div
         *ngFor="let movie of nowPlayingMovies"
         class="movie-card bg-darker rounded-lg overflow-hidden border border-gray-800"
+        [routerLink]="['/movies', movie.id]"
       >
         <div class="relative">
           <img

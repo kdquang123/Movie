@@ -17,6 +17,7 @@ public class RoomUpdateCommandHandler : BaseHandler, IRequestHandler<RoomUpdateC
         if (room == null) return false;
         room.Name = request.Name;
         room.RoomTypeId = request.RoomTypeId;
+        room.UpdatedAt = DateTime.Now;
         var result = await _unitOfWork.SaveChangesAsync();
         return true;
     }
