@@ -53,4 +53,12 @@ export const ApiEndpoints = {
 
   //Booking api
   createBooking: `${environment.apiUrl}/Bookings/create`,
+
+  //Product api
+  getAllProduct: `${environment.apiUrl}/Products`,
+  getProductById: `${environment.apiUrl}/Products`,
+  deleteProduct: `${environment.apiUrl}/Products`,
+  updateProduct: `${environment.apiUrl}/Products`,
+  createProduct: `${environment.apiUrl}/Products/add`,
+  searchProduct: `${environment.apiUrl}/Products/search`,
 };

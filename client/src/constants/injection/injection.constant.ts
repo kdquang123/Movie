@@ -7,6 +7,7 @@ import { ISeatService } from '../../services/seat/seat-service.interface';
 import { IShowtimeService } from '../../services/showtime/showtime-service.interface';
 import { ISeatHoldService } from '../../services/seat-hold/seathold-service.interface';
 import { IBookingService } from '../../services/booking/booking-service.interface';
+import { IProductService } from '../../services/product/product-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -23,4 +24,8 @@ export const SEAT_HOLD_SERVICE = new InjectionToken<ISeatHoldService>(
 );
 export const BOOKING_SERVICE = new InjectionToken<IBookingService>(
   'BOOKING_SERVICE'
+);
+
+export const PRODUCT_SERVICE = new InjectionToken<IProductService>(
+  'PRODUCT_SERVICE'
 );

@@ -5,7 +5,7 @@
   <div>
     <h2 class="text-lg font-semibold text-gray-800">Danh sách sản phẩm</h2>
     <p class="text-sm text-gray-500">
-      Quản lý các sản phẩm tại các cửa hàng CineDark
+      Quản lý các sản phẩm tại các cửa hàng KDCinema
     </p>
   </div>
   <button
@@ -17,80 +17,30 @@
   </button>
 </div>
 
-<!-- Tab Navigation -->
-<div class="border-b border-gray-200 mb-6">
-  <div class="flex overflow-x-auto hide-scrollbar">
-    <button
-      class="tab-button active whitespace-nowrap px-5 py-3 font-medium text-sm border-b-2 border-primary text-primary"
-    >
-      Tất cả sản phẩm
-    </button>
-    <button
-      class="tab-button whitespace-nowrap px-5 py-3 font-medium text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700"
-    >
-      Đồ ăn
-    </button>
-    <button
-      class="tab-button whitespace-nowrap px-5 py-3 font-medium text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700"
-    >
-      Đồ uống
-    </button>
-    <button
-      class="tab-button whitespace-nowrap px-5 py-3 font-medium text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700"
-    >
-      Combo
-    </button>
-    <button
-      class="tab-button whitespace-nowrap px-5 py-3 font-medium text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700"
-    >
-      Merchandise
-    </button>
-    <button
-      class="tab-button whitespace-nowrap px-5 py-3 font-medium text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700"
-    >
-      Hết hàng
-    </button>
-  </div>
-</div>
-
 <!-- Search and Filter Tools -->
-<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<div [formGroup]="searchForm" class="bg-gray-50 p-4 rounded-lg mb-6">
   <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
     <div class="relative">
       <span
         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
       >
-        <i class="fas fa-search text-gray-400"></i>
+        <fa-icon [icon]="faSearch" class="text-gray-400"></fa-icon>
       </span>
       <input
+        formControlName="keyword"
         type="text"
         placeholder="Tìm kiếm sản phẩm..."
         class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
       />
     </div>
-
     <div>
       <select
-        title="productType"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-      >
-        <option value="">Tất cả danh mục</option>
-        <option value="food">Đồ ăn</option>
-        <option value="drink">Đồ uống</option>
-        <option value="combo">Combo</option>
-        <option value="merch">Merchandise</option>
-        <option value="gift">Quà tặng</option>
-      </select>
-    </div>
-
-    <div>
-      <select
+        formControlName="status"
         title="productStatus"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
       >
         <option value="">Tình trạng</option>
         <option value="in-stock">Còn hàng</option>
-        <option value="low-stock">Sắp hết</option>
         <option value="out-of-stock">Hết hàng</option>
         <option value="discontinued">Ngừng kinh doanh</option>
       </select>
@@ -98,6 +48,7 @@
 
     <div class="flex space-x-2">
       <button
+        (click)="onSubmit()"
         class="bg-primary px-4 py-2 rounded-md text-white font-medium hover:bg-red-700 transition"
       >
         <fa-icon [icon]="faFilter"></fa-icon> Lọc
@@ -121,5 +72,7 @@
   [pageSizeOptions]="pageSizeOptions"
   (onPageChange)="onPageChange($event)"
   (onPageSizeChange)="onPageSizeChange($event)"
+  (onView)="detail($event)"
+  (onDelete)="delete($event)"
 >
 </app-table>

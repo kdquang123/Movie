@@ -9,6 +9,7 @@ import {
   BOOKING_SERVICE,
   COMMON_SERVICE,
   MOVIE_SERVICE,
+  PRODUCT_SERVICE,
   ROOM_SERVICE,
   SEAT_HOLD_SERVICE,
   SEAT_SERVICE,
@@ -23,6 +24,7 @@ import { SeatService } from '../services/seat/seat.service';
 import { ShowtimeService } from '../services/showtime/showtime.service';
 import { SeatHoldService } from '../services/seat-hold/seathold.service';
 import { BookingService } from '../services/booking/booking.service';
+import { ProductService } from '../services/product/product.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     { provide: SHOWTIME_SERVICE, useClass: ShowtimeService },
     { provide: SEAT_HOLD_SERVICE, useClass: SeatHoldService },
     { provide: BOOKING_SERVICE, useClass: BookingService },
+    { provide: PRODUCT_SERVICE, useClass: ProductService },
     provideAnimations(),
     provideToastr(),
     provideHttpClient(),
