@@ -18,6 +18,7 @@ import {
   FormArray,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-movie',
@@ -37,7 +38,8 @@ export class AddMovieComponent implements OnInit {
   constructor(
     @Inject(COMMON_SERVICE) private readonly commonService: ICommonService,
     @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -114,6 +116,7 @@ export class AddMovieComponent implements OnInit {
           this.toastr.success('Thêm phim thành công!', 'Success');
           this.movieForm.reset();
           (this.movieForm.get('categories') as FormArray).clear();
+          this.router.navigate(['/admin/movies']);
         },
         error: (error) => {
           this.toastr.error(error.error.message, 'Error');

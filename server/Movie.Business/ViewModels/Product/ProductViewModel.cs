@@ -10,4 +10,5 @@ public class ProductViewModel
     public required decimal Price { get; set; }
     public required string ImageUrl { get; set; }
     public int Quantity { get; set; }
+    public bool IsActive { get; set; }
 }

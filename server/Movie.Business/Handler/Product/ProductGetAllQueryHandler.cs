@@ -16,7 +16,7 @@ public class ProductGetAllQueryHandler : BaseHandler, IRequestHandler<ProductGet
     public async Task<IEnumerable<ProductViewModel>> Handle(ProductGetAllQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.ProductRepository.GetQuery();
-        var result = await query.Where(p => p.IsDelete == false).ToListAsync(cancellationToken);
+        var result = await query.Where(p => p.IsDelete == false && p.IsActive == true).ToListAsync(cancellationToken);
         return _mapper.Map<IEnumerable<ProductViewModel>>(result);
     }
 }

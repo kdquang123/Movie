@@ -10,6 +10,6 @@ public class ProductUpdateCommand : IRequest<bool>
     public required string Name { get; set; }
     public string? Description { get; set; }
     public required decimal Price { get; set; }
-    public IFormFile? ProductImg { get; set; }
+    public IFormFile? ProductImage { get; set; }
     public int Quantity { get; set; }
 }

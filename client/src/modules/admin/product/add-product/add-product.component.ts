@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faCloudUploadAlt, faSave } from '@fortawesome/free-solid-svg-icons';
 import { IProductService } from '../../../../services/product/product-service.interface';
 import { PRODUCT_SERVICE } from '../../../../constants/injection/injection.constant';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddProductComponent implements OnInit {
   faSave = faSave;
+  faCloundUploadAlt = faCloudUploadAlt;
 
   productForm!: FormGroup;
 

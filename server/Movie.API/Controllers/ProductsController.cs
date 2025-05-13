@@ -51,4 +51,11 @@ public class ProductsController : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpPost("search")]
+    public async Task<IActionResult> SearchProduct([FromBody] ProductSearchQuery query)
+    {
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 }

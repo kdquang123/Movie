@@ -24,9 +24,9 @@ public class ProductUpdateCommandHandler : BaseHandler, IRequestHandler<ProductU
             return false;
         }
 
-        if (request.ProductImg != null)
+        if (request.ProductImage != null)
         {
-            var imageUrl = await _fileService.UploadFileAsync(request.ProductImg, "product");
+            var imageUrl = await _fileService.UploadFileAsync(request.ProductImage, "product");
             product!.ImageUrl = imageUrl;
         }
         product!.Name = request.Name;
