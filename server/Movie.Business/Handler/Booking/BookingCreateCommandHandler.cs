@@ -36,9 +36,12 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
             }
         }
 
-        if (request.ProductList != null)
+        if (request.ProductList != null && request.ProductList.Length > 0)
         {
-
+            foreach (var bookingDetail in request.ProductList)
+            {
+                productTotalPrice += bookingDetail.Product!.Price * bookingDetail.Quantity;
+            }
         }
 
         if (request.PromotionCode != null)
@@ -62,6 +65,19 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
         if (request.PromotionCode != null)
         {
             newBooking.PromotionCode = request.PromotionCode;
+        }
+
+        if (request.ProductList != null && request.ProductList.Length > 0)
+        {
+            foreach (var bookingDetail in request.ProductList)
+            {
+                newBooking.BookingDetails.Add(new BookingDetail
+                {
+                    ProductId = bookingDetail.Product!.Id,
+                    Quantity = bookingDetail.Quantity,
+                    ProductPrice = bookingDetail.Product!.Price,
+                });
+            }
         }
 
         newBooking.TotalPrice = totalPrice;

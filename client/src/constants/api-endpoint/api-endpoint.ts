@@ -48,11 +48,12 @@ export const ApiEndpoints = {
   createShowtime: `${environment.apiUrl}/Showtimes/add`,
   searchShowtime: `${environment.apiUrl}/Showtimes/search`,
 
-  //
+  //Seat hold
   seatHubUrl: `http://localhost:5095/seathub`,
 
   //Booking api
   createBooking: `${environment.apiUrl}/Bookings/create`,
+  getBookingByUserId: `${environment.apiUrl}/Bookings/user/`,
 
   //Product api
   getAllProduct: `${environment.apiUrl}/Products`,
@@ -61,4 +62,10 @@ export const ApiEndpoints = {
   updateProduct: `${environment.apiUrl}/Products`,
   createProduct: `${environment.apiUrl}/Products/add`,
   searchProduct: `${environment.apiUrl}/Products/search`,
+
+  //Ticket api
+  getTicketByShowtimeId: `${environment.apiUrl}/Tickets/showtime`,
+  getTicketByBookingId: `${environment.apiUrl}/Tickets/booking`,
+  getTicketByTicketCode: `${environment.apiUrl}/Tickets/code`,
+  approveTicket: `${environment.apiUrl}/Tickets/approve`,
 };

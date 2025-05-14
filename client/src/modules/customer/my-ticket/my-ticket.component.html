@@ -1,5 +1,5 @@
 <!-- Main Content Area -->
-<div class="flex-1">
+<div class="flex-1 p-8">
   <div class="flex justify-between items-center mb-8">
     <h1 class="text-2xl md:text-3xl font-bold">
       <fa-icon [icon]="faTicketAlt" class="text-primary mr-2"></fa-icon> Vé Đã
@@ -22,75 +22,76 @@
     </div>
   </div>
 
-  <!-- Upcoming Tickets -->
-  <div id="upcoming-tickets">
-    <!-- Ticket 1 -->
+  <div id="tickets">
+    <!-- Booking -->
     <div
+      *ngFor="let booking of showingBookingList"
       class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
     >
       <div class="flex flex-col md:flex-row">
         <!-- Movie Poster -->
         <div class="w-full md:w-48 flex-shrink-0">
           <img
-            src="https://source.unsplash.com/random/300x450/?movie,poster"
+            [src]="booking.showtime.movie?.imageUrl"
             alt="Movie Poster"
             class="w-full h-full object-cover"
           />
         </div>
 
-        <!-- Ticket Info -->
+        <!-- Booking Info -->
         <div class="p-6 flex-1">
           <div class="flex flex-col md:flex-row md:justify-between">
             <div class="mb-4 md:mb-0">
               <span class="text-primary text-sm font-medium"
                 >PHIM ĐANG CHIẾU</span
               >
-              <h2 class="text-xl font-bold mt-1">John Wick: Chapter 4</h2>
+              <h2 class="text-xl font-bold mt-1">
+                {{ booking.showtime.movie?.name }}
+              </h2>
               <div class="flex items-center mt-2 text-gray-400 text-sm">
                 <span
                   ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
-                  15/04/2023</span
+                  {{ formatDate(booking.showtime.startTime) }}</span
                 >
                 <span class="mx-3">|</span>
                 <span
-                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon> 14:30</span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon>
+                  {{ getStartTimeOfShowTime(booking.showtime.startTime) }}</span
                 >
                 <span class="mx-3">|</span>
-                <span
-                  ><fa-icon [icon]="faMapMarkerAlt" class="mr-2"></fa-icon> CGV
-                  Vincom Bà Triệu</span
-                >
               </div>
             </div>
 
             <div class="flex items-start">
               <span
                 class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full"
-                >ĐÃ THANH TOÁN</span
+                >{{ getBoookingStatus(booking) }}</span
               >
             </div>
           </div>
 
-          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Ticket Details -->
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Booking Details -->
             <div>
               <h3 class="font-bold mb-3">Thông tin vé</h3>
               <ul class="space-y-2 text-sm text-gray-300">
                 <li class="flex justify-between">
-                  <span class="text-gray-400">Loại vé:</span>
-                  <span>Vé thường</span>
-                </li>
-                <li class="flex justify-between">
                   <span class="text-gray-400">Số lượng:</span>
-                  <span>2 vé</span>
+                  <span>{{ booking.tickets.length }}</span>
                 </li>
                 <li class="flex justify-between">
                   <span class="text-gray-400">Ghế:</span>
-                  <span>H12, H13</span>
+                  <span>{{ getSeatList(booking) }}</span>
                 </li>
                 <li class="flex justify-between">
                   <span class="text-gray-400">Phòng chiếu:</span>
-                  <span>Cinema 5</span>
+                  <span>{{ booking.showtime.room!.name }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Sản phẩm:</span>
+                  <span>{{
+                    showSeletedProduct(booking) || "Chưa chọn sản phẩm"
+                  }}</span>
                 </li>
               </ul>
             </div>
@@ -100,36 +101,18 @@
               <h3 class="font-bold mb-3">Thanh toán</h3>
               <ul class="space-y-2 text-sm text-gray-300">
                 <li class="flex justify-between">
-                  <span class="text-gray-400">Mã đặt vé:</span>
-                  <span>CD23041501</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Phương thức:</span>
-                  <span>Ví điện tử Momo</span>
+                  <span class="text-gray-400">Mã đơn:</span>
+                  <span>{{ booking.bookingCode }}</span>
                 </li>
                 <li class="flex justify-between">
                   <span class="text-gray-400">Tổng tiền:</span>
-                  <span class="font-bold">180.000đ</span>
+                  <span class="font-bold">{{ booking.totalPrice }}đ</span>
                 </li>
                 <li class="flex justify-between">
                   <span class="text-gray-400">Ngày đặt:</span>
-                  <span>12/04/2023</span>
+                  <span>{{ formatDate(booking.createdAt) }}</span>
                 </li>
               </ul>
-            </div>
-
-            <!-- QR Code -->
-            <div class="flex flex-col items-center justify-center">
-              <div class="qr-code p-2 rounded-lg mb-3">
-                <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CineDark-CD23041501"
-                  alt="QR Code"
-                  class="w-24 h-24"
-                />
-              </div>
-              <button class="text-primary text-sm font-medium hover:underline">
-                <fa-icon [icon]="faDownload" class="mr-1"></fa-icon> Tải vé
-              </button>
             </div>
           </div>
         </div>
@@ -149,142 +132,62 @@
           <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
         </button>
         <button
+          (click)="showTicketDetail(booking.id)"
           class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
         >
-          <fa-icon [icon]="faUndoAlt" class="mr-1"></fa-icon> Hủy vé
+          {{
+            checkShowTicketDetail(booking.id) ? "Ẩn chi tiết" : "Xem chi tiết"
+          }}
         </button>
       </div>
-    </div>
 
-    <!-- Ticket 2 -->
-    <div
-      class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
-    >
-      <div class="flex flex-col md:flex-row">
-        <!-- Movie Poster -->
-        <div class="w-full md:w-48 flex-shrink-0">
-          <img
-            src="https://source.unsplash.com/random/300x450/?movie,poster,scifi"
-            alt="Movie Poster"
-            class="w-full h-full object-cover"
-          />
-        </div>
-
-        <!-- Ticket Info -->
-        <div class="p-6 flex-1">
-          <div class="flex flex-col md:flex-row md:justify-between">
-            <div class="mb-4 md:mb-0">
-              <span class="text-primary text-sm font-medium"
-                >PHIM ĐANG CHIẾU</span
-              >
-              <h2 class="text-xl font-bold mt-1">Dune: Part Two</h2>
-              <div class="flex items-center mt-2 text-gray-400 text-sm">
-                <span
-                  ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
-                  20/04/2023</span
-                >
-                <span class="mx-3">|</span>
-                <span
-                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon> 19:15</span
-                >
-                <span class="mx-3">|</span>
-                <span
-                  ><fa-icon [icon]="faMapMarkerAlt" class="mr-2"></fa-icon>
-                  Lotte Cinema Hà Nội</span
-                >
-              </div>
-            </div>
-
-            <div class="flex items-start">
-              <span
-                class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full"
-                >ĐÃ THANH TOÁN</span
-              >
-            </div>
-          </div>
-
-          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Ticket Details -->
-            <div>
-              <h3 class="font-bold mb-3">Thông tin vé</h3>
-              <ul class="space-y-2 text-sm text-gray-300">
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Loại vé:</span>
-                  <span>Vé VIP</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Số lượng:</span>
-                  <span>1 vé</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Ghế:</span>
-                  <span>D8</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Phòng chiếu:</span>
-                  <span>IMAX 3</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Payment Details -->
-            <div>
-              <h3 class="font-bold mb-3">Thanh toán</h3>
-              <ul class="space-y-2 text-sm text-gray-300">
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Mã đặt vé:</span>
-                  <span>CD23042002</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Phương thức:</span>
-                  <span>Thẻ tín dụng</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Tổng tiền:</span>
-                  <span class="font-bold">250.000đ</span>
-                </li>
-                <li class="flex justify-between">
-                  <span class="text-gray-400">Ngày đặt:</span>
-                  <span>10/04/2023</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- QR Code -->
-            <div class="flex flex-col items-center justify-center">
-              <div class="qr-code p-2 rounded-lg mb-3">
-                <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CineDark-CD23042002"
-                  alt="QR Code"
-                  class="w-24 h-24"
-                />
-              </div>
-              <button class="text-primary text-sm font-medium hover:underline">
-                <fa-icon [icon]="faDownload" class="mr-1"></fa-icon> Tải vé
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <!-- Ticket Detail Section (Accordion) -->
       <div
-        class="border-t border-gray-800 px-6 py-3 bg-gray-900 bg-opacity-50 flex justify-end space-x-3"
+        *ngIf="checkShowTicketDetail(booking.id)"
+        class="border-t border-gray-800 transition-all duration-300 overflow-hidden"
       >
-        <button
-          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
-        >
-          <fa-icon [icon]="faPrint" class="mr-1"></fa-icon> In vé
-        </button>
-        <button
-          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
-        >
-          <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
-        </button>
-        <button
-          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
-        >
-          <fa-icon [icon]="faUndoAlt" class="mr-1"></fa-icon> Hủy vé
-        </button>
+        <div class="p-6 bg-gray-900 bg-opacity-50">
+          <h3 class="font-bold mb-4">CHI TIẾT VÉ</h3>
+
+          <!-- Tickets List -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div
+              *ngFor="let ticket of booking.tickets"
+              class="bg-gray-800 rounded-lg p-4"
+            >
+              <div class="flex justify-between">
+                <div>
+                  <div class="font-medium">
+                    Vé:
+                    {{ ticket.seat!.type === "Vip" ? "VIP" : "Thường" }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Ghế: {{ ticket.seat!.seatName }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Trạng thái:
+                    {{ ticket.isUsed ? "Đã sử dụng" : "Chưa sử dụng" }}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-gray-400 mt-1">
+                    Mã vé: {{ ticket.ticketCode }}
+                  </div>
+                  <!-- QR Code -->
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="qr-code p-2 rounded-lg mb-3">
+                      <img
+                        [src]="`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticket.ticketCode}`"
+                        alt="QR Code"
+                        class="w-24 h-24"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
