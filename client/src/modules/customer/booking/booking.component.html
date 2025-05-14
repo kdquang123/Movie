@@ -48,6 +48,8 @@
                     seatList[i * seatColumns + j].type === 'Disabled' || !checkAvailableSeat(seatList[i * seatColumns + j].id),
                   'selected':
                     checkMySeat(seatList[i * seatColumns + j].id),
+                  'sold':
+                    checkSoldSeat(seatList[i * seatColumns + j].id),
                 }"
           >
             {{ seatList[i * seatColumns + j].seatName }}
@@ -77,119 +79,40 @@
 
       <!-- Combo Section -->
       <div class="bg-darker rounded-lg border border-gray-800 p-6 mb-6">
-        <h2 class="text-xl font-bold mb-4">COMBO BẮP NƯỚC</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <h2 class="text-xl font-bold mb-4">SẢN PHẨM</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Combo 1 -->
           <div
+            *ngFor="let product of productList"
             class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
           >
             <div class="flex items-start mb-3">
               <img
-                src="https://via.placeholder.com/80x80?text=Combo+1"
-                alt="Combo 1"
+                [src]="product.imageUrl"
+                alt="Product"
                 class="w-16 h-16 object-cover rounded mr-3"
               />
               <div>
-                <h3 class="font-medium">Combo Nhỏ</h3>
-                <p class="text-sm text-gray-400">1 bắp vừa + 1 nước</p>
-                <p class="text-primary font-bold mt-1">79,000đ</p>
+                <h3 class="font-medium">{{ product.name }}</h3>
+                <p class="text-primary font-bold mt-1">{{ product.price }}</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
               <div class="flex items-center border border-gray-700 rounded">
                 <button
+                  (click)="updateProductSelect(product.id, false)"
                   class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
                 >
                   -
                 </button>
-                <span class="quantity px-3">0</span>
+                <span class="quantity px-3">{{ getQuantity(product.id) }}</span>
                 <button
+                  (click)="updateProductSelect(product.id, true)"
                   class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
                 >
                   +
                 </button>
               </div>
-              <button
-                class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-              >
-                Thêm
-              </button>
-            </div>
-          </div>
-
-          <!-- Combo 2 -->
-          <div
-            class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
-          >
-            <div class="flex items-start mb-3">
-              <img
-                src="https://via.placeholder.com/80x80?text=Combo+2"
-                alt="Combo 2"
-                class="w-16 h-16 object-cover rounded mr-3"
-              />
-              <div>
-                <h3 class="font-medium">Combo Đôi</h3>
-                <p class="text-sm text-gray-400">1 bắp lớn + 2 nước</p>
-                <p class="text-primary font-bold mt-1">129,000đ</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center border border-gray-700 rounded">
-                <button
-                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-                >
-                  -
-                </button>
-                <span class="quantity px-3">0</span>
-                <button
-                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-              >
-                Thêm
-              </button>
-            </div>
-          </div>
-
-          <!-- Combo 3 -->
-          <div
-            class="combo-item border border-gray-700 rounded-lg p-4 hover:border-primary transition cursor-pointer"
-          >
-            <div class="flex items-start mb-3">
-              <img
-                src="https://via.placeholder.com/80x80?text=Combo+3"
-                alt="Combo 3"
-                class="w-16 h-16 object-cover rounded mr-3"
-              />
-              <div>
-                <h3 class="font-medium">Combo Gia Đình</h3>
-                <p class="text-sm text-gray-400">2 bắp lớn + 4 nước</p>
-                <p class="text-primary font-bold mt-1">219,000đ</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center border border-gray-700 rounded">
-                <button
-                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-                >
-                  -
-                </button>
-                <span class="quantity px-3">0</span>
-                <button
-                  class="quantity-btn px-3 py-1 text-gray-400 hover:text-white"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                class="add-combo-btn bg-primary hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-              >
-                Thêm
-              </button>
             </div>
           </div>
         </div>
@@ -341,7 +264,9 @@
       <div class="p-6 border-b border-gray-800">
         <h3 class="font-bold mb-3">COMBO ĐÃ CHỌN</h3>
         <div id="selected-combos" class="space-y-2 mb-4">
-          <div class="text-gray-400 text-sm">Chưa chọn combo</div>
+          <div class="text-gray-400 text-sm">
+            {{ showSeletedProduct() || "Chưa chọn sản phẩm" }}
+          </div>
         </div>
       </div>
 
@@ -358,12 +283,18 @@
           </div>
           <div class="flex justify-between">
             <span class="text-gray-400">Tổng combo:</span>
-            <span id="total-combos" class="font-medium">0</span>
+            <span
+              id="total-combos"
+              class="font-medium"
+              >{{`${getTotalProductPrice()} đ`}}</span
+            >
           </div>
           <div class="flex justify-between border-t border-gray-800 pt-3 mt-3">
             <span class="text-gray-400">Tổng tiền:</span>
-            <span id="total-price" class="text-primary font-bold text-lg"
-              >0đ</span
+            <span
+              id="total-price"
+              class="text-primary font-bold text-lg"
+              >{{`${getTotalProductPrice() + getTotalSeatPrice()} đ`}}</span
             >
           </div>
         </div>

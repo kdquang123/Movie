@@ -27,12 +27,6 @@ public class BookingsController : ControllerBase
     [HttpGet("payment-callback")]
     public async Task<IActionResult> VNPayCallback([FromQuery] VNPayCallbackModel model)
     {
-        // Bước 1: Xác minh chữ ký hash
-        // bool isValid = _vnpayService.VerifySignature(model);
-        // if (!isValid)
-        //     return BadRequest("Invalid signature");
-
-        // Bước 2: Kiểm tra trạng thái giao dịch
         if (model.vnp_ResponseCode == "00")
         {
             // Giao dịch thành công
@@ -43,5 +37,12 @@ public class BookingsController : ControllerBase
             }
         }
         return Redirect("http://localhost:4200/booking-failed");
+    }
+
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetBookingByUserId(Guid userId)
+    {
+        var result = await _mediator.Send(new BookingGetByUserIdQuery { UserId = userId });
+        return Ok(result);
     }
 }

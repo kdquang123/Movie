@@ -14,6 +14,7 @@ import {
   SEAT_HOLD_SERVICE,
   SEAT_SERVICE,
   SHOWTIME_SERVICE,
+  TICKET_SERVICE,
 } from '../constants/injection/injection.constant';
 import { AuthService } from '../services/auth/auth.service';
 import { provideHttpClient } from '@angular/common/http';
@@ -25,6 +26,7 @@ import { ShowtimeService } from '../services/showtime/showtime.service';
 import { SeatHoldService } from '../services/seat-hold/seathold.service';
 import { BookingService } from '../services/booking/booking.service';
 import { ProductService } from '../services/product/product.service';
+import { TicketService } from '../services/ticket/ticket.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,6 +41,7 @@ export const appConfig: ApplicationConfig = {
     { provide: SEAT_HOLD_SERVICE, useClass: SeatHoldService },
     { provide: BOOKING_SERVICE, useClass: BookingService },
     { provide: PRODUCT_SERVICE, useClass: ProductService },
+    { provide: TICKET_SERVICE, useClass: TicketService },
     provideAnimations(),
     provideToastr(),
     provideHttpClient(),
