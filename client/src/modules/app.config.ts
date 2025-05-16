@@ -8,6 +8,7 @@ import {
   AUTH_SERVICE,
   BOOKING_SERVICE,
   COMMON_SERVICE,
+  EMPLOYEE_SERVICE,
   MOVIE_SERVICE,
   PRODUCT_SERVICE,
   ROOM_SERVICE,
@@ -27,6 +28,7 @@ import { SeatHoldService } from '../services/seat-hold/seathold.service';
 import { BookingService } from '../services/booking/booking.service';
 import { ProductService } from '../services/product/product.service';
 import { TicketService } from '../services/ticket/ticket.service';
+import { EmployeeService } from '../services/employee/employee.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,6 +44,7 @@ export const appConfig: ApplicationConfig = {
     { provide: BOOKING_SERVICE, useClass: BookingService },
     { provide: PRODUCT_SERVICE, useClass: ProductService },
     { provide: TICKET_SERVICE, useClass: TicketService },
+    { provide: EMPLOYEE_SERVICE, useClass: EmployeeService },
     provideAnimations(),
     provideToastr(),
     provideHttpClient(),

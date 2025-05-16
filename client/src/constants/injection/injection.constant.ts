@@ -9,6 +9,7 @@ import { ISeatHoldService } from '../../services/seat-hold/seathold-service.inte
 import { IBookingService } from '../../services/booking/booking-service.interface';
 import { IProductService } from '../../services/product/product-service.interface';
 import { ITicketService } from '../../services/ticket/ticket-service.interface';
+import { IEmployeeService } from '../../services/employee/employee-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -33,4 +34,8 @@ export const PRODUCT_SERVICE = new InjectionToken<IProductService>(
 
 export const TICKET_SERVICE = new InjectionToken<ITicketService>(
   'TICKET_SERVICE'
+);
+
+export const EMPLOYEE_SERVICE = new InjectionToken<IEmployeeService>(
+  'EMPLOYEE_SERVICE'
 );

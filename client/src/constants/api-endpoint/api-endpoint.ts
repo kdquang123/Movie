@@ -68,4 +68,12 @@ export const ApiEndpoints = {
   getTicketByBookingId: `${environment.apiUrl}/Tickets/booking`,
   getTicketByTicketCode: `${environment.apiUrl}/Tickets/code`,
   approveTicket: `${environment.apiUrl}/Tickets/approve`,
+
+  //Employee api
+  getAllEmployee: `${environment.apiUrl}/Employees`,
+  getEmployeeById: `${environment.apiUrl}/Employees`,
+  deleteEmployee: `${environment.apiUrl}/Employees`,
+  updateEmployee: `${environment.apiUrl}/Employees`,
+  createEmployee: `${environment.apiUrl}/Employees`,
+  searchEmployee: `${environment.apiUrl}/Employees/search`,
 };
