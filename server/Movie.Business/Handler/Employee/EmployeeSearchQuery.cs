@@ -6,5 +6,5 @@ namespace Movie.Business.Handler;
 
 public class EmployeeSearchQuery : BaseSearchQuery<EmployeeViewModel>
 {
-
+    public string Status { get; set; } = "";
 }

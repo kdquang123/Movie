@@ -32,15 +32,15 @@ public class FilmSearchQueryHandler : BaseHandler, IRequestHandler<FilmSearchQue
         {
             if (request.Status == "ComingSoon")
             {
-                query = query.Where(x => x.ReleaseDate > DateTime.UtcNow);
+                query = query.Where(x => x.ReleaseDate > DateTime.Now);
             }
             else if (request.Status == "NowShowing")
             {
-                query = query.Where(x => x.ReleaseDate <= DateTime.UtcNow && x.EndDate >= DateTime.UtcNow);
+                query = query.Where(x => x.ReleaseDate <= DateTime.Now && x.EndDate >= DateTime.Now);
             }
             else if (request.Status == "Ended")
             {
-                query = query.Where(x => x.EndDate < DateTime.UtcNow);
+                query = query.Where(x => x.EndDate < DateTime.Now);
             }
         }
 

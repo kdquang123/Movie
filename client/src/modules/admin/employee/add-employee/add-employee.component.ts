@@ -11,6 +11,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { IEmployeeService } from '../../../../services/employee/employee-service.interface';
 import { EMPLOYEE_SERVICE } from '../../../../constants/injection/injection.constant';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-employee',
@@ -26,7 +27,8 @@ export class AddEmployeeComponent implements OnInit {
   constructor(
     @Inject(EMPLOYEE_SERVICE)
     private readonly employeeService: IEmployeeService,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class AddEmployeeComponent implements OnInit {
   onSubmit() {
     this.employeeService.createEmployee(this.employeeForm.value).subscribe({
       next: () => {
-        this.employeeForm.reset();
+        this.router.navigate(['/admin/employees']);
         this.toastr.success('Thêm nhân viên thành công!', 'Success');
       },
       error: (error) => {

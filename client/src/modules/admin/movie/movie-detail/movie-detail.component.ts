@@ -60,7 +60,7 @@ export class MovieDetailComponent implements OnInit {
         releaseDate: response.releaseDate
           ? new Date(response.releaseDate).toISOString().split('T')[0]
           : '',
-        endDate: response.releaseDate
+        endDate: response.endDate
           ? new Date(response.endDate).toISOString().split('T')[0]
           : '',
         duration: response.duration,
