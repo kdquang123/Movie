@@ -76,4 +76,12 @@ export const ApiEndpoints = {
   updateEmployee: `${environment.apiUrl}/Employees`,
   createEmployee: `${environment.apiUrl}/Employees`,
   searchEmployee: `${environment.apiUrl}/Employees/search`,
+
+  //Member api
+  getAllMember: `${environment.apiUrl}/Members`,
+  getMemberById: `${environment.apiUrl}/Members`,
+  deleteMember: `${environment.apiUrl}/Members`,
+  updateMember: `${environment.apiUrl}/Members`,
+  createMember: `${environment.apiUrl}/Members`,
+  searchMember: `${environment.apiUrl}/Members/search`,
 };

@@ -31,5 +31,6 @@ public class MappingProfile : Profile
         CreateMap<Ticket, TicketOfBookingViewModel>().ReverseMap();
         CreateMap<Product, ProductViewModel>().ReverseMap();
         CreateMap<User, EmployeeViewModel>().ReverseMap();
+        CreateMap<User, MemberViewModel>().ReverseMap();
     }
 }

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Handler\Category\RoomType\" />
+    <Folder Include="Handler\Member\" />
   </ItemGroup>
 
 </Project>

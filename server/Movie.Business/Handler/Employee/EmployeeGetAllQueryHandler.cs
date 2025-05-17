@@ -17,7 +17,7 @@ public class EmployeeGetAllQueryHandler : UserBaseHandler, IRequestHandler<Emplo
 
     public async Task<IEnumerable<EmployeeViewModel>> Handle(EmployeeGetAllQuery request, CancellationToken cancellationToken)
     {
-        var employees = await _unitOfWork.UserRepository.GetQuery().ToListAsync();
+        var employees = await _userManager.GetUsersInRoleAsync("Employee");
         return _mapper.Map<IEnumerable<EmployeeViewModel>>(employees);
     }
 }
