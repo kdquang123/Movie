@@ -1,1 +1,163 @@
-<p>user-detail works!</p>
+<!-- Add Member Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <form [formGroup]="memberForm">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left Column - Account Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Full Name -->
+          <div>
+            <label
+              for="fullname"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Họ và tên <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="fullName"
+              type="text"
+              id="fullname"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập họ và tên"
+              required
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Email <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="email"
+              type="email"
+              id="email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập email"
+              required
+            />
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label
+              for="phone"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Số điện thoại</label
+            >
+            <input
+              formControlName="phoneNumber"
+              type="tel"
+              id="phone"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số điện thoại"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Additional Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Gender -->
+          <div>
+            <label
+              for="gender"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giới tính</label
+            >
+            <div class="flex space-x-4">
+              <div class="flex items-center">
+                <input
+                  formControlName="gender"
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  [value]="1"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="male" class="ml-2 text-sm text-gray-700">Nam</label>
+              </div>
+              <div class="flex items-center">
+                <input
+                  formControlName="gender"
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  [value]="0"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="female" class="ml-2 text-sm text-gray-700"
+                  >Nữ</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  formControlName="gender"
+                  type="radio"
+                  id="other"
+                  name="gender"
+                  [value]="-1"
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                />
+                <label for="other" class="ml-2 text-sm text-gray-700"
+                  >Khác</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Date of Birth -->
+          <div>
+            <label
+              for="dob"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Ngày sinh</label
+            >
+            <input
+              formControlName="dateOfBirth"
+              type="date"
+              id="dob"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+          </div>
+
+          <!-- Address -->
+          <div>
+            <label
+              for="address"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Địa chỉ</label
+            >
+            <textarea
+              formControlName="address"
+              id="address"
+              rows="2"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập địa chỉ"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        routerLink="/admin/members"
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        (click)="onSubmit()"
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Sửa thành viên
+      </button>
+    </div>
+  </form>
+</div>
