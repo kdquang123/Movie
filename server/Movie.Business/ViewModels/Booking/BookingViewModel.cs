@@ -5,6 +5,7 @@ namespace Movie.Business.ViewModels;
 
 public class BookingViewModel
 {
+    public Guid Id { get; set; }
     public Guid ShowTimeId { get; set; }
     public ShowtimeViewModel? Showtime { get; set; }
     public ICollection<TicketDetailViewModel> Tickets { get; set; } = [];

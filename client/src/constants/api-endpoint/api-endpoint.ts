@@ -84,4 +84,12 @@ export const ApiEndpoints = {
   updateMember: `${environment.apiUrl}/Members`,
   createMember: `${environment.apiUrl}/Members`,
   searchMember: `${environment.apiUrl}/Members/search`,
+
+  //Promotion api
+  getAllPromotion: `${environment.apiUrl}/Promotions`,
+  getPromotionById: `${environment.apiUrl}/Promotions`,
+  deletePromotion: `${environment.apiUrl}/Promotions`,
+  updatePromotion: `${environment.apiUrl}/Promotions`,
+  createPromotion: `${environment.apiUrl}/Promotions`,
+  searchPromotion: `${environment.apiUrl}/Promotions/search`,
 };

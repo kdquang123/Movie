@@ -11,6 +11,7 @@ import { IProductService } from '../../services/product/product-service.interfac
 import { ITicketService } from '../../services/ticket/ticket-service.interface';
 import { IEmployeeService } from '../../services/employee/employee-service.interface';
 import { IMemberService } from '../../services/member/member-service.interface';
+import { IPromotionService } from '../../services/promotion/promotion-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -41,7 +42,10 @@ export const EMPLOYEE_SERVICE = new InjectionToken<IEmployeeService>(
   'EMPLOYEE_SERVICE'
 );
 
-export const MEMBER_SERVICE= new InjectionToken<IMemberService>(
+export const MEMBER_SERVICE = new InjectionToken<IMemberService>(
   'MEMBER_SERVICE'
 );
 
+export const PROMOTION_SERVICE = new InjectionToken<IPromotionService>(
+  'PROMOTION_SERVICE'
+);
