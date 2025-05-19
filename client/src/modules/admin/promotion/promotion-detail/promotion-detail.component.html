@@ -1,1 +1,199 @@
-<p>promotion-detail works!</p>
+<!-- Add Promotion Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <form [formGroup]="promotionForm">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left Column - Basic Info -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Title -->
+          <div>
+            <label
+              for="title"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tiêu đề khuyến mãi <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="name"
+              type="text"
+              id="title"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tiêu đề khuyến mãi"
+              required
+            />
+          </div>
+          <!-- Promotion Code -->
+          <div>
+            <label
+              for="promo-code"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Mã khuyến mãi <span class="text-red-500">*</span></label
+            >
+            <div class="flex">
+              <input
+                formControlName="code"
+                type="text"
+                id="promo-code"
+                class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
+                placeholder="Nhập mã khuyến mãi"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Promotion Type -->
+          <div>
+            <label
+              for="promo-type"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Loại khuyến mãi <span class="text-red-500">*</span></label
+            >
+            <select
+              formControlName="discountType"
+              id="promo-type"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn loại --</option>
+              <option value="Percentage">Giảm giá %</option>
+              <option value="FixedAmount">Giảm giá cố định</option>
+            </select>
+          </div>
+
+          <!-- Discount Value -->
+          <div id="discount-value-container">
+            <label
+              for="discount-value"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giá trị khuyến mãi <span class="text-red-500">*</span></label
+            >
+            <div class="flex">
+              <input
+                formControlName="discountValue"
+                type="number"
+                id="discount-value"
+                min="0"
+                class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
+                placeholder="Nhập giá trị"
+                required
+              />
+              <span
+                class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
+                id="discount-unit"
+                >%</span
+              >
+            </div>
+          </div>
+
+          <!-- Minimum Order -->
+          <div>
+            <label
+              for="min-order"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Đơn tối thiểu (VND)</label
+            >
+            <input
+              formControlName="minOrderAmount"
+              type="number"
+              id="min-order"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập giá trị tối thiểu"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="lg:col-span-1">
+        <div class="space-y-6">
+          <!-- Start Date -->
+          <div>
+            <label
+              for="start-date"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Ngày bắt đầu <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="startDate"
+              type="date"
+              id="start-date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <!-- End Date -->
+          <div>
+            <label
+              for="end-date"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Ngày kết thúc <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="endDate"
+              type="date"
+              id="end-date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <!-- Usage Limit -->
+          <div>
+            <label
+              for="usage-limit"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Giới hạn sử dụng</label
+            >
+            <input
+              formControlName="usageLimit"
+              type="number"
+              id="usage-limit"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số lần sử dụng tối đa"
+            />
+            <p class="text-xs text-gray-500 mt-1">
+              Để trống nếu không giới hạn
+            </p>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Mô tả khuyến mãi</label
+            >
+            <textarea
+              formControlName="description"
+              id="description"
+              rows="4"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập mô tả chi tiết"
+              required
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        routerLink="/admin/promotions"
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        (click)="onSubmit()"
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Lưu khuyến mãi
+      </button>
+    </div>
+  </form>
+</div>

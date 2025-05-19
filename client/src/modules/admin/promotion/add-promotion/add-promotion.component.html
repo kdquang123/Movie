@@ -1,46 +1,26 @@
 <!-- Add Promotion Form -->
 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-  <form>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Left Column - Image & Basic Info -->
+  <form [formGroup]="promotionForm">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left Column - Basic Info -->
       <div class="lg:col-span-1">
         <div class="space-y-6">
-          <!-- Promotion Image -->
+          <!-- Title -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Hình ảnh khuyến mãi <span class="text-red-500">*</span></label
+            <label
+              for="title"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tiêu đề khuyến mãi <span class="text-red-500">*</span></label
             >
-            <div
-              class="file-upload relative rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition"
-            >
-              <input
-                type="file"
-                id="promotion-image"
-                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                accept="image/*"
-              />
-              <div class="flex flex-col items-center justify-center">
-                <i
-                  class="fas fa-cloud-upload-alt text-3xl text-primary mb-2"
-                ></i>
-                <p class="text-sm text-gray-600">
-                  Kéo thả hình ảnh vào đây hoặc click để chọn
-                </p>
-                <p class="text-xs text-gray-500 mt-1">
-                  Định dạng: JPG, PNG (Tối đa 5MB)
-                </p>
-              </div>
-            </div>
-            <div id="image-preview" class="mt-2 hidden">
-              <img
-                id="preview"
-                src="#"
-                alt="Preview"
-                class="max-w-full h-auto rounded-lg border border-gray-200"
-              />
-            </div>
+            <input
+              formControlName="name"
+              type="text"
+              id="title"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập tiêu đề khuyến mãi"
+              required
+            />
           </div>
-
           <!-- Promotion Code -->
           <div>
             <label
@@ -50,18 +30,13 @@
             >
             <div class="flex">
               <input
+                formControlName="code"
                 type="text"
                 id="promo-code"
                 class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
                 placeholder="Nhập mã khuyến mãi"
                 required
               />
-              <button
-                type="button"
-                class="bg-gray-200 px-3 py-2 rounded-r-md border border-l-0 border-gray-300 hover:bg-gray-300 transition"
-              >
-                <i class="fas fa-random"></i>
-              </button>
             </div>
           </div>
 
@@ -73,15 +48,14 @@
               >Loại khuyến mãi <span class="text-red-500">*</span></label
             >
             <select
+              formControlName="discountType"
               id="promo-type"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
               required
             >
               <option value="">-- Chọn loại --</option>
-              <option value="percentage">Giảm giá %</option>
-              <option value="fixed">Giảm giá cố định</option>
-              <option value="free">Miễn phí</option>
-              <option value="combo">Combo</option>
+              <option value="Percentage">Giảm giá %</option>
+              <option value="FixedAmount">Giảm giá cố định</option>
             </select>
           </div>
 
@@ -94,6 +68,7 @@
             >
             <div class="flex">
               <input
+                formControlName="discountValue"
                 type="number"
                 id="discount-value"
                 min="0"
@@ -117,6 +92,7 @@
               >Đơn tối thiểu (VND)</label
             >
             <input
+              formControlName="minOrderAmount"
               type="number"
               id="min-order"
               min="0"
@@ -127,7 +103,7 @@
         </div>
       </div>
 
-      <!-- Middle Column - Date & Usage -->
+      <!-- Right Column -->
       <div class="lg:col-span-1">
         <div class="space-y-6">
           <!-- Start Date -->
@@ -138,7 +114,8 @@
               >Ngày bắt đầu <span class="text-red-500">*</span></label
             >
             <input
-              type="datetime-local"
+              formControlName="startDate"
+              type="date"
               id="start-date"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
               required
@@ -153,7 +130,8 @@
               >Ngày kết thúc <span class="text-red-500">*</span></label
             >
             <input
-              type="datetime-local"
+              formControlName="endDate"
+              type="date"
               id="end-date"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
               required
@@ -168,6 +146,7 @@
               >Giới hạn sử dụng</label
             >
             <input
+              formControlName="usageLimit"
               type="number"
               id="usage-limit"
               min="0"
@@ -179,131 +158,21 @@
             </p>
           </div>
 
-          <!-- User Limit -->
-          <div>
-            <label
-              for="user-limit"
-              class="block text-sm font-medium text-gray-700 mb-2"
-              >Giới hạn mỗi người</label
-            >
-            <input
-              type="number"
-              id="user-limit"
-              min="0"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-              placeholder="Nhập số lần sử dụng tối đa mỗi người"
-            />
-            <p class="text-xs text-gray-500 mt-1">
-              Để trống nếu không giới hạn
-            </p>
-          </div>
-
-          <!-- Status -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Trạng thái <span class="text-red-500">*</span></label
-            >
-            <div class="space-y-2">
-              <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="active"
-                  name="status"
-                  value="active"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
-                  checked
-                />
-                <label for="active" class="ml-2 text-sm text-gray-700"
-                  >Kích hoạt</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="inactive"
-                  name="status"
-                  value="inactive"
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300"
-                />
-                <label for="inactive" class="ml-2 text-sm text-gray-700"
-                  >Tạm ngưng</label
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column - Description & Applicable Items -->
-      <div class="lg:col-span-1">
-        <div class="space-y-6">
-          <!-- Title -->
-          <div>
-            <label
-              for="title"
-              class="block text-sm font-medium text-gray-700 mb-2"
-              >Tiêu đề khuyến mãi <span class="text-red-500">*</span></label
-            >
-            <input
-              type="text"
-              id="title"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-              placeholder="Nhập tiêu đề khuyến mãi"
-              required
-            />
-          </div>
-
           <!-- Description -->
           <div>
             <label
               for="description"
               class="block text-sm font-medium text-gray-700 mb-2"
-              >Mô tả khuyến mãi <span class="text-red-500">*</span></label
+              >Mô tả khuyến mãi</label
             >
             <textarea
+              formControlName="description"
               id="description"
               rows="4"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
               placeholder="Nhập mô tả chi tiết"
               required
             ></textarea>
-          </div>
-
-          <!-- Applicable Movies -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Áp dụng cho phim</label
-            >
-            <select
-              multiple
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="1">Avengers: Endgame</option>
-              <option value="2">Spider-Man: No Way Home</option>
-              <option value="3">The Batman</option>
-              <option value="4">Dune: Part Two</option>
-              <option value="5">Black Panther: Wakanda Forever</option>
-            </select>
-            <p class="text-xs text-gray-500 mt-1">
-              Chọn nhiều phim bằng cách giữ phím Ctrl
-            </p>
-          </div>
-
-          <!-- Applicable Products -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Áp dụng cho đồ ăn</label
-            >
-            <select
-              multiple
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="1">Bỏng ngô lớn</option>
-              <option value="2">Nước ngọt</option>
-              <option value="3">Hotdog</option>
-              <option value="4">Khoai tây chiên</option>
-              <option value="5">Combo 1</option>
-            </select>
           </div>
         </div>
       </div>
@@ -312,16 +181,18 @@
     <!-- Form Actions -->
     <div class="mt-8 flex justify-end space-x-3">
       <button
+        routerLink="/admin/promotions"
         type="button"
         class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
       >
         Hủy bỏ
       </button>
       <button
+        (click)="onSubmit()"
         type="submit"
         class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
       >
-        <i class="fas fa-save mr-2"></i> Lưu khuyến mãi
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Lưu khuyến mãi
       </button>
     </div>
   </form>

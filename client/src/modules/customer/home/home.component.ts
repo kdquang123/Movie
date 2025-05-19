@@ -35,4 +35,17 @@ export class HomeComponent implements OnInit {
     const minutes = minute % 60;
     return `${hours}h ${minutes}m`;
   }
+
+  generateArray(n: number): number[] {
+    return Array.from({ length: n }, (_, i) => i);
+  }
+
+  public formatDate(date: Date): string {
+    const newDate = new Date(date);
+    return `${newDate.getDate().toString().padStart(2, '0')}/${(
+      newDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, '0')}/${newDate.getFullYear()}`;
+  }
 }

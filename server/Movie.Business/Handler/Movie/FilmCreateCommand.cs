@@ -12,14 +12,12 @@ public class FilmCreateCommand : IRequest<bool>
     public required string Name { get; set; }
 
     [Required]
-    [StringLength(500, MinimumLength = 1, ErrorMessage = "Description must be between 1 and 500 characters.")]
     public required string Description { get; set; }
 
     [Required]
     [StringLength(100, MinimumLength = 1, ErrorMessage = "Director must be between 1 and 100 characters.")]
     public required string Director { get; set; }
 
-    [StringLength(200, ErrorMessage = "Actors list must not exceed 200 characters.")]
     public string? Actors { get; set; }
 
     [Range(1, 600, ErrorMessage = "Duration must be between 1 and 600 minutes.")]
@@ -40,7 +38,7 @@ public class FilmCreateCommand : IRequest<bool>
     public string? TrailerUrl { get; set; }
 
     [Range(0, 10, ErrorMessage = "IMDb Score must be between 0 and 10.")]
-    public int IMDbScore { get; set; }
+    public decimal IMDbScore { get; set; }
 
     [Required(ErrorMessage = "CategoryId is required.")]
     public List<Guid> Categories { get; set; } = [];

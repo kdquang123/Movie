@@ -27,10 +27,12 @@ public class MappingProfile : Profile
         CreateMap<SeatHold, SeatHoldViewModel>().ReverseMap();
         CreateMap<Ticket, TicketViewModel>().ReverseMap();
         CreateMap<Booking, BookingViewModel>().ForMember(dest => dest.BookingStatus, opt => opt.MapFrom(src => src.BookingStatus.ToString())).ReverseMap();
+        CreateMap<BookingDetail, BookingDetailViewModel>().ReverseMap();
         CreateMap<Ticket, TicketDetailViewModel>().ReverseMap();
         CreateMap<Ticket, TicketOfBookingViewModel>().ReverseMap();
         CreateMap<Product, ProductViewModel>().ReverseMap();
         CreateMap<User, EmployeeViewModel>().ReverseMap();
         CreateMap<User, MemberViewModel>().ReverseMap();
+        CreateMap<Promotion, PromotionViewModel>().ReverseMap();
     }
 }
