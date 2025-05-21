@@ -34,5 +34,6 @@ public class MappingProfile : Profile
         CreateMap<User, EmployeeViewModel>().ReverseMap();
         CreateMap<User, MemberViewModel>().ReverseMap();
         CreateMap<Promotion, PromotionViewModel>().ReverseMap();
+        CreateMap<News, NewsViewModel>().ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.ToString())).ReverseMap();
     }
 }

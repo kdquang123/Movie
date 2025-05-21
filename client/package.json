@@ -24,6 +24,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@microsoft/signalr": "^8.0.7",
     "@tailwindcss/postcss": "^4.1.3",
+    "ngx-editor": "^19.0.0-beta.1",
+    "ngx-spinner": "^19.0.0",
     "ngx-toastr": "^19.0.0",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",

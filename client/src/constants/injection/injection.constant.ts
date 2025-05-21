@@ -12,6 +12,7 @@ import { ITicketService } from '../../services/ticket/ticket-service.interface';
 import { IEmployeeService } from '../../services/employee/employee-service.interface';
 import { IMemberService } from '../../services/member/member-service.interface';
 import { IPromotionService } from '../../services/promotion/promotion-service.interface';
+import { INewsService } from '../../services/news/news-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -49,3 +50,5 @@ export const MEMBER_SERVICE = new InjectionToken<IMemberService>(
 export const PROMOTION_SERVICE = new InjectionToken<IPromotionService>(
   'PROMOTION_SERVICE'
 );
+
+export const NEWS_SERVICE = new InjectionToken<INewsService>('NEWS_SERVICE');
