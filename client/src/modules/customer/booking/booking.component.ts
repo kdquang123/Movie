@@ -89,12 +89,9 @@ export class BookingComponent implements OnInit, OnDestroy {
     this.ticketService
       .getByShowtimeId(this.showtimeId)
       .subscribe((response) => {
-        console.log(response);
-
         this.bookedSeats = response.map((ticket) => {
           return ticket.seat;
         });
-        console.log(this.bookedSeats);
       });
 
     this.productService.getAllProduct().subscribe((response) => {

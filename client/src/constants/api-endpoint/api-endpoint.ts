@@ -92,4 +92,12 @@ export const ApiEndpoints = {
   updatePromotion: `${environment.apiUrl}/Promotions`,
   createPromotion: `${environment.apiUrl}/Promotions`,
   searchPromotion: `${environment.apiUrl}/Promotions/search`,
+
+  //News api
+  getAllNews: `${environment.apiUrl}/News`,
+  getNewsById: `${environment.apiUrl}/News`,
+  deleteNews: `${environment.apiUrl}/News`,
+  updateNews: `${environment.apiUrl}/News`,
+  createNews: `${environment.apiUrl}/News`,
+  searchNews: `${environment.apiUrl}/News/search`,
 };

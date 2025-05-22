@@ -16,15 +16,19 @@
 </div>
 
 <!-- Search and Filter Tools -->
-<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<div [formGroup]="searchForm" class="bg-gray-50 p-4 rounded-lg mb-6">
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
     <div class="relative">
       <span
         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
       >
-        <i class="fas fa-search text-gray-400"></i>
+        <fa-icon
+          [icon]="faSearch"
+          class="fas fa-search text-gray-400"
+        ></fa-icon>
       </span>
       <input
+        formControlName="keyword"
         type="text"
         placeholder="Tìm kiếm tin tức..."
         class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
@@ -33,31 +37,20 @@
 
     <div>
       <select
+        formControlName="category"
         title="newsCategory"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
       >
         <option value="">Tất cả danh mục</option>
-        <option value="movie-news">Tin phim</option>
-        <option value="event">Sự kiện</option>
-        <option value="promotion">Khuyến mãi</option>
-        <option value="review">Đánh giá phim</option>
-      </select>
-    </div>
-
-    <div>
-      <select
-        title="newsStatus"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-      >
-        <option value="">Tất cả trạng thái</option>
-        <option value="published">Đã xuất bản</option>
-        <option value="draft">Bản nháp</option>
-        <option value="scheduled">Đã lên lịch</option>
+        <option value="Event">Sự kiện</option>
+        <option value="Promotion">Khuyến mãi</option>
+        <option value="News">Tin tức</option>
       </select>
     </div>
 
     <div class="flex space-x-2">
       <button
+        (click)="onSubmit()"
         class="bg-primary px-4 py-2 rounded-md text-white font-medium hover:bg-red-700 transition"
       >
         <fa-icon [icon]="faFilter"></fa-icon> Lọc
@@ -81,5 +74,8 @@
   [pageSizeOptions]="pageSizeOptions"
   (onPageChange)="onPageChange($event)"
   (onPageSizeChange)="onPageSizeChange($event)"
+  (onView)="detail($event)"
+  (onDelete)="delete($event)"
 >
+  >
 </app-table>

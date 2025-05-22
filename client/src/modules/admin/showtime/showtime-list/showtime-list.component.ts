@@ -10,7 +10,6 @@ import {
   ROOM_SERVICE,
   SHOWTIME_SERVICE,
 } from '../../../../constants/injection/injection.constant';
-import { IMovieService } from '../../../../services/movie/movie-service.interface';
 import { IRoomService } from '../../../../services/room/room-service.interface';
 import { IShowtimeService } from '../../../../services/showtime/showtime-service.interface';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +17,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RoomModel } from '../../../../models/room/room.model';
 import { CommonModule } from '@angular/common';
 import { MovieModel } from '../../../../models/movie/movie.model';
+import { IMovieService } from '../../../../services/movie/movie-service.interface';
 
 @Component({
   selector: 'app-showtime-list',
@@ -42,7 +42,7 @@ export class ShowtimeListComponent
   public override columns: TableColumn[] = [
     {
       name: 'Phim',
-      value: 'movie',
+      value: 'showtime',
       formatter: (showtime: ShowtimeModel) => showtime.movie?.name ?? 'N/A',
     },
     {
@@ -93,7 +93,7 @@ export class ShowtimeListComponent
     this.searchForm = new FormGroup({
       roomId: new FormControl(''),
       startDate: new FormControl(''),
-      movieId: new FormControl(''),
+      showtimeId: new FormControl(''),
     });
   }
 
@@ -123,8 +123,8 @@ export class ShowtimeListComponent
     });
   }
 
-  private formatDate(movie: ShowtimeModel, column: TableColumn): string {
-    const dateValue = movie[column.value as keyof ShowtimeModel];
+  private formatDate(showtime: ShowtimeModel, column: TableColumn): string {
+    const dateValue = showtime[column.value as keyof ShowtimeModel];
     if (dateValue) {
       const formatter = new Intl.DateTimeFormat('vi-VN', {
         year: 'numeric',
@@ -137,8 +137,8 @@ export class ShowtimeListComponent
     return 'Invalid Date';
   }
 
-  private formatTime(movie: ShowtimeModel, column: TableColumn): string {
-    const timeValue = movie[column.value as keyof ShowtimeModel];
+  private formatTime(showtime: ShowtimeModel, column: TableColumn): string {
+    const timeValue = showtime[column.value as keyof ShowtimeModel];
     if (timeValue) {
       const time = new Date(timeValue as string);
       const hours = time.getHours().toString().padStart(2, '0');

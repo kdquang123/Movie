@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Handler\Category\RoomType\" />
     <Folder Include="Handler\Member\" />
+    <Folder Include="Handler\News\" />
   </ItemGroup>
 
 </Project>
