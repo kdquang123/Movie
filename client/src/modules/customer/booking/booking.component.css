@@ -29,12 +29,6 @@
   cursor: not-allowed;
 }
 
-.seat.sold {
-  background-color: #b2b2b2;
-  border: 1px solid #555;
-  cursor: not-allowed;
-}
-
 .seat.vip {
   background-color: #c19a6b;
   border: 1px solid #c19a6b;
@@ -43,6 +37,12 @@
 .seat.vip.selected {
   background-color: #e50914;
   border: 1px solid #e50914;
+}
+
+.seat.sold {
+  background-color: #b2b2b2;
+  border: 1px solid #555;
+  cursor: not-allowed;
 }
 
 .progress-step.active {

@@ -16,5 +16,5 @@ export class MovieModel {
   imDbScore!: number;
   ageRestrictionId!: string;
   ageRestriction?: AgeRestrictionModel;
-  categories?: CategoryModel[];
+  categories!: CategoryModel[];
 }

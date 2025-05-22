@@ -6,7 +6,9 @@
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center mb-10">
       <h2 class="text-3xl font-bold">PHIM ĐANG CHIẾU</h2>
-      <a href="#" class="text-primary hover:underline">Xem tất cả</a>
+      <a routerLink="/movies/now-showing" class="text-primary hover:underline"
+        >Xem tất cả</a
+      >
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -49,7 +51,9 @@
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center mb-10">
       <h2 class="text-3xl font-bold">PHIM SẮP CHIẾU</h2>
-      <a href="#" class="text-primary hover:underline">Xem tất cả</a>
+      <a routerLink="/movies/coming-soon" class="text-primary hover:underline"
+        >Xem tất cả</a
+      >
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -57,7 +61,7 @@
       <div
         *ngFor="let i of generateArray(3)"
         class="relative group overflow-hidden rounded-lg"
-         [routerLink]="['/movies', comingSoonMovies[i].id]"
+        [routerLink]="['/movies', comingSoonMovies[i].id]"
       >
         <img
           [src]="comingSoonMovies[i].imageUrl"
@@ -71,8 +75,13 @@
             class="transform translate-y-10 group-hover:translate-y-0 transition duration-500"
           >
             <span class="text-primary text-sm font-medium">COMING SOON</span>
-            <h3 class="text-2xl font-bold my-2">{{comingSoonMovies[i].name}}</h3>
-            <p class="text-gray-300 mb-4">{{formatDate(comingSoonMovies[i].releaseDate)}} • Hành động</p>
+            <h3 class="text-2xl font-bold my-2">
+              {{ comingSoonMovies[i].name }}
+            </h3>
+            <p class="text-gray-300 mb-4">
+              {{ formatDate(comingSoonMovies[i].releaseDate) }} •
+              {{ comingSoonMovies[i].categories[0].name }}
+            </p>
           </div>
         </div>
       </div>

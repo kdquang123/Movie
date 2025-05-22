@@ -8,16 +8,24 @@
     </div>
 
     <nav class="hidden md:flex space-x-8 items-center">
-      <a [routerLink]="['/home']" class="hover:text-primary transition"
+      <a
+        [routerLink]="['/home']"
+        class="hover:text-primary transition cursor-pointer"
         >Trang chủ</a
       >
-      <a [routerLink]="['/movies']" class="hover:text-primary transition"
+      <a
+        [routerLink]="['/movies/now-showing']"
+        class="hover:text-primary transition cursor-pointer"
         >Phim đang chiếu</a
       >
-      <a [routerLink]="['/movies']" class="hover:text-primary transition"
+      <a
+        [routerLink]="['/movies/coming-soon']"
+        class="hover:text-primary transition cursor-pointer"
         >Phim sắp chiếu</a
       >
-      <a [routerLink]="['/news']" class="hover:text-primary transition"
+      <a
+        [routerLink]="['/news']"
+        class="hover:text-primary transition cursor-pointer"
         >Tin tức và khuyến mãi</a
       >
     </nav>
@@ -66,7 +74,10 @@
             </a>
 
             <a
-              *ngIf="currentUser.roles[0] == 'ADMIN' || currentUser.roles[0] == 'EMPLOYEE'"
+              *ngIf="
+                currentUser.roles[0] == 'ADMIN' ||
+                currentUser.roles[0] == 'EMPLOYEE'
+              "
               routerLink="/admin"
               class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-primary transition"
             >
