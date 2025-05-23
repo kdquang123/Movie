@@ -59,7 +59,11 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Coming -->
       <div
-        *ngFor="let i of generateArray(3)"
+        *ngFor="
+          let i of generateArray(
+            comingSoonMovies.length >= 3 ? 3 : comingSoonMovies.length
+          )
+        "
         class="relative group overflow-hidden rounded-lg"
         [routerLink]="['/movies', comingSoonMovies[i].id]"
       >

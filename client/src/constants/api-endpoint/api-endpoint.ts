@@ -100,4 +100,9 @@ export const ApiEndpoints = {
   updateNews: `${environment.apiUrl}/News`,
   createNews: `${environment.apiUrl}/News`,
   searchNews: `${environment.apiUrl}/News/search`,
+
+  //Movie review api
+  getReviewByMovieId: `${environment.apiUrl}/FilmReviews/movie`,
+  createReview: `${environment.apiUrl}/FilmReviews`,
+  deleteReview: `${environment.apiUrl}/FilmReviews`,
 };

@@ -7,7 +7,7 @@ public class FilmReview : BaseEntity
 {
     [ForeignKey(nameof(User))]
     public Guid UserId { get; set; }
-    public required User User { get; set; }
+    public User? User { get; set; }
     [ForeignKey(nameof(Film))]
     public Guid FilmId { get; set; }
     public Film? Film { get; set; }

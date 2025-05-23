@@ -15,6 +15,7 @@ import {
   COMMON_SERVICE,
   EMPLOYEE_SERVICE,
   MEMBER_SERVICE,
+  MOVIE_REVIEW_SERVICE,
   MOVIE_SERVICE,
   NEWS_SERVICE,
   PRODUCT_SERVICE,
@@ -45,6 +46,7 @@ import { MemberService } from '../services/member/member.service';
 import { PromotionService } from '../services/promotion/promotion.service';
 import { NewsService } from '../services/news/news.service';
 import { loadingInterceptor } from '../interceptors/loading.interceptor';
+import { MovieReviewService } from '../services/movie-review/movie-review.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -64,6 +66,7 @@ export const appConfig: ApplicationConfig = {
     { provide: MEMBER_SERVICE, useClass: MemberService },
     { provide: PROMOTION_SERVICE, useClass: PromotionService },
     { provide: NEWS_SERVICE, useClass: NewsService },
+    {provide:MOVIE_REVIEW_SERVICE,useClass:MovieReviewService},
     provideAnimations(),
     provideToastr(),
     provideHttpClient(withInterceptors([loadingInterceptor])),
