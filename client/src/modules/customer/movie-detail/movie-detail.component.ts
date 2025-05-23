@@ -3,6 +3,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlay, faStar, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
 import { IMovieService } from '../../../services/movie/movie-service.interface';
 import {
+  AUTH_SERVICE,
+  MOVIE_REVIEW_SERVICE,
   MOVIE_SERVICE,
   SHOWTIME_SERVICE,
 } from '../../../constants/injection/injection.constant';
@@ -12,10 +14,15 @@ import { MovieModel } from '../../../models/movie/movie.model';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ShowtimeModel } from '../../../models/showtime/showtime.model';
+import { IMovieReviewService } from '../../../services/movie-review/movie-review-service.interface';
+import { ReviewModel } from '../../../models/review/review.model';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { IAuthService } from '../../../services/auth/auth-service.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie-detail',
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, ReactiveFormsModule],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
@@ -35,17 +42,29 @@ export class MovieDetailComponent implements OnInit {
   selectedDate!: Date;
   showtimesOfMovieByDate: ShowtimeModel[] = [];
 
+  reviewList!: ReviewModel[];
+
+  reviewForm!: FormGroup;
+  userId: string = '';
+
   constructor(
     @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
     @Inject(SHOWTIME_SERVICE)
     private readonly showtimeService: IShowtimeService,
+    @Inject(MOVIE_REVIEW_SERVICE)
+    private readonly movieReviewService: IMovieReviewService,
+    @Inject(AUTH_SERVICE) private readonly authService: IAuthService,
     private readonly route: ActivatedRoute,
     private readonly sanitizer: DomSanitizer,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.movieId = this.route.snapshot.paramMap.get('id')!;
+    this.authService.getUserInformation().subscribe((response) => {
+      this.userId = response?.id ?? '';
+    });
     this.movieService.getMovieById(this.movieId).subscribe((response) => {
       this.movie = response;
       this.youtubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -58,6 +77,41 @@ export class MovieDetailComponent implements OnInit {
         this.showtimesOfMovie = response;
         this.dateList = this.generateDateList(this.showtimesOfMovie);
       });
+    this.movieReviewService.getByMovieId(this.movieId).subscribe((response) => {
+      this.reviewList = response;
+    });
+    this.createReviewForm();
+  }
+
+  createReviewForm() {
+    this.reviewForm = new FormGroup({
+      userId: new FormControl(''),
+      filmId: new FormControl(this.movieId),
+      review: new FormControl(''),
+      rating: new FormControl(null),
+    });
+  }
+
+  setRating(rating: number) {
+    this.reviewForm.get('rating')?.setValue(rating);
+  }
+
+  submitReview() {
+    this.reviewForm.get('userId')?.setValue(this.userId);
+    this.reviewForm.get('filmId')?.setValue(this.movieId);
+    this.movieReviewService.createReview(this.reviewForm.value).subscribe({
+      next: () => {
+        this.reviewForm.reset();
+        this.movieReviewService
+          .getByMovieId(this.movieId)
+          .subscribe((response) => {
+            this.reviewList = response;
+          });
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message);
+      },
+    });
   }
 
   public formatCategories(movie: MovieModel): string {

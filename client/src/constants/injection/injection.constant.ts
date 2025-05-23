@@ -13,6 +13,7 @@ import { IEmployeeService } from '../../services/employee/employee-service.inter
 import { IMemberService } from '../../services/member/member-service.interface';
 import { IPromotionService } from '../../services/promotion/promotion-service.interface';
 import { INewsService } from '../../services/news/news-service.interface';
+import { IMovieReviewService } from '../../services/movie-review/movie-review-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -52,3 +53,7 @@ export const PROMOTION_SERVICE = new InjectionToken<IPromotionService>(
 );
 
 export const NEWS_SERVICE = new InjectionToken<INewsService>('NEWS_SERVICE');
+
+export const MOVIE_REVIEW_SERVICE = new InjectionToken<IMovieReviewService>(
+  'MOVIE_REVIEW_SERVICE'
+);

@@ -1,7 +1,7 @@
 <!-- Movie Hero Section -->
 <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
   <img
-    [src]="movie.imageUrl"
+    [src]="movie!.imageUrl"
     alt="The Batman"
     class="w-full h-full object-cover"
   />
@@ -47,93 +47,119 @@
           <h3 class="text-xl font-bold mb-4 border-b border-gray-800 pb-2">
             ĐÁNH GIÁ & BÌNH LUẬN
           </h3>
-          <div class="space-y-6">
+          <div *ngIf="reviewList.length == 0" class="space-y-6">
+            Chưa có bình luận nào
+          </div>
+          <div *ngIf="reviewList.length > 0" class="space-y-6">
             <!-- Review 1 -->
-            <div class="bg-darker p-6 rounded-lg border border-gray-800">
+            <div
+              *ngFor="let review of reviewList"
+              class="bg-darker p-6 rounded-lg border border-gray-800"
+            >
               <div class="flex items-center mb-4">
                 <img
-                  src="https://source.unsplash.com/random/50x50/?user,1"
+                  src="assets/avatar.png"
                   alt="User"
-                  class="w-10 h-10 rounded-full mr-3"
+                  class="w-10 h-10 rounded-full mr-3 bg-white"
                 />
                 <div>
-                  <p class="font-medium">Nguyễn Văn A</p>
-                  <div class="flex items-center text-yellow-400 text-sm">
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <span class="text-gray-400 ml-2">4.5/5</span>
+                  <p class="font-medium">{{ review.user!.fullName }}</p>
+                  <div class="flex items-center text-sm">
+                    <fa-icon
+                      [icon]="faStar"
+                      [ngClass]="{
+                        'text-yellow-300': review.rating >= 1
+                      }"
+                    ></fa-icon>
+                    <fa-icon
+                      [icon]="faStar"
+                      [ngClass]="{
+                        'text-yellow-300': review.rating >= 2
+                      }"
+                    ></fa-icon>
+                    <fa-icon
+                      [icon]="faStar"
+                      [ngClass]="{
+                        'text-yellow-300': review.rating >= 3
+                      }"
+                    ></fa-icon>
+                    <fa-icon
+                      [icon]="faStar"
+                      [ngClass]="{
+                        'text-yellow-300': review.rating >= 4
+                      }"
+                    ></fa-icon>
+                    <fa-icon
+                      [icon]="faStar"
+                      [ngClass]="{
+                        'text-yellow-300': review.rating >= 5
+                      }"
+                    ></fa-icon>
+                    <span class="text-gray-400 ml-2"
+                      >{{ review.rating }}/5</span
+                    >
                   </div>
                 </div>
               </div>
               <p class="text-gray-300">
-                Phim hay, hình ảnh đẹp, diễn xuất tốt. Robert Pattinson thể hiện
-                rất tốt vai Batman. Âm nhạc và hình ảnh tạo không khí rất tốt
-                cho phim.
-              </p>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="bg-darker p-6 rounded-lg border border-gray-800">
-              <div class="flex items-center mb-4">
-                <img
-                  src="https://source.unsplash.com/random/50x50/?user,2"
-                  alt="User"
-                  class="w-10 h-10 rounded-full mr-3"
-                />
-                <div>
-                  <p class="font-medium">Trần Thị B</p>
-                  <div class="flex items-center text-yellow-400 text-sm">
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <fa-icon [icon]="faStar"></fa-icon>
-                    <span class="text-gray-400 ml-2">5/5</span>
-                  </div>
-                </div>
-              </div>
-              <p class="text-gray-300">
-                Một trong những phiên bản Batman hay nhất từ trước đến nay! Cốt
-                truyện hấp dẫn, nhân vật phản diện được xây dựng rất ấn tượng.
-                Đáng xem!
+                {{ review.comment }}
               </p>
             </div>
           </div>
 
-          <div class="mt-6">
+          <div [formGroup]="reviewForm" class="mt-6">
             <h4 class="font-bold mb-3">VIẾT ĐÁNH GIÁ CỦA BẠN</h4>
             <textarea
+              formControlName="review"
               class="w-full bg-darker border border-gray-800 rounded-lg p-4 mb-3 focus:outline-none focus:border-primary"
               rows="4"
               placeholder="Nhận xét của bạn về phim..."
             ></textarea>
             <div class="flex justify-between items-center">
-              <div class="flex items-center text-yellow-400 text-xl">
+              <div class="flex items-center text-gray-500 text-xl">
                 <fa-icon
+                  (click)="setRating(1)"
                   [icon]="faStar"
                   class="cursor-pointer hover:text-yellow-300"
+                  [ngClass]="{
+                    'text-yellow-300': reviewForm.get('rating')?.value >= 1
+                  }"
                 ></fa-icon>
                 <fa-icon
+                  (click)="setRating(2)"
                   [icon]="faStar"
                   class="cursor-pointer hover:text-yellow-300"
+                  [ngClass]="{
+                    'text-yellow-300': reviewForm.get('rating')?.value >= 2
+                  }"
                 ></fa-icon>
                 <fa-icon
+                  (click)="setRating(3)"
                   [icon]="faStar"
                   class="cursor-pointer hover:text-yellow-300"
+                  [ngClass]="{
+                    'text-yellow-300': reviewForm.get('rating')?.value >= 3
+                  }"
                 ></fa-icon>
                 <fa-icon
+                  (click)="setRating(4)"
                   [icon]="faStar"
                   class="cursor-pointer hover:text-yellow-300"
+                  [ngClass]="{
+                    'text-yellow-300': reviewForm.get('rating')?.value >= 4
+                  }"
                 ></fa-icon>
                 <fa-icon
+                  (click)="setRating(5)"
                   [icon]="faStar"
                   class="cursor-pointer hover:text-yellow-300"
+                  [ngClass]="{
+                    'text-yellow-300': reviewForm.get('rating')?.value >= 5
+                  }"
                 ></fa-icon>
               </div>
               <button
+                (click)="submitReview()"
                 class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium"
               >
                 Gửi đánh giá
