@@ -1,16 +1,26 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   faStar,
   faTicketAlt,
   faPlay,
   faChevronLeft,
   faChevronRight,
+  faNewspaper,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   FontAwesomeModule,
   IconDefinition,
 } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
+import { BANNER_SERVICE } from '../../../../constants/injection/injection.constant';
+import { IBannerService } from '../../../../services/banner/banner-service.interface';
+import { BannerModel } from '../../../../models/banner/banner.model';
 
 @Component({
   selector: 'app-carousel',
@@ -18,50 +28,33 @@ import { CommonModule } from '@angular/common';
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css',
 })
-export class CarouselComponent {
+export class CarouselComponent implements OnInit {
   public faStar: IconDefinition = faStar;
   public faTicketAlt: IconDefinition = faTicketAlt;
   public faPlay: IconDefinition = faPlay;
   public faChevronLeft: IconDefinition = faChevronLeft;
   public faChevronRight: IconDefinition = faChevronRight;
+  public faNewspaper: IconDefinition = faNewspaper;
 
   @ViewChild('carouselInner') carouselInner!: ElementRef;
   @ViewChild('carousel') carousel!: ElementRef;
 
-  banners= [
-    {
-      title: 'JOHN WICK: CHAPTER 4',
-      image:
-        'https://thefutureoftheforce.com/wp-content/uploads/2023/02/John-Wick-Chapter-4-Header.jpg',
-      rating: 9.0,
-      duration: '2h 49m',
-      genre: 'Hành động',
-      description:
-        'John Wick đối mặt với kẻ thù mới với những liên minh quyền lực trên toàn cầu.',
-    },
-    {
-      title: 'THE BATMAN',
-      image:
-        'https://www.pixel4k.com/wp-content/uploads/2023/02/the-batman-movie-poster-chn-4k_1675638279.jpg',
-      rating: 9.2,
-      duration: '2h 56m',
-      genre: 'Hành động',
-      description: 'Batman đối đầu với những bí ẩn đen tối của Gotham.',
-    },
-    {
-      title: 'DOCTOR STRANGE 2',
-      image:
-        'https://static1.srcdn.com/wordpress/wp-content/uploads/2022/05/10-biggest-spoilers-doctor-strange-multiverse-of-madness.jpg',
-      rating: 8.5,
-      duration: '2h 6m',
-      genre: 'Siêu anh hùng',
-      description: 'Bước vào đa vũ trụ với Doctor Strange.',
-    },
-  ];
+  banners: BannerModel[] = [];
+  totalItems = this.banners.length;
+
+  constructor(
+    @Inject(BANNER_SERVICE) private readonly bannerService: IBannerService
+  ) {}
+
+  public ngOnInit(): void {
+    this.bannerService.getAll().subscribe((response) => {
+      this.banners = response;
+      this.totalItems = this.banners.length;
+    });
+  }
 
   currentIndex = 0;
   autoSlide: any;
-  totalItems = this.banners.length;
 
   ngAfterViewInit(): void {
     this.updateCarousel();
@@ -101,5 +94,11 @@ export class CarouselComponent {
   resetAutoSlide() {
     clearInterval(this.autoSlide);
     this.autoSlide = setInterval(() => this.nextSlide(), 5000);
+  }
+
+  formatMinuteToHour(minute: number): string {
+    const hours = Math.floor(minute / 60);
+    const minutes = minute % 60;
+    return `${hours}h ${minutes}m`;
   }
 }

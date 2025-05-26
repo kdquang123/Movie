@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CarouselComponent } from '../../shared/common/carousel/carousel.component';
-import { MOVIE_SERVICE } from '../../../constants/injection/injection.constant';
+import { BANNER_SERVICE, MOVIE_SERVICE } from '../../../constants/injection/injection.constant';
 import { IMovieService } from '../../../services/movie/movie-service.interface';
 import { MovieModel } from '../../../models/movie/movie.model';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { IBannerService } from '../../../services/banner/banner-service.interface';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
   public comingSoonMovies: MovieModel[] = [];
 
   constructor(
-    @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService
+    @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
   ) {}
 
   ngOnInit(): void {

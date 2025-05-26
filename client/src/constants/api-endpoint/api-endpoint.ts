@@ -105,4 +105,12 @@ export const ApiEndpoints = {
   getReviewByMovieId: `${environment.apiUrl}/FilmReviews/movie`,
   createReview: `${environment.apiUrl}/FilmReviews`,
   deleteReview: `${environment.apiUrl}/FilmReviews`,
+
+  //Banner api
+  getAllBanner: `${environment.apiUrl}/Banners`,
+  getBannerById: `${environment.apiUrl}/Banners`,
+  createBanner: `${environment.apiUrl}/Banners`,
+  deleteBanner: `${environment.apiUrl}/Banners`,
+  updateBanner: `${environment.apiUrl}/Banners`,
+  searchBanner: `${environment.apiUrl}/Banners/search`,
 };

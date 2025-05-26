@@ -93,7 +93,7 @@ export class ShowtimeListComponent
     this.searchForm = new FormGroup({
       roomId: new FormControl(''),
       startDate: new FormControl(''),
-      showtimeId: new FormControl(''),
+      movieId: new FormControl(''),
     });
   }
 

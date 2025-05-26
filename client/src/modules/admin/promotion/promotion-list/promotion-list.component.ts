@@ -82,11 +82,11 @@ export class PromotionListComponent
   public delete(id: string): void {
     this.promotionService.delete(id).subscribe({
       next: () => {
-        this.toastr.success('Xóa phim thành công!');
+        this.toastr.success('Xóa khuyến mãi thành công!');
         this.searchData();
       },
       error: () => {
-        this.toastr.error('Xóa phim thất bại!');
+        this.toastr.error('Xóa khuyến mãi thất bại!');
       },
     });
   }

@@ -37,5 +37,6 @@ public class MappingProfile : Profile
         CreateMap<News, NewsViewModel>().ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.ToString())).ReverseMap();
         CreateMap<User, UserReviewViewModel>().ReverseMap();
         CreateMap<FilmReview, FilmReviewViewModel>().ReverseMap();
+        CreateMap<Banner, BannerViewModel>().ForMember(dest => dest.BannerType, opt => opt.MapFrom(src => src.BannerType.ToString())).ReverseMap();
     }
 }
