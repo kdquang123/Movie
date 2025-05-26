@@ -11,6 +11,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { routes } from './app.routes';
 import {
   AUTH_SERVICE,
+  BANNER_SERVICE,
   BOOKING_SERVICE,
   COMMON_SERVICE,
   EMPLOYEE_SERVICE,
@@ -47,6 +48,7 @@ import { PromotionService } from '../services/promotion/promotion.service';
 import { NewsService } from '../services/news/news.service';
 import { loadingInterceptor } from '../interceptors/loading.interceptor';
 import { MovieReviewService } from '../services/movie-review/movie-review.service';
+import { BannerService } from '../services/banner/banner.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -66,7 +68,9 @@ export const appConfig: ApplicationConfig = {
     { provide: MEMBER_SERVICE, useClass: MemberService },
     { provide: PROMOTION_SERVICE, useClass: PromotionService },
     { provide: NEWS_SERVICE, useClass: NewsService },
-    {provide:MOVIE_REVIEW_SERVICE,useClass:MovieReviewService},
+    { provide: MOVIE_REVIEW_SERVICE, useClass: MovieReviewService },
+    { provide: BANNER_SERVICE, useClass: BannerService },
+    importProvidersFrom(NgxSpinnerModule),
     provideAnimations(),
     provideToastr(),
     provideHttpClient(withInterceptors([loadingInterceptor])),

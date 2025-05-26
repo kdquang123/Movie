@@ -2,7 +2,7 @@
 <app-carousel></app-carousel>
 
 <!-- Now Showing -->
-<section class="py-16">
+<section *ngIf="nowPlayingMovies.length > 0" class="py-16">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center mb-10">
       <h2 class="text-3xl font-bold">PHIM ĐANG CHIẾU</h2>
@@ -47,7 +47,7 @@
 </section>
 
 <!-- Coming Soon -->
-<section class="py-16 bg-darker">
+<section *ngIf="comingSoonMovies.length > 0" class="py-16 bg-darker">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center mb-10">
       <h2 class="text-3xl font-bold">PHIM SẮP CHIẾU</h2>
