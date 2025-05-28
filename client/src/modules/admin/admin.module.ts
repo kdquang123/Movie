@@ -32,39 +32,144 @@ import { BannerListComponent } from './banner/banner-list/banner-list.component'
 import { CreateBookingComponent } from './booking/create-booking/create-booking.component';
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
+import { adminRoleGuard } from '../../guards/admin-role.guard';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'movies/:id/detail', component: MovieDetailComponent },
-  { path: 'movies/add', component: AddMovieComponent },
-  { path: 'movies', component: MovieListComponent },
-  { path: 'news/:id/detail', component: NewsDetailComponent },
-  { path: 'news/add', component: AddNewsComponent },
-  { path: 'news', component: NewsListComponent },
-  { path: 'members/:id/detail', component: UserDetailComponent },
-  { path: 'members/add', component: AddUserComponent },
-  { path: 'members', component: UserListComponent },
-  { path: 'employees/:id/detail', component: EmployeeDetailComponent },
-  { path: 'employees/add', component: AddEmployeeComponent },
-  { path: 'employees', component: EmployeeListComponent },
-  { path: 'showtimes/:id/detail', component: ShowtimeDetailComponent },
-  { path: 'showtimes/add', component: AddShowtimeComponent },
-  { path: 'showtimes', component: ShowtimeListComponent },
-  { path: 'rooms/:id/detail', component: RoomDetailComponent },
-  { path: 'rooms/add', component: AddRoomComponent },
-  { path: 'rooms', component: RoomListComponent },
-  { path: 'promotions/:id/detail', component: PromotionDetailComponent },
-  { path: 'promotions/add', component: AddPromotionComponent },
-  { path: 'promotions', component: PromotionListComponent },
-  { path: 'products/:id/detail', component: ProductDetailComponent },
-  { path: 'products/add', component: AddProductComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'bookings', component: BookingListComponent },
+  {
+    path: 'movies/:id/detail',
+    component: MovieDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'movies/add',
+    component: AddMovieComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'movies',
+    component: MovieListComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'news/:id/detail',
+    component: NewsDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'news/add',
+    component: AddNewsComponent,
+    canActivate: [adminRoleGuard],
+  },
+  { path: 'news', component: NewsListComponent, canActivate: [adminRoleGuard] },
+  {
+    path: 'members/:id/detail',
+    component: UserDetailComponent,
+  },
+  {
+    path: 'members/add',
+    component: AddUserComponent,
+  },
+  {
+    path: 'members',
+    component: UserListComponent,
+  },
+  {
+    path: 'employees/:id/detail',
+    component: EmployeeDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'employees/add',
+    component: AddEmployeeComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'employees',
+    component: EmployeeListComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'showtimes/:id/detail',
+    component: ShowtimeDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'showtimes/add',
+    component: AddShowtimeComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'showtimes',
+    component: ShowtimeListComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'rooms/:id/detail',
+    component: RoomDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'rooms/add',
+    component: AddRoomComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'rooms',
+    component: RoomListComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'promotions/:id/detail',
+    component: PromotionDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'promotions/add',
+    component: AddPromotionComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'promotions',
+    component: PromotionListComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'products/:id/detail',
+    component: ProductDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'products/add',
+    component: AddProductComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'products',
+    component: ProductListComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'bookings',
+    component: BookingListComponent,
+  },
   { path: 'bookings/:id/detail', component: BookingDetailComponent },
   { path: 'bookings/create', component: CreateBookingComponent },
-  { path: 'banners/:id/detail', component: BannerDetailComponent },
-  { path: 'banners/add', component: AddBannerComponent },
-  { path: 'banners', component: BannerListComponent },
+  {
+    path: 'banners/:id/detail',
+    component: BannerDetailComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'banners/add',
+    component: AddBannerComponent,
+    canActivate: [adminRoleGuard],
+  },
+  {
+    path: 'banners',
+    component: BannerListComponent,
+    canActivate: [adminRoleGuard],
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 

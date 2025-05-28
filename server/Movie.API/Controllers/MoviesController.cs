@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
@@ -9,6 +10,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles ="ADMIN")]
 public class MoviesController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -25,6 +27,7 @@ public class MoviesController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
@@ -77,6 +80,7 @@ public class MoviesController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("comming-soon")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> CommingSoon()
@@ -89,6 +93,7 @@ public class MoviesController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("now-playing")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> NowPlaying()

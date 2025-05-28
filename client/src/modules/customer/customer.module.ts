@@ -11,6 +11,7 @@ import { BookingSuccessComponent } from './booking-result/booking-success/bookin
 import { BookingFailedComponent } from './booking-result/booking-failed/booking-failed.component';
 import { MovieCommingSoonComponent } from './movie-comming-soon/movie-comming-soon.component';
 import { MovieNowShowingComponent } from './movie-now-showing/movie-now-showing.component';
+import { authGuard } from '../../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,8 +23,12 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailComponent },
   { path: 'news/:id', component: NewsDetailComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'booking/:id', component: BookingComponent },
-  { path: 'my-ticket', component: MyTicketComponent },
+  {
+    path: 'booking/:id',
+    component: BookingComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'my-ticket', component: MyTicketComponent, canActivate: [authGuard] },
   { path: 'booking-success', component: BookingSuccessComponent },
   { path: 'booking-failed', component: BookingFailedComponent },
   { path: '**', redirectTo: 'home' },

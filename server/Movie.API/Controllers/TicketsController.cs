@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
@@ -7,6 +8,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class TicketsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -31,6 +33,7 @@ public class TicketsController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "ADMIN,EMPLOYEE")]
     [HttpGet("code/{ticketCode}")]
     public async Task<IActionResult> GetTicketByTicketCode(string ticketCode)
     {
@@ -38,6 +41,7 @@ public class TicketsController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "ADMIN,EMPLOYEE")]
     [HttpPost("approve")]
     public async Task<IActionResult> ApproveTicket([FromBody] ApproveTicketCommand command)
     {

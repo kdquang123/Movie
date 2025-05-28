@@ -1,10 +1,12 @@
 using System;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Movie.Business.Handler;
 
 namespace Movie.API.Hubs;
 
+[Authorize]
 public class SeatHub : Hub
 {
     private readonly IMediator _mediator;
@@ -36,8 +38,8 @@ public class SeatHub : Hub
     public async Task ReleaseSeat(ReleaseSeatCommand command)
     {
         var result = await _mediator.Send(command);
-         await Clients.Group(command.ShowtimeId.ToString())
-             .SendAsync("ReceiveHeldSeats", result);
+        await Clients.Group(command.ShowtimeId.ToString())
+            .SendAsync("ReceiveHeldSeats", result);
     }
 
     public override Task OnDisconnectedAsync(Exception? exception)
