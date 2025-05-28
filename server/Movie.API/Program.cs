@@ -122,11 +122,14 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseCors("CorsPolicy");
 
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.MapHub<SeatHub>("/seathub");
-
-app.UseHttpsRedirection();
 
 app.Run();
 

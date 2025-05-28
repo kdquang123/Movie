@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
 using Movie.Models;
@@ -7,6 +8,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "ADMIN,EMPLOYEE")]
 public class CommonController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;

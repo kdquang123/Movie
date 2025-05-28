@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
 
@@ -6,6 +7,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "ADMIN")]
 public class BannersController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -15,7 +17,7 @@ public class BannersController : ControllerBase
         _mediator = mediator;
     }
 
-
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -23,6 +25,7 @@ public class BannersController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {

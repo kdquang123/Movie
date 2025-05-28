@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
@@ -7,6 +8,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles ="ADMIN")]
 public class ProductsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -16,6 +18,7 @@ public class ProductsController : ControllerBase
         _mediator = mediator;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetProducts()
     {
@@ -23,6 +26,7 @@ public class ProductsController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProductById(Guid id)
     {
@@ -52,6 +56,7 @@ public class ProductsController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpPost("search")]
     public async Task<IActionResult> SearchProduct([FromBody] ProductSearchQuery query)
     {

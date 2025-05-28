@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
@@ -7,6 +8,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class FilmReviewsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -15,7 +17,6 @@ public class FilmReviewsController : ControllerBase
     {
         _mediator = mediator;
     }
-
 
     [HttpPost]
     public async Task<IActionResult> CreateReview([FromBody] FilmReviewCreateCommand command)
@@ -28,6 +29,7 @@ public class FilmReviewsController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpGet("movie/{id}")]
     public async Task<IActionResult> GetReviews(Guid id)
     {

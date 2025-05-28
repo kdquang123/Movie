@@ -1,9 +1,11 @@
 <!-- Login/Register Modal -->
 <div
+  (click)="closeLoginModal.emit()"
   id="auth-modal"
   class="modal fixed inset-0 z-50 flex items-center justify-center p-4"
 >
   <div
+    (click)="$event.stopPropagation()"
     class="modal-content bg-darker rounded-lg w-full max-w-md border border-gray-800 overflow-hidden"
   >
     <!-- Modal Header -->

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Amazon.S3.Model;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
@@ -9,6 +10,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "ADMIN")]
 public class ShowtimesController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -19,6 +21,7 @@ public class ShowtimesController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetShowtimeById(Guid id)
     {
         var result = await _mediator.Send(new ShowtimeGetByIdQuery { Id = id });
@@ -28,7 +31,7 @@ public class ShowtimesController : ControllerBase
     // [HttpGet]
     // public IActionResult GetAllShowtimes()
     // {
-    //     var result = _mediator.Send(new ShowtimeGetAllQuery()).Result;
+    //     var result = _mediator.Send(new ShowtimeGetAllQuery());
     //     return Ok(result);
     // }
 
@@ -55,6 +58,7 @@ public class ShowtimesController : ControllerBase
     }
 
     [HttpPost("date")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetShowtimeByDate([FromBody] ShowtimeGetByDateQuery query)
     {
         var result = await _mediator.Send(query);
@@ -81,6 +85,7 @@ public class ShowtimesController : ControllerBase
     }
 
     [HttpGet("movie/{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetShowtimeByMovieId(Guid id)
     {
         var result = await _mediator.Send(new ShowtimeGetByMovieIdQuery { MovieId = id });

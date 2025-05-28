@@ -37,6 +37,7 @@
       </div>
 
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/movies"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -45,6 +46,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Phim</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/news"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -53,6 +55,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Tin tức</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/banners"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -69,6 +72,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Vé đặt</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/products"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -77,6 +81,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Sản phẩm</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/showtimes"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -85,6 +90,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Lịch chiếu</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/promotions"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -93,6 +99,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Khuyến mãi</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/rooms"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
@@ -117,6 +124,7 @@
         <span class="sidebar-text" *ngIf="!collapsed">Thành viên</span>
       </a>
       <a
+        *ngIf="currentUser!.roles[0] === 'ADMIN'"
         class="flex items-center space-x-3 py-3 px-4 text-gray-300 hover:bg-gray-800 rounded-lg mb-1 transition"
         routerLink="/admin/employees"
         routerLinkActive="bg-primary hover:bg-opacity-20 text-white hover:bg-primary"
