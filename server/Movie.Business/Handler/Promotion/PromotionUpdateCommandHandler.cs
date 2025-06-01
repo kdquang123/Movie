@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using MediatR;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -14,7 +15,7 @@ public class PromotionUpdateCommandHandler : BaseHandler, IRequestHandler<Promot
     public async Task<bool> Handle(PromotionUpdateCommand request, CancellationToken cancellationToken)
     {
         var promotion = await _unitOfWork.PromotionRepository.GetByIdAsync(request.Id);
-        if (promotion == null) return false;
+        if (promotion == null) throw new NotFoundException("Khuyến mãi không tồn tại");
         promotion.Name = request.Name;
         promotion.Code = request.Code;
         promotion.Description = request.Description;
@@ -25,7 +26,7 @@ public class PromotionUpdateCommandHandler : BaseHandler, IRequestHandler<Promot
         promotion.UsageLimit = request.UsageLimit;
         promotion.MinOrderAmount = request.MinOrderAmount;
         promotion.UpdatedAt = DateTime.Now;
-        var result = await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 }

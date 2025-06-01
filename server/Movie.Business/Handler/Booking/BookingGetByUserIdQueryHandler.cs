@@ -16,8 +16,8 @@ public class BookingGetByUserIdQueryHandler : BaseHandler, IRequestHandler<Booki
     public async Task<IEnumerable<BookingViewModel>> Handle(BookingGetByUserIdQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.BookingRepository.GetQuery().Where(b => b.UserId == request.UserId)
-        .Include(b => b.Showtime).ThenInclude(st => st.Film)
-        .Include(b => b.Showtime).ThenInclude(st => st.Room)
+        .Include(b => b.Showtime).ThenInclude(st => st!.Film)
+        .Include(b => b.Showtime).ThenInclude(st => st!.Room)
         .Include(b => b.Tickets).ThenInclude(t => t.Seat)
         .Include(b => b.BookingDetails).ThenInclude(bd => bd.Product)
         .AsSplitQuery();

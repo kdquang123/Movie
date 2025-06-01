@@ -5,7 +5,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import {
+  faExternalLinkSquareAlt,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons';
 import { MEMBER_SERVICE } from '../../../../constants/injection/injection.constant';
 import { IMemberService } from '../../../../services/member/member-service.interface';
 import { ToastrService } from 'ngx-toastr';
@@ -47,14 +50,18 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.memberService.createMember(this.memberForm.value).subscribe({
-      next: () => {
-        this.router.navigate(['/admin/users']);
-        this.toastr.success('Thêm thành viên thành công!', 'Success');
-      },
-      error: (error) => {
-        this.toastr.error(error.error.message, 'Error');
-      },
-    });
+    if (this.memberForm.valid) {
+      this.memberService.createMember(this.memberForm.value).subscribe({
+        next: () => {
+          this.router.navigate(['/admin/members']);
+          this.toastr.success('Thêm thành viên thành công!', 'Thành công');
+        },
+        error: (error) => {
+          this.toastr.error(error.error.message, 'Lỗi');
+        },
+      });
+    } else {
+      this.toastr.error('Vui lòng điền đầy đủ thông tin', 'Lỗi');
+    }
   }
 }

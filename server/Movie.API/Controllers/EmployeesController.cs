@@ -32,7 +32,7 @@ public class EmployeesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> Create([FromBody] EmployeeCreateCommand command)
     {
         if (!ModelState.IsValid)

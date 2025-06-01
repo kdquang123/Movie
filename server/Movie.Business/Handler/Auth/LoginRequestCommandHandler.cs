@@ -38,20 +38,20 @@ public class LoginRequestCommandHandler : BaseHandler, IRequestHandler<LoginRequ
         var user = await _userManager.FindByNameAsync(request.Username);
         if (user == null)
         {
-            throw new UnauthorizedAccessException("Invalid username or password");
+            throw new UnauthorizedAccessException("Tên đăng nhập hoặc mật khẩu không đúng");
         }
 
         // Check if the user is active
         if (!user.IsActive)
         {
-            throw new UnauthorizedAccessException("Your account is deactivated. Please contact an administrator.");
+            throw new UnauthorizedAccessException("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên để mở khóa tài khoản.");
         }
 
         // Check if the password is correct
         var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
         if (!result.Succeeded)
         {
-            throw new UnauthorizedAccessException("Invalid username or password");
+            throw new UnauthorizedAccessException("Tên đăng nhập hoặc mật khẩu không đúng");
         }
 
         // Get user roles

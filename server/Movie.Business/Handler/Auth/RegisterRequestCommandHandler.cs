@@ -33,13 +33,13 @@ public class RegisterRequestCommandHandler : BaseHandler, IRequestHandler<Regist
         var existingUserByName = await _userManager.FindByNameAsync(request.Email);
         if (existingUserByName != null)
         {
-            throw new InvalidOperationException("Email already exists");
+            throw new InvalidOperationException("Email đã tồn tại");
         }
 
         var existingUserByEmail = await _userManager.FindByEmailAsync(request.Email);
         if (existingUserByEmail != null)
         {
-            throw new InvalidOperationException("Email already exists");
+            throw new InvalidOperationException("Email đã tồn tại");
         }
 
         // Create new user
@@ -58,7 +58,7 @@ public class RegisterRequestCommandHandler : BaseHandler, IRequestHandler<Regist
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(e => e.Description);
-            throw new InvalidOperationException($"Failed to create user: {string.Join(", ", errors)}");
+            throw new InvalidOperationException($"Tạo tài khoản thất bại: {string.Join(", ", errors)}");
         }
 
         // Assign default role

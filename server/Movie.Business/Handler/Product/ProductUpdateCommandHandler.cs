@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Movie.Business.Services;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -18,7 +19,7 @@ public class ProductUpdateCommandHandler : BaseHandler, IRequestHandler<ProductU
 
     public async Task<bool> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetQuery().Where(p => p.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
+        var product = await _unitOfWork.ProductRepository.GetQuery().Where(p => p.Id == request.Id).FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Sản phẩm không tồn tại");
         if (product == null)
         {
             return false;

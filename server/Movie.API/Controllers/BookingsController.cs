@@ -32,7 +32,7 @@ public class BookingsController : ControllerBase
         if (model.vnp_ResponseCode == "00")
         {
             // Giao dịch thành công
-            var result = await _mediator.Send(new TicketCreateCommand { BookingCode = model.vnp_TxnRef });
+            var result = await _mediator.Send(new TicketCreateCommand { BookingCode = model.vnp_TxnRef! });
             if (result == true)
             {
                 return Redirect("http://localhost:4200/booking-success");

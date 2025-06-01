@@ -57,7 +57,7 @@ export class AddRoomComponent implements OnInit {
     if (this.roomForm.valid) {
       this.roomService.createRoom(this.roomForm.value).subscribe({
         next: () => {
-          this.toastr.success('Thêm phòng thành công!', 'Success');
+          this.toastr.success('Thêm phòng thành công!', 'Thành công');
           this.router.navigate(['/admin/rooms']);
         },
         error: (error) => {

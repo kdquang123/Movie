@@ -50,6 +50,7 @@ import { loadingInterceptor } from '../interceptors/loading.interceptor';
 import { MovieReviewService } from '../services/movie-review/movie-review.service';
 import { BannerService } from '../services/banner/banner.service';
 import { authInterceptor } from '../interceptors/auth.interceptor';
+import { errorInterceptor } from '../interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -74,6 +75,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxSpinnerModule),
     provideAnimations(),
     provideToastr(),
-    provideHttpClient(withInterceptors([loadingInterceptor, authInterceptor])),
+    provideHttpClient(withInterceptors([loadingInterceptor, authInterceptor,errorInterceptor])),
   ],
 };

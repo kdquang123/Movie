@@ -78,18 +78,31 @@ export class LoginAndRegisterModalComponent implements OnInit {
     };
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
-        this.toastr.success('Đăng nhập thành công!', 'Success');
+        console.log(response.userInfo.roles[0] === 'ADMIN');
+
         if (
-          response.userInfo.roles[0] == 'ADMIN' ||
-          response.userInfo.roles[0] == 'EMPLOYEE'
+          response.userInfo.roles[0] === 'ADMIN' ||
+          response.userInfo.roles[0] === 'EMPLOYEE'
         ) {
-          this.router.navigate(['/admin/dashboard']);
+          console.log(response.userInfo.roles[0]);
+
+          this.router.navigate(['/admin']).then((success) => {
+            console.log('Navigation success?', success); // <-- kiểm tra xem nó có chạy không
+          });
         } else {
           this.closeLoginModal.emit();
         }
+        this.toastr.success('Đăng nhập thành công!', 'Success');
       },
       error: (err) => {
-        console.log(err);
+        if (err.status == 400) {
+          this.toastr.error(
+            err.error.errors[Object.keys(err.error.errors)[0]][0],
+            'Lỗi'
+          );
+        } else {
+          this.toastr.error(err.error.message, 'Lỗi');
+        }
       },
     });
   }

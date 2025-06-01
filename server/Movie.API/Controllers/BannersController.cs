@@ -33,9 +33,13 @@ public class BannersController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> Create([FromForm] BannerCreateCommand command)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var result = await _mediator.Send(command);
         return Ok(result);
     }
@@ -43,6 +47,10 @@ public class BannersController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromForm] BannerUpdateCommand command)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         command.Id = id;
         var result = await _mediator.Send(command);
         return Ok(result);

@@ -1,0 +1,7 @@
+.file-upload {
+  border: 2px dashed #e50914;
+}
+
+.file-upload:hover {
+  border-color: #b20710;
+}

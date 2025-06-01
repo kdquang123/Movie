@@ -35,6 +35,8 @@ export class AddMovieComponent implements OnInit {
 
   movieForm!: FormGroup;
 
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(
     @Inject(COMMON_SERVICE) private readonly commonService: ICommonService,
     @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
@@ -73,6 +75,19 @@ export class AddMovieComponent implements OnInit {
 
   onPosterChange(event: Event): void {
     const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) {
+      this.imagePreview = null;
+      return;
+    }
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+
+    reader.readAsDataURL(file);
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.movieForm.patchValue({ poster: file });
@@ -113,17 +128,17 @@ export class AddMovieComponent implements OnInit {
 
       this.movieService.createMovie(formData).subscribe({
         next: () => {
-          this.toastr.success('Thêm phim thành công!', 'Success');
+          this.toastr.success('Thêm phim thành công!', 'Thành công');
           this.movieForm.reset();
           (this.movieForm.get('categories') as FormArray).clear();
           this.router.navigate(['/admin/movies']);
         },
         error: (error) => {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.error.message, 'Lỗi');
         },
       });
     } else {
-      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Error');
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
     }
   }
 }

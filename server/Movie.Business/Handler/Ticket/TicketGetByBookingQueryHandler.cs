@@ -16,7 +16,7 @@ public class TicketGetByBookingQueryHandler : BaseHandler, IRequestHandler<Ticke
     public async Task<IEnumerable<TicketDetailViewModel>> Handle(TicketGetByBookingQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.TicketRepository.GetQuery();
-        query = query.Include(t => t.Booking).ThenInclude(b => b.Showtime).Include(t => t.Seat);
+        query = query.Include(t => t.Booking).ThenInclude(b => b!.Showtime).Include(t => t.Seat);
         var result = await query.Where(t => t.Booking!.Id == request.BookingId).ToListAsync(cancellationToken);
         return _mapper.Map<IEnumerable<TicketDetailViewModel>>(result);
     }

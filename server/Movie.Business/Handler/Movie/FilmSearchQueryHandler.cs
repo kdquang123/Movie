@@ -44,11 +44,11 @@ public class FilmSearchQueryHandler : BaseHandler, IRequestHandler<FilmSearchQue
             }
         }
 
-        query = query.Include(f => f.FilmCategories).ThenInclude(fc => fc.Category);
+        query = query.Include(f => f.FilmCategories!).ThenInclude(fc => fc.Category);
 
         if (!string.IsNullOrEmpty(request.CategoryId))
         {
-            query = query.Where(x => x.FilmCategories.Any(fc => fc.CategoryId == Guid.Parse(request.CategoryId)));
+            query = query.Where(x => x.FilmCategories!.Any(fc => fc.CategoryId == Guid.Parse(request.CategoryId)));
         }
 
         // Dem so luong

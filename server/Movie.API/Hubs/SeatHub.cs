@@ -6,7 +6,6 @@ using Movie.Business.Handler;
 
 namespace Movie.API.Hubs;
 
-[Authorize]
 public class SeatHub : Hub
 {
     private readonly IMediator _mediator;

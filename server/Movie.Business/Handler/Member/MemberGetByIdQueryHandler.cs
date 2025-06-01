@@ -2,7 +2,9 @@ using System;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Movie.Business.ViewModels;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -16,7 +18,8 @@ public class MemberGetByIdQueryHandler : UserBaseHandler, IRequestHandler<Member
 
     public async Task<MemberViewModel> Handle(MemberGetByIdQuery request, CancellationToken cancellationToken)
     {
-        var member = _unitOfWork.UserRepository.GetById(request.Id);
+        var member = await _unitOfWork.UserRepository.GetQuery()
+            .FirstOrDefaultAsync(x => x.Id == request.Id && x.IsDelete == false, cancellationToken: cancellationToken) ?? throw new NotFoundException("Thành viên không tồn tại");
         return _mapper.Map<MemberViewModel>(member);
     }
 }

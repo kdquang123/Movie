@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Movie.Business.Services;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models.Models;
 
@@ -19,7 +20,7 @@ public class FilmUpdateCommandHandler : BaseHandler, IRequestHandler<FilmUpdateC
     public async Task<bool> Handle(FilmUpdateCommand request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.FilmRepository.GetQuery();
-        var film = await query.Include(x => x.FilmCategories).FirstOrDefaultAsync(c => c.Id == request.Id && c.IsDelete == false, cancellationToken);
+        var film = await query.Include(x => x.FilmCategories).FirstOrDefaultAsync(c => c.Id == request.Id && c.IsDelete == false, cancellationToken) ?? throw new NotFoundException("Phim không tồn tại");
         if (film == null || film.IsDelete)
         {
             return false;

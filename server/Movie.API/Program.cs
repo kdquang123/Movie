@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Movie.API.Hubs;
+using Movie.API.Middleware;
 using Movie.Business.Handler;
 using Movie.Business.Mappings;
 using Movie.Business.Services;
@@ -120,6 +121,9 @@ if (app.Environment.IsDevelopment())
     await DbInitializer.Seed(context, userManager, roleManager);
 }
 app.UseRouting();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();

@@ -31,7 +31,7 @@ public class MembersController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> Create([FromBody] MemberCreateCommand command)
     {
         if (!ModelState.IsValid)
