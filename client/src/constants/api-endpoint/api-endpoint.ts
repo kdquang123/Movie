@@ -74,7 +74,7 @@ export const ApiEndpoints = {
   getEmployeeById: `${environment.apiUrl}/Employees`,
   deleteEmployee: `${environment.apiUrl}/Employees`,
   updateEmployee: `${environment.apiUrl}/Employees`,
-  createEmployee: `${environment.apiUrl}/Employees`,
+  createEmployee: `${environment.apiUrl}/Employees/add`,
   searchEmployee: `${environment.apiUrl}/Employees/search`,
 
   //Member api
@@ -82,7 +82,7 @@ export const ApiEndpoints = {
   getMemberById: `${environment.apiUrl}/Members`,
   deleteMember: `${environment.apiUrl}/Members`,
   updateMember: `${environment.apiUrl}/Members`,
-  createMember: `${environment.apiUrl}/Members`,
+  createMember: `${environment.apiUrl}/Members/add`,
   searchMember: `${environment.apiUrl}/Members/search`,
 
   //Promotion api
@@ -90,7 +90,7 @@ export const ApiEndpoints = {
   getPromotionById: `${environment.apiUrl}/Promotions`,
   deletePromotion: `${environment.apiUrl}/Promotions`,
   updatePromotion: `${environment.apiUrl}/Promotions`,
-  createPromotion: `${environment.apiUrl}/Promotions`,
+  createPromotion: `${environment.apiUrl}/Promotions/add`,
   searchPromotion: `${environment.apiUrl}/Promotions/search`,
 
   //News api
@@ -98,18 +98,18 @@ export const ApiEndpoints = {
   getNewsById: `${environment.apiUrl}/News`,
   deleteNews: `${environment.apiUrl}/News`,
   updateNews: `${environment.apiUrl}/News`,
-  createNews: `${environment.apiUrl}/News`,
+  createNews: `${environment.apiUrl}/News/add`,
   searchNews: `${environment.apiUrl}/News/search`,
 
   //Movie review api
   getReviewByMovieId: `${environment.apiUrl}/FilmReviews/movie`,
-  createReview: `${environment.apiUrl}/FilmReviews`,
+  createReview: `${environment.apiUrl}/FilmReviews/add`,
   deleteReview: `${environment.apiUrl}/FilmReviews`,
 
   //Banner api
   getAllBanner: `${environment.apiUrl}/Banners`,
   getBannerById: `${environment.apiUrl}/Banners`,
-  createBanner: `${environment.apiUrl}/Banners`,
+  createBanner: `${environment.apiUrl}/Banners/add`,
   deleteBanner: `${environment.apiUrl}/Banners`,
   updateBanner: `${environment.apiUrl}/Banners`,
   searchBanner: `${environment.apiUrl}/Banners/search`,

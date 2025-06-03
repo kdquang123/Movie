@@ -87,6 +87,8 @@ export class PromotionDetailComponent implements OnInit {
             this.toastr.error();
           },
         });
+    } else {
+      this.toastr.error('Vui lòng điền đầy đủ thông tin', 'Lỗi');
     }
   }
 }

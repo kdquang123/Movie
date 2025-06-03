@@ -18,7 +18,7 @@ public class FilmReviewsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> CreateReview([FromBody] FilmReviewCreateCommand command)
     {
         if (!ModelState.IsValid)

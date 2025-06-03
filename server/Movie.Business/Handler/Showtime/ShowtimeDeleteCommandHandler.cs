@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using MediatR;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -15,7 +16,7 @@ public class ShowtimeDeleteCommandHandler : BaseHandler, IRequestHandler<Showtim
     {
         var showtime = _unitOfWork.ShowTimeRepository.GetById(request.Id);
         if (showtime == null)
-            return false;
+            throw new NotFoundException("Suất chiếu không tồn tại");
 
         showtime.IsDelete = true;
         showtime.DeletedAt = DateTime.Now;

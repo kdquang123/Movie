@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -16,7 +17,7 @@ public class ApproveTicketCommandHandler : BaseHandler, IRequestHandler<ApproveT
     public async Task<bool> Handle(ApproveTicketCommand request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.TicketRepository.GetQuery().Where(t => t.TicketCode == request.TicketCode).Include(t => t.Booking);
-        var ticket = await query.FirstOrDefaultAsync(cancellationToken);
+        var ticket = await query.FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Không tìm thấy vé");
         if (ticket == null)
         {
             return false;

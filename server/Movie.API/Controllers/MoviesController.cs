@@ -70,7 +70,7 @@ public class MoviesController : ControllerBase
 
     [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Search([FromForm] FilmCreateCommand command)
+    public async Task<IActionResult> Create([FromForm] FilmCreateCommand command)
     {
         if (!ModelState.IsValid)
         {

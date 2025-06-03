@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -15,11 +16,7 @@ public class EmployeeUpdateCommandHandler : UserBaseHandler, IRequestHandler<Emp
 
     public async Task<bool> Handle(EmployeeUpdateCommand request, CancellationToken cancellationToken)
     {
-        var employee = _unitOfWork.UserRepository.GetById(request.Id);
-        if (employee == null)
-        {
-            return false;
-        }
+        var employee = _unitOfWork.UserRepository.GetById(request.Id) ?? throw new NotFoundException("Không tìm thấy nhân viên");
 
         employee.FullName = request.FullName;
         employee.DateOfBirth = request.DateOfBirth;

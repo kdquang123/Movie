@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -15,11 +16,7 @@ public class MemberUpdateCommandHandler : UserBaseHandler, IRequestHandler<Membe
 
     public async Task<bool> Handle(MemberUpdateCommand request, CancellationToken cancellationToken)
     {
-        var member = _unitOfWork.UserRepository.GetById(request.Id);
-        if (member == null)
-        {
-            return false;
-        }
+        var member = _unitOfWork.UserRepository.GetById(request.Id) ?? throw new NotFoundException("Thành viên không tồn tại");
 
         member.FullName = request.FullName;
         member.DateOfBirth = request.DateOfBirth;

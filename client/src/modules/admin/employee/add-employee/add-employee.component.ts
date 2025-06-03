@@ -47,14 +47,18 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   onSubmit() {
-    this.employeeService.createEmployee(this.employeeForm.value).subscribe({
-      next: () => {
-        this.router.navigate(['/admin/employees']);
-        this.toastr.success('Thêm nhân viên thành công!', 'Success');
-      },
-      error: (error) => {
-        this.toastr.error(error.error.message, 'Error');
-      },
-    });
+    if (this.employeeForm.valid) {
+      this.employeeService.createEmployee(this.employeeForm.value).subscribe({
+        next: () => {
+          this.router.navigate(['/admin/employees']);
+          this.toastr.success('Thêm nhân viên thành công!', 'Thành công');
+        },
+        error: (error) => {
+          this.toastr.error(error.error.message, 'Lỗi');
+        },
+      });
+    } else {
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
+    }
   }
 }

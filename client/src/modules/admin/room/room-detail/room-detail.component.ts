@@ -83,7 +83,7 @@ export class RoomDetailComponent implements OnInit {
 
   onSubmit(): void {
     if (this.roomForm.invalid) {
-      this.toastr.error('Vui lòng điền đầy đủ thông tin!');
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!','Lỗi');
       return;
     }
 
@@ -98,14 +98,14 @@ export class RoomDetailComponent implements OnInit {
     this.roomService.updateRoom(this.roomId, roomData).subscribe({
       next: (response) => {
         if (response) {
-          this.toastr.success('Cập nhật thành công!');
+          this.toastr.success('Cập nhật thành công!','Thành công');
           this.router.navigate(['/admin/rooms']);
         } else {
-          this.toastr.error('Cập nhật thất bại!');
+          this.toastr.error('Cập nhật thất bại!','Lỗi');
         }
       },
       error: (error) => {
-        this.toastr.error('Cập nhật thất bại!');
+        this.toastr.error('Cập nhật thất bại!','Lỗi');
       },
     });
   }

@@ -45,6 +45,8 @@ export class AddBannerComponent implements OnInit {
 
   searchTimeout: any;
 
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(
     @Inject(BANNER_SERVICE) private readonly bannerService: IBannerService,
     @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
@@ -74,7 +76,7 @@ export class AddBannerComponent implements OnInit {
 
   createForm() {
     this.bannerForm = new FormGroup({
-      image: new FormControl(null),
+      image: new FormControl(null, Validators.required),
       bannerType: new FormControl('Movie', Validators.required),
       movieId: new FormControl(''),
       newsId: new FormControl(''),
@@ -113,20 +115,35 @@ export class AddBannerComponent implements OnInit {
 
       this.bannerService.create(formData).subscribe({
         next: (data) => {
-          this.toastr.success('Thêm banner thành công');
+          this.toastr.success('Thêm slide thành công', 'Thành công');
           this.router.navigate(['/admin/banners']);
         },
         error: (err) => {
-          this.toastr.error('Thêm banner thất bại');
+          this.toastr.error('Thêm slide thất bại', 'Lỗi');
         },
       });
+    } else {
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
     }
   }
 
   onImageChange(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      const file = inputElement.files[0];
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) {
+      this.imagePreview = null;
+      return;
+    }
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
       this.bannerForm.patchValue({ image: file });
       this.bannerForm.get('image')?.updateValueAndValidity();
     }

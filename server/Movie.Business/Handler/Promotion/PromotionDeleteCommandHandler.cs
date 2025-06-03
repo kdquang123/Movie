@@ -2,6 +2,7 @@ using System;
 using Amazon.Runtime.Internal;
 using AutoMapper;
 using MediatR;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -14,7 +15,7 @@ public class PromotionDeleteCommandHandler : BaseHandler, IRequestHandler<Promot
 
     public async Task<bool> Handle(PromotionDeleteCommand request, CancellationToken cancellationToken)
     {
-        var promotion = await _unitOfWork.PromotionRepository.GetByIdAsync(request.Id);
+        var promotion = await _unitOfWork.PromotionRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException("Khuyến mãi không tồn tại");
         if (promotion == null) return false;
         promotion.IsDelete = true;
         promotion.DeletedAt = DateTime.Now;

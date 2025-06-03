@@ -7,20 +7,20 @@ namespace Movie.Business.Handler;
 
 public class RegisterRequestCommand : IRequest<LoginResponse>
 {
-    [Required(ErrorMessage = "{0} is required")]
-    [StringLength(50, ErrorMessage = "{0} must be between {2} and {1} characters", MinimumLength = 1)]
+    [Required(ErrorMessage = "Tên không được bỏ trống")]
+    [StringLength(50, ErrorMessage = "Tên không được quá 50 ký tự", MinimumLength = 1)]
     public required string FullName { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
-    [EmailAddress(ErrorMessage = "Invalid email address")]
+    [Required(ErrorMessage = "Email không được bỏ trống")]
+    [EmailAddress(ErrorMessage = "Email không hợp lệ")]
     public required string Email { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
-    [StringLength(100, ErrorMessage = "{0} must be between {2} and {1} characters", MinimumLength = 6)]
+    [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
+    [StringLength(100, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự", MinimumLength = 6)]
     [DataType(DataType.Password)]
     public required string Password { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
-    [Compare("Password", ErrorMessage = "The password and confirmation password do not match")]
+    [Required(ErrorMessage = "Mật khẩu xác nhận không được bỏ trống")]
+    [Compare("Password", ErrorMessage = "Mật khẩu xác thực không khớp nhau")]
     public required string ConfirmPassword { get; set; }
 }

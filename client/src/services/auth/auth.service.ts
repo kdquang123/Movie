@@ -30,7 +30,6 @@ export class AuthService implements IAuthService {
     const lsToken = localStorage.getItem('accessToken');
 
     if (lsToken) {
-      // -> rememberMe = true
       this._isAuthenticated.next(true);
       const userInformation = localStorage.getItem('userInformation');
       if (userInformation) {
@@ -40,19 +39,21 @@ export class AuthService implements IAuthService {
   }
 
   register(registerRequest: RegisterRequest): Observable<LoginResponse> {
-    return this.httpClient.post<LoginResponse>(ApiEndpoints.register, registerRequest).pipe(
-      tap((response: LoginResponse) => {
-        localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken);
-        localStorage.setItem(
-          'userInformation',
-          JSON.stringify(response.userInfo)
-        );
+    return this.httpClient
+      .post<LoginResponse>(ApiEndpoints.register, registerRequest)
+      .pipe(
+        tap((response: LoginResponse) => {
+          localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem('refreshToken', response.refreshToken);
+          localStorage.setItem(
+            'userInformation',
+            JSON.stringify(response.userInfo)
+          );
 
-        this._isAuthenticated.next(true);
-        this._userInformation.next(response.userInfo);
-      })
-    );
+          this._isAuthenticated.next(true);
+          this._userInformation.next(response.userInfo);
+        })
+      );
   }
 
   getAccessToken(): string {
@@ -84,15 +85,15 @@ export class AuthService implements IAuthService {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       const payload = JSON.parse(atob(accessToken.split('.')[1]));
+      const rawRoles =
+        payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
       const userInformation: UserInformation = {
         id: payload.nameid,
         email: payload.email,
         fullName: payload.fullName,
         username: payload.unique_name,
-        roles:
-          payload[
-            'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-          ],
+        roles: roles,
       };
       this._userInformation.next(userInformation);
     }

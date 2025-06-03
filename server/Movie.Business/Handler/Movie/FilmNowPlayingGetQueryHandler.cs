@@ -16,7 +16,7 @@ public class FilmNowPlayingGetQueryHandler : BaseHandler, IRequestHandler<FilmNo
     public async Task<IEnumerable<FilmViewModel>> Handle(FilmNowPlayingGetQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.FilmRepository.GetQuery();
-        var result = await query.Where(c => c.IsDelete == false && c.ReleaseDate < DateTime.UtcNow && c.EndDate > DateTime.Now).Include(f => f.FilmCategories).ThenInclude(fc => fc.Category).ToListAsync(cancellationToken);
+        var result = await query.Where(c => c.IsDelete == false && c.ReleaseDate < DateTime.UtcNow && c.EndDate > DateTime.Now).Include(f => f.FilmCategories!).ThenInclude(fc => fc.Category).ToListAsync(cancellationToken);
         return _mapper.Map<IEnumerable<FilmViewModel>>(result);
     }
 }

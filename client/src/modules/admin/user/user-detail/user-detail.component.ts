@@ -64,17 +64,21 @@ export class UserDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.memberService
-      .updateMember(this.memberId, this.memberForm.value)
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/admin/members']);
-          this.toastr.success('Sửa thành viên thành công!', 'Success');
-        },
-        error: (error) => {
-          this.toastr.error(error.error.message, 'Error');
-        },
-      });
+    if (this.memberForm.valid) {
+      this.memberService
+        .updateMember(this.memberId, this.memberForm.value)
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/admin/members']);
+            this.toastr.success('Sửa thành viên thành công!', 'Thành công');
+          },
+          error: (error) => {
+            this.toastr.error(error.error.message, 'Lỗi');
+          },
+        });
+    } else {
+      this.toastr.error('Vui lòng điền đầy đủ thông tin', 'Lỗi');
+    }
   }
 
   private formatDate(dateValue: string): string {

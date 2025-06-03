@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using MediatR;
 using Movie.Business.Services;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -23,7 +24,7 @@ public class NewsUpdateCommandHandler : BaseHandler, IRequestHandler<NewsUpdateC
             imageUrl = await _fileService.UploadFileAsync(request.Image, "news");
         }
         var news = await _unitOfWork.NewsRepository.GetByIdAsync(request.Id);
-        if (news == null) return false;
+        if (news == null) throw new NotFoundException("Tin tức không tồn tại");
         news.Title = request.Title;
         news.Content = request.Content;
 
@@ -34,7 +35,7 @@ public class NewsUpdateCommandHandler : BaseHandler, IRequestHandler<NewsUpdateC
         {
             news.ImageUrl = imageUrl;
         }
-        var result = await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 }

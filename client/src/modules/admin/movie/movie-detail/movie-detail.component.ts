@@ -35,6 +35,9 @@ export class MovieDetailComponent implements OnInit {
   public ageRestrictionList: AgeRestrictionModel[] = [];
   movieId: string = '';
 
+  imagePreview: string | ArrayBuffer | null = null;
+  currentImageUrl: string = '';
+
   constructor(
     @Inject(COMMON_SERVICE) private readonly commonService: ICommonService,
     @Inject(MOVIE_SERVICE) private readonly movieService: IMovieService,
@@ -68,10 +71,10 @@ export class MovieDetailComponent implements OnInit {
         actors: response.actors,
         IMDbScore: response.imDbScore,
         ageRestrictionId: response.ageRestrictionId,
-        // poster: response.poster,
         trailerUrl: response.trailerUrl,
         description: response.description,
       });
+      this.currentImageUrl = response.imageUrl;
 
       this.setCategories(response.categories || []);
     });
@@ -106,6 +109,20 @@ export class MovieDetailComponent implements OnInit {
 
   onPosterChange(event: Event): void {
     const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) {
+      this.imagePreview = null;
+      return;
+    }
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.movieForm.patchValue({ poster: file });
@@ -146,15 +163,15 @@ export class MovieDetailComponent implements OnInit {
 
       this.movieService.updateMovie(formData, this.movieId).subscribe({
         next: () => {
-          this.toastr.success('Sửa thành công!', 'Success');
+          this.toastr.success('Sửa thành công!', 'Thành công');
           this.router.navigate(['/admin/movies']);
         },
         error: (error) => {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.error.message, 'Lỗi');
         },
       });
     } else {
-      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Error');
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
     }
   }
 

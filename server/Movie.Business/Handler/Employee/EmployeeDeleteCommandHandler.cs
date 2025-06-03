@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -15,11 +16,7 @@ public class EmployeeDeleteCommandHandler : UserBaseHandler, IRequestHandler<Emp
 
     public async Task<bool> Handle(EmployeeDeleteCommand request, CancellationToken cancellationToken)
     {
-        var employee = _unitOfWork.UserRepository.GetQuery().Where(e => e.Id == request.Id).FirstOrDefault();
-        if (employee == null)
-        {
-            return false;
-        }
+        var employee = _unitOfWork.UserRepository.GetQuery().Where(e => e.Id == request.Id).FirstOrDefault() ?? throw new NotFoundException("Nhân viên không tồn tại");
 
         employee.DeletedAt = DateTime.Now;
         employee.IsDelete = true;

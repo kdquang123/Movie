@@ -26,6 +26,9 @@ export class ProductDetailComponent implements OnInit {
   productForm!: FormGroup;
   productId!: string;
 
+  imagePreview: string | ArrayBuffer | null = null;
+  currentImageUrl: string = '';
+
   constructor(
     @Inject(PRODUCT_SERVICE) private readonly productService: IProductService,
     private readonly router: Router,
@@ -37,6 +40,7 @@ export class ProductDetailComponent implements OnInit {
     this.productId = this.route.snapshot.params['id'];
     this.productService.getProductById(this.productId).subscribe((product) => {
       this.productForm.patchValue(product);
+      this.currentImageUrl = product.imageUrl;
     });
     this.createForm();
   }
@@ -53,6 +57,20 @@ export class ProductDetailComponent implements OnInit {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) {
+      this.imagePreview = null;
+      return;
+    }
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.productForm.patchValue({ productImage: file });
@@ -71,15 +89,15 @@ export class ProductDetailComponent implements OnInit {
 
       this.productService.updateProduct(this.productId, formData).subscribe({
         next: () => {
-          this.toastr.success('Sửa sản phẩm thành công!', 'Success');
+          this.toastr.success('Sửa sản phẩm thành công!', 'Thành công');
           this.router.navigate(['/admin/products']);
         },
         error: (error) => {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.error.message, 'Lỗi');
         },
       });
     } else {
-      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Error');
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
     }
   }
 }

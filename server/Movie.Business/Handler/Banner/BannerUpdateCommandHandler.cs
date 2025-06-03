@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using MediatR;
 using Movie.Business.Services;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -17,12 +18,13 @@ public class BannerUpdateCommandHandler : BaseHandler, IRequestHandler<BannerUpd
 
     public async Task<bool> Handle(BannerUpdateCommand request, CancellationToken cancellationToken)
     {
+        var banner = await _unitOfWork.BannerRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException("Slide không tồn tại");
         var imageUrl = "";
         if (request.Image != null)
         {
             imageUrl = await _fileService.UploadFileAsync(request.Image, "banner");
         }
-        var banner = await _unitOfWork.BannerRepository.GetByIdAsync(request.Id);
+
         if (banner == null) return false;
         banner.FilmId = request.MovieId;
         banner.NewsId = request.NewsId;

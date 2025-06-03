@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Movie.Business.ViewModels;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -16,11 +17,7 @@ public class BannerGetByIdQueryHandler : BaseHandler, IRequestHandler<BannerGetB
     public async Task<BannerViewModel> Handle(BannerGetByIdQuery request, CancellationToken cancellationToken)
     {
         var banner = await _unitOfWork.BannerRepository.GetQuery()
-            .FirstOrDefaultAsync(x => x.Id == request.Id && x.IsDelete == false, cancellationToken: cancellationToken);
-        // if (banner == null)
-        // {
-        //     throw new Exception("Banner not found");
-        // }
+            .FirstOrDefaultAsync(x => x.Id == request.Id && x.IsDelete == false, cancellationToken: cancellationToken) ?? throw new NotFoundException("Slide không tồn tại");
         return _mapper.Map<BannerViewModel>(banner);
     }
 }

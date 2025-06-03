@@ -7,17 +7,24 @@ import { catchError, map, of } from 'rxjs';
 export const adminAuthGuard: CanMatchFn = (route, segments) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  return authService.getUserInformation().pipe(
+  return authService.getUserInformationFromAccessToken().pipe(
     map((user: UserInformation | null) => {
+      console.log('role:', user?.roles);
+
+      console.log('zooo');
+
       if (user === null || user === undefined) {
         router.navigate(['/']);
         return false;
       }
 
+      console.log('zooo1');
       if (user.roles[0] !== 'ADMIN' && user.roles[0] !== 'EMPLOYEE') {
         router.navigate(['/']);
         return false;
       }
+
+      console.log('zooo2');
 
       return true;
     }),

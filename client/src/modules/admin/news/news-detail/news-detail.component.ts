@@ -37,6 +37,9 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
   newsId!: string;
 
+  imagePreview: string | ArrayBuffer | null = null;
+  currentImageUrl: string = '';
+
   constructor(
     @Inject(NEWS_SERVICE) private readonly newsService: INewsService,
     private readonly toastr: ToastrService,
@@ -57,6 +60,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
         content: response.content,
         category: response.category,
       });
+      this.currentImageUrl=response.imageUrl
     });
   }
 
@@ -71,6 +75,20 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
   onImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) {
+      this.imagePreview = null;
+      return;
+    }
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.newsForm.patchValue({ image: file });
@@ -88,15 +106,15 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
       this.newsService.update(this.newsId, formData).subscribe({
         next: () => {
-          this.toastr.success('Sửa tức thành công!', 'Success');
+          this.toastr.success('Sửa tức thành công!', 'Thành công');
           this.router.navigate(['/admin/news']);
         },
         error: (error) => {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.error.message, 'Lỗi');
         },
       });
     } else {
-      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Error');
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
     }
   }
 }

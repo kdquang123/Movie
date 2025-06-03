@@ -102,7 +102,7 @@ export class AddShowtimeComponent implements OnInit {
   }
 
   onRoomChange(): void {
-    this.showtimeForm.get('startTime')?.setValue('')
+    this.showtimeForm.get('startTime')?.setValue('');
     if (this.showtimeForm.get('roomId')?.value) {
       this.filteredShowtimes = this.allShowtimesOfDay.filter(
         (s) => s.roomId === this.showtimeForm.get('roomId')?.value
@@ -180,14 +180,18 @@ export class AddShowtimeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.showtimeService.createShowtime(this.showtimeForm.value).subscribe({
-      next: () => {
-        this.toastr.success('Thêm lịch chiếu thành công!', 'Success');
-        this.router.navigate(['/admin/showtimes']);
-      },
-      error: (error) => {
-        this.toastr.error('Thêm thất bại!', 'Lỗi');
-      },
-    });
+    if (this.showtimeForm.valid) {
+      this.showtimeService.createShowtime(this.showtimeForm.value).subscribe({
+        next: () => {
+          this.toastr.success('Thêm lịch chiếu thành công!', 'Thành công');
+          this.router.navigate(['/admin/showtimes']);
+        },
+        error: (error) => {
+          this.toastr.error('Thêm thất bại!', 'Lỗi');
+        },
+      });
+    } else {
+      this.toastr.error('Vui lòng điền đầy đủ thông tin', 'Lỗi');
+    }
   }
 }

@@ -86,7 +86,9 @@
                   type="checkbox"
                   [id]="`category-${ i }`"
                   class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                  [checked]="movieForm.get('categories')?.value.includes(category.id)"
+                  [checked]="
+                    movieForm.get('categories')?.value.includes(category.id)
+                  "
                   (change)="onCategoryChange(category.id, $event)"
                 />
                 <label
@@ -211,6 +213,15 @@
                   Định dạng: JPG, PNG (Tối đa 5MB)
                 </p>
               </div>
+            </div>
+            <!-- Preview -->
+            <div class="mt-4">
+              <p class="text-sm text-gray-700 mb-1">Xem trước:</p>
+              <img
+                [src]="imagePreview || currentImageUrl"
+                alt="Poster preview"
+                class="w-48 h-auto rounded-lg shadow"
+              />
             </div>
           </div>
 

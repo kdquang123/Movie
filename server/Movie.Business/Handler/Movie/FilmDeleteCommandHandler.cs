@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using MediatR;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -13,9 +14,9 @@ public class FimlDeleteCommandHandler : BaseHandler, IRequestHandler<FilmDeleteC
 
     public async Task<bool> Handle(FilmDeleteCommand request, CancellationToken cancellationToken)
     {
-        var film = _unitOfWork.FilmRepository.GetById(request.Id);
+        var film = await _unitOfWork.FilmRepository.GetByIdAsync(request.Id);
         if (film == null)
-            return false;
+            throw new NotFoundException("Phim không tồn tại");
 
         film.IsDelete = true;
         film.DeletedAt = DateTime.Now;

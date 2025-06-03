@@ -2,6 +2,7 @@ using System;
 using Amazon.Runtime.Internal;
 using AutoMapper;
 using MediatR;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 
 namespace Movie.Business.Handler;
@@ -14,8 +15,7 @@ public class RoomDeleteCommandHandler : BaseHandler, IRequestHandler<RoomDeleteC
 
     public async Task<bool> Handle(RoomDeleteCommand request, CancellationToken cancellationToken)
     {
-        var room = await _unitOfWork.RoomRepository.GetByIdAsync(request.Id);
-        if (room == null) return false;
+        var room = await _unitOfWork.RoomRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException("Phòng không tồn tại");
         room.IsDelete = true;
         room.DeletedAt = DateTime.Now;
         return await _unitOfWork.SaveChangesAsync() > 0;

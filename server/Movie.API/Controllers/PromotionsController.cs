@@ -8,7 +8,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles ="ADMIN")]
+[Authorize(Roles = "ADMIN")]
 public class PromotionsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -32,9 +32,13 @@ public class PromotionsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> Create([FromBody] PromotionCreateCommand command)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var result = await _mediator.Send(command);
         return Ok(result);
     }
@@ -42,6 +46,10 @@ public class PromotionsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] PromotionUpdateCommand command)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         command.Id = id;
         var result = await _mediator.Send(command);
         return Ok(result);

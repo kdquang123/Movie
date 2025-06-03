@@ -16,7 +16,7 @@ public class ShowtimeGetByMovieIdQueryHandler : BaseHandler, IRequestHandler<Sho
     public async Task<IEnumerable<ShowtimeViewModel>> Handle(ShowtimeGetByMovieIdQuery request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.ShowTimeRepository.GetQuery();
-        var showtimeList = await query.Where(st => st.FilmId == request.MovieId && st.IsDelete == false && st.StartTime >= DateTime.Now).Include(x => x.Room).ThenInclude(r => r.RoomType).OrderBy(st => st.StartTime).ToListAsync();
+        var showtimeList = await query.Where(st => st.FilmId == request.MovieId && st.IsDelete == false && st.StartTime >= DateTime.Now).Include(x => x.Room).ThenInclude(r => r!.RoomType).OrderBy(st => st.StartTime).ToListAsync();
         return _mapper.Map<IEnumerable<ShowtimeViewModel>>(showtimeList);
     }
 }
