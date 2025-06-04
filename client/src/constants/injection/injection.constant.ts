@@ -15,6 +15,7 @@ import { IPromotionService } from '../../services/promotion/promotion-service.in
 import { INewsService } from '../../services/news/news-service.interface';
 import { IMovieReviewService } from '../../services/movie-review/movie-review-service.interface';
 import { IBannerService } from '../../services/banner/banner-service.interface';
+import { IProfileService } from '../../services/profile/profile-service.interface';
 
 export const AUTH_SERVICE = new InjectionToken<IAuthService>('AUTH_SERVICE');
 export const COMMON_SERVICE = new InjectionToken<ICommonService>(
@@ -61,4 +62,8 @@ export const MOVIE_REVIEW_SERVICE = new InjectionToken<IMovieReviewService>(
 
 export const BANNER_SERVICE = new InjectionToken<IBannerService>(
   'BANNER_SERVICE'
+);
+
+export const PROFILE_SERVICE = new InjectionToken<IProfileService>(
+  'PROFILE_SERVICE'
 );

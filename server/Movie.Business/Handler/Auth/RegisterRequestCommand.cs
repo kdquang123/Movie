@@ -17,6 +17,8 @@ public class RegisterRequestCommand : IRequest<LoginResponse>
 
     [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
     [StringLength(100, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự", MinimumLength = 6)]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$",
+        ErrorMessage = "Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt")]
     [DataType(DataType.Password)]
     public required string Password { get; set; }
 

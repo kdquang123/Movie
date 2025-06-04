@@ -1,0 +1,213 @@
+<div class="flex-1 p-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold">
+      <fa-icon [icon]="faUserCircle" class="text-primary mr-2"></fa-icon> Hồ sơ
+      cá nhân
+    </h1>
+
+    <div class="flex space-x-2">
+      <button
+        (click)="isChangePasswordVisible = false"
+        id="profile-tab"
+        class="px-4 py-2 text-sm font-medium"
+        [ngClass]="{ 'tab-active': !isChangePasswordVisible }"
+      >
+        Thông tin cá nhân
+      </button>
+      <button
+        (click)="isChangePasswordVisible = true"
+        id="password-tab"
+        class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white"
+        [ngClass]="{ 'tab-active': isChangePasswordVisible }"
+      >
+        Đổi mật khẩu
+      </button>
+    </div>
+  </div>
+
+  <!-- Profile Info Section -->
+  <div
+    *ngIf="!isChangePasswordVisible"
+    id="profile-section"
+    class="bg-darker rounded-lg border border-gray-800 p-6"
+  >
+    <form [formGroup]="userForm">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Personal Info -->
+        <div>
+          <label for="fullname" class="block text-gray-400 text-sm mb-2"
+            >Họ và tên</label
+          >
+          <input
+            formControlName="fullName"
+            type="text"
+            id="fullname"
+            value="Nguyễn Văn A"
+            class="w-full profile-input px-4 py-2 rounded-md focus:outline-none"
+          />
+        </div>
+        <div>
+          <label for="phone" class="block text-gray-400 text-sm mb-2"
+            >Số điện thoại</label
+          >
+          <input
+            formControlName="phoneNumber"
+            type="tel"
+            id="phone"
+            class="w-full profile-input px-4 py-2 rounded-md focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="birthday" class="block text-gray-400 text-sm mb-2"
+            >Ngày sinh</label
+          >
+          <input
+            formControlName="dateOfBirth"
+            type="date"
+            id="birthday"
+            class="w-full profile-input px-4 py-2 rounded-md focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="address" class="block text-gray-400 text-sm mb-2"
+            >Địa chỉ</label
+          >
+          <input
+            formControlName="address"
+            type="text"
+            id="address"
+            class="w-full profile-input px-4 py-2 rounded-md focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="gender" class="block text-gray-400 text-sm mb-2"
+            >Giới tính</label
+          >
+          <select
+            formControlName="gender"
+            id="gender"
+            class="w-full profile-input px-4 py-2 rounded-md focus:outline-none"
+          >
+            <option [value]="1">Nam</option>
+            <option [value]="0">Nữ</option>
+            <option [value]="-1">Khác</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-3">
+        <button
+          type="button"
+          class="border border-gray-600 hover:border-primary hover:text-primary px-6 py-2 rounded-md font-medium transition"
+        >
+          Hủy bỏ
+        </button>
+        <button
+          (click)="onUpdateProfile()"
+          type="submit"
+          class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium transition"
+        >
+          <fa-icon [icon]="faSave" class="fas fa-save mr-2"></fa-icon> Lưu thay
+          đổi
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Change Password Section (Hidden by default) -->
+  <div
+    *ngIf="isChangePasswordVisible"
+    id="password-section"
+    class="bg-darker rounded-lg border border-gray-800 p-6"
+  >
+    <form [formGroup]="changePasswordForm">
+      <div class="space-y-6 mb-8">
+        <div>
+          <label for="current-password" class="block text-gray-400 text-sm mb-2"
+            >Mật khẩu hiện tại</label
+          >
+          <div class="relative">
+            <input
+              formControlName="oldPassword"
+              type="password"
+              id="current-password"
+              class="w-full profile-input px-4 py-2 rounded-md focus:outline-none pr-10"
+            />
+            <button
+              title="Show Password"
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
+            >
+              <fa-icon [icon]="faEye" class="fas fa-eye"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label for="new-password" class="block text-gray-400 text-sm mb-2"
+            >Mật khẩu mới</label
+          >
+          <div class="relative">
+            <input
+              formControlName="newPassword"
+              type="password"
+              id="new-password"
+              class="w-full profile-input px-4 py-2 rounded-md focus:outline-none pr-10"
+            />
+            <button
+              title="Show Password"
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
+            >
+              <fa-icon [icon]="faEye" class="fas fa-eye"></fa-icon>
+            </button>
+          </div>
+          <p class="text-gray-500 text-xs mt-1">
+            Tối thiểu 8 ký tự, bao gồm chữ hoa, chữ thường và số
+          </p>
+        </div>
+
+        <div>
+          <label for="confirm-password" class="block text-gray-400 text-sm mb-2"
+            >Xác nhận mật khẩu</label
+          >
+          <div class="relative">
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              id="confirm-password"
+              class="w-full profile-input px-4 py-2 rounded-md focus:outline-none pr-10"
+            />
+            <button
+              title="Show Password"
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
+            >
+              <fa-icon [icon]="faEye" class="fas fa-eye"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-3">
+        <button
+          type="button"
+          class="border border-gray-600 hover:border-primary hover:text-primary px-6 py-2 rounded-md font-medium transition"
+        >
+          Hủy bỏ
+        </button>
+        <button
+          (click)="onChangePassword()"
+          type="submit"
+          class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium transition"
+        >
+          <fa-icon [icon]="faKey" class="fas fa-key mr-2"></fa-icon> Đổi mật
+          khẩu
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

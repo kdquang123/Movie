@@ -3,7 +3,7 @@
   [ngClass]="{ 'sidebar-collapsed w-20': collapsed }"
 >
   <!-- Logo -->
-  <div class="p-4 flex items-center space-x-2 border-b border-gray-800 h-16">
+  <div routerLink="/" class="p-4 flex items-center space-x-2 border-b border-gray-800 h-16 cursor-pointer">
     <fa-icon [icon]="faFilm" class="text-primary text-2xl"></fa-icon>
     <span class="logo-text text-xl font-bold" *ngIf="!collapsed">
       KD<span class="text-primary">Cinema</span>

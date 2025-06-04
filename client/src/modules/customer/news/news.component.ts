@@ -29,8 +29,8 @@ export class NewsComponent implements OnInit {
     keyword: '',
     pageNumber: 1,
     pageSize: 6,
-    orderBy: '',
-    orderDirection: OrderDirection.ASC,
+    orderBy: 'createdAt',
+    orderDirection: OrderDirection.DESC,
     includeInactive: true,
   };
 

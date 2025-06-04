@@ -22,4 +22,5 @@ export interface IAuthService {
   getUserRoles(): string[];
   hasRole(allowedRoles: string[]): boolean;
   register(registerRequest: RegisterRequest): Observable<LoginResponse>;
+  changePassword(changePasswordRequest: any): Observable<boolean>;
 }

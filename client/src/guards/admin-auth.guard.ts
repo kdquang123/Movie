@@ -10,22 +10,14 @@ export const adminAuthGuard: CanMatchFn = (route, segments) => {
   return authService.getUserInformationFromAccessToken().pipe(
     map((user: UserInformation | null) => {
       console.log('role:', user?.roles);
-
-      console.log('zooo');
-
       if (user === null || user === undefined) {
         router.navigate(['/']);
         return false;
       }
-
-      console.log('zooo1');
       if (user.roles[0] !== 'ADMIN' && user.roles[0] !== 'EMPLOYEE') {
         router.navigate(['/']);
         return false;
       }
-
-      console.log('zooo2');
-
       return true;
     }),
     catchError(() => {

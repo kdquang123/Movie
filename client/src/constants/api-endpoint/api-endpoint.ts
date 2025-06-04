@@ -7,6 +7,7 @@ export const ApiEndpoints = {
   logout: `${environment.apiUrl}/Auth/logout`,
   resetPassword: `${environment.apiUrl}/Auth/reset-password`,
   forgotPassword: `${environment.apiUrl}/Auth/forgot-password`,
+  changePassword: `${environment.apiUrl}/Auth/change-password`,
 
   //Common api
   getAllCategory: `${environment.apiUrl}/Common/categories`,
@@ -113,4 +114,8 @@ export const ApiEndpoints = {
   deleteBanner: `${environment.apiUrl}/Banners`,
   updateBanner: `${environment.apiUrl}/Banners`,
   searchBanner: `${environment.apiUrl}/Banners/search`,
+
+  //Profile api
+  getProfile: `${environment.apiUrl}/User/profile`,
+  updateProfile: `${environment.apiUrl}/User/profile`,
 };

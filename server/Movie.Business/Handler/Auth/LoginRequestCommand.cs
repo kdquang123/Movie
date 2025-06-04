@@ -11,7 +11,9 @@ public class LoginRequestCommand : IRequest<LoginResponse>
     public required string Username { get; set; }
 
     [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
-    [StringLength(20, ErrorMessage = "Mật khẩu phải có ít nhất {2} ký tự và không quá {1} ký tự", MinimumLength = 6)]
+    [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$",
+        ErrorMessage = "Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt")]
     [DataType(DataType.Password)]
     public required string Password { get; set; }
 }

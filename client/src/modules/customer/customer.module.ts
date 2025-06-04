@@ -12,6 +12,7 @@ import { BookingFailedComponent } from './booking-result/booking-failed/booking-
 import { MovieCommingSoonComponent } from './movie-comming-soon/movie-comming-soon.component';
 import { MovieNowShowingComponent } from './movie-now-showing/movie-now-showing.component';
 import { authGuard } from '../../guards/auth.guard';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   { path: 'my-ticket', component: MyTicketComponent, canActivate: [authGuard] },
+  {
+    path: 'my-profile',
+    component: MyProfileComponent,
+    canActivate: [authGuard],
+  },
   { path: 'booking-success', component: BookingSuccessComponent },
   { path: 'booking-failed', component: BookingFailedComponent },
   { path: '**', redirectTo: 'home' },
