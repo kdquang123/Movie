@@ -9,4 +9,5 @@ export interface IEmployeeService {
   updateEmployee(id: string, employee: any): Observable<boolean>;
   createEmployee(employee: any): Observable<boolean>;
   searchEmployee(filter: any): Observable<PaginatedResult<EmployeeModel>>;
+  changeStatus(userId:string): Observable<boolean>;
 }

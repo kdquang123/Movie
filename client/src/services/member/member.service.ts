@@ -11,7 +11,10 @@ import { MemberModel } from '../../models/member/member.model';
 })
 export class MemberService implements IMemberService {
   constructor(private readonly httpClient: HttpClient) {}
-  
+  changeStatus(userId:string): Observable<boolean> {
+    return this.httpClient.post<boolean>(ApiEndpoints.changeUserStatus,{userId});
+  }
+
   getAllMember(): Observable<MemberModel[]> {
     return this.httpClient.get<MemberModel[]>(ApiEndpoints.getAllMember);
   }

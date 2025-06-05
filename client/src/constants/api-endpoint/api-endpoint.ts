@@ -118,4 +118,7 @@ export const ApiEndpoints = {
   //Profile api
   getProfile: `${environment.apiUrl}/User/profile`,
   updateProfile: `${environment.apiUrl}/User/profile`,
+
+  //User api
+  changeUserStatus: `${environment.apiUrl}/User/change-status`,
 };

@@ -24,7 +24,7 @@ public class MasterDataRepository<T> : Repository<T>, IMasterDataRepository<T>
         return GetQuery(true).Where(where).ToList();
     }
 
-    public IQueryable<T> GetQuery(bool includeInactive = false)
+    public IQueryable<T> GetQuery(bool includeInactive = true)
     {
         var query = base.GetQuery();
         if (includeInactive)

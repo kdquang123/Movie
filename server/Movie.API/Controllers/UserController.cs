@@ -34,4 +34,15 @@ public class UserController : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpPost("change-status")]
+    public async Task<IActionResult> ChangeUserStatus([FromBody] ChangeUserStatusCommand command)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
 }

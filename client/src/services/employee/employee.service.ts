@@ -11,7 +11,10 @@ import { ApiEndpoints } from '../../constants/api-endpoint/api-endpoint';
 })
 export class EmployeeService implements IEmployeeService {
   constructor(private readonly httpClient: HttpClient) {}
-  
+  changeStatus(userId:string): Observable<boolean> {
+    return this.httpClient.post<boolean>(ApiEndpoints.changeUserStatus, {userId});
+  }
+
   getAllEmployee(): Observable<EmployeeModel[]> {
     return this.httpClient.get<EmployeeModel[]>(ApiEndpoints.getAllEmployee);
   }

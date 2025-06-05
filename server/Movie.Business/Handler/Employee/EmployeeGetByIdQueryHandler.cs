@@ -18,7 +18,7 @@ public class EmployeeGetByIdQueryHandler : UserBaseHandler, IRequestHandler<Empl
 
     public async Task<EmployeeViewModel> Handle(EmployeeGetByIdQuery request, CancellationToken cancellationToken)
     {
-        var employee = await _unitOfWork.UserRepository.GetQuery()
+        var employee = await _unitOfWork.UserRepository.GetQuery(true)
             .FirstOrDefaultAsync(x => x.Id == request.Id && x.IsDelete == false, cancellationToken: cancellationToken) ?? throw new NotFoundException("Nhân viên không tồn tại");
         return _mapper.Map<EmployeeViewModel>(employee);
     }

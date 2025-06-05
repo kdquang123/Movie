@@ -18,7 +18,7 @@ public class MemberGetByIdQueryHandler : UserBaseHandler, IRequestHandler<Member
 
     public async Task<MemberViewModel> Handle(MemberGetByIdQuery request, CancellationToken cancellationToken)
     {
-        var member = await _unitOfWork.UserRepository.GetQuery()
+        var member = await _unitOfWork.UserRepository.GetQuery(true)
             .FirstOrDefaultAsync(x => x.Id == request.Id && x.IsDelete == false, cancellationToken: cancellationToken) ?? throw new NotFoundException("Thành viên không tồn tại");
         return _mapper.Map<MemberViewModel>(member);
     }
