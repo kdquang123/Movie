@@ -25,6 +25,8 @@ export class EmployeeDetailComponent implements OnInit {
   employeeForm!: FormGroup;
   employeeId!: string;
 
+  userIsActive!: boolean;
+
   constructor(
     @Inject(EMPLOYEE_SERVICE)
     private readonly employeeService: IEmployeeService,
@@ -37,6 +39,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeeId = this.route.snapshot.params['id'];
     this.createForm();
     this.employeeService.getEmployeeById(this.employeeId).subscribe((res) => {
+      this.userIsActive = res.isActive;
       this.employeeForm.patchValue({
         fullName: res.fullName,
         dateOfBirth: res.dateOfBirth
@@ -92,5 +95,23 @@ export class EmployeeDetailComponent implements OnInit {
       return formatter.format(date);
     }
     return 'Invalid Date';
+  }
+  onChangeStatus() {
+    this.employeeService.changeStatus(this.employeeId).subscribe({
+      next: (res) => {
+        this.userIsActive = !this.userIsActive;
+        this.toastr.success(
+          `Nhân viên ${
+            this.userIsActive ? 'đã được kích hoạt' : 'đã bị khóa'
+          } thành công!`,
+          'Thành công'
+        );
+      },
+      error: (error) => {
+        if (error.error.message) {
+          this.toastr.error(error.error.message, 'Lỗi');
+        }
+      },
+    });
   }
 }

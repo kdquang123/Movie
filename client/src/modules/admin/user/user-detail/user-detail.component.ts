@@ -25,6 +25,8 @@ export class UserDetailComponent implements OnInit {
   memberForm!: FormGroup;
   memberId!: string;
 
+  userIsActive!: boolean;
+
   constructor(
     @Inject(MEMBER_SERVICE)
     private readonly memberService: IMemberService,
@@ -37,6 +39,7 @@ export class UserDetailComponent implements OnInit {
     this.memberId = this.route.snapshot.params['id'];
     this.createForm();
     this.memberService.getMemberById(this.memberId).subscribe((res) => {
+      this.userIsActive = res.isActive;
       this.memberForm.patchValue({
         fullName: res.fullName,
         dateOfBirth: res.dateOfBirth
@@ -92,5 +95,22 @@ export class UserDetailComponent implements OnInit {
       return formatter.format(date);
     }
     return 'Invalid Date';
+  }
+
+  onChangeStatus() {
+    this.memberService.changeStatus(this.memberId).subscribe({
+      next: (res) => {
+        this.userIsActive = !this.userIsActive;
+        this.toastr.success(
+          `Thành viên ${this.userIsActive ? 'đã được kích hoạt' : 'đã bị khóa'} thành công!`,
+          'Thành công'
+        );
+      },
+      error: (error) => {
+        if (error.error.message) {
+          this.toastr.error(error.error.message, 'Lỗi');
+        }
+      },
+    });
   }
 }

@@ -89,12 +89,7 @@ export class LoginAndRegisterModalComponent implements OnInit {
         this.toastr.success('Đăng nhập thành công!', 'Success');
       },
       error: (err) => {
-        if (err.status == 400) {
-          this.toastr.error(
-            err.error.errors[Object.keys(err.error.errors)[0]][0],
-            'Lỗi'
-          );
-        } else {
+        if (err.error.message) {
           this.toastr.error(err.error.message, 'Lỗi');
         }
       },
@@ -123,7 +118,9 @@ export class LoginAndRegisterModalComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        if (err.error.message) {
+          this.toastr.error(err.error.message, 'Lỗi');
+        }
       },
     });
   }

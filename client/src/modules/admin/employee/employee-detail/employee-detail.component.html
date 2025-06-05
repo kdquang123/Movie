@@ -1,5 +1,21 @@
 <!-- Add Employee Form -->
 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <div class="flex justify-end mb-8 space-x-3">
+    <button
+      class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      *ngIf="userIsActive"
+      (click)="onChangeStatus()"
+    >
+      Khóa tài khoản
+    </button>
+    <button
+      class="bg-green-500 hover:bg-green-600 px-6 py-2 rounded-md font-medium text-white transition"
+      *ngIf="!userIsActive"
+      (click)="onChangeStatus()"
+    >
+      Mở khóa tài khoản
+    </button>
+  </div>
   <form [formGroup]="employeeForm">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Left Column - Personal Info -->
