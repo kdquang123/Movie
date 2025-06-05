@@ -1,11 +1,7 @@
-import {
-  HttpErrorResponse,
-  HttpInterceptorFn,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, of } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toastr = inject(ToastrService);
@@ -14,10 +10,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
       switch (error.status) {
         case 400:
-          toastr.error(
-            error.error.errors[Object.keys(error.error.errors)[0]][0],
-            'Lỗi'
-          );
+          console.log('Bad Request:', error);
+          if (error.error.errors) {
+            toastr.error(
+              error.error.errors[Object.keys(error.error.errors)[0]][0],
+              'Lỗi'
+            );
+          }
           break;
         default: {
           const errorMessage =
@@ -26,7 +25,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           break;
         }
       }
-      return of(new HttpResponse({ body: null }));
+      return throwError(() => error);
     })
   );
 };

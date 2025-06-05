@@ -35,7 +35,7 @@ public class ExceptionMiddleware
             NotFoundException => StatusCodes.Status404NotFound,
             ValidationException => StatusCodes.Status400BadRequest,
             UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
-            InvalidOperationException => StatusCodes.Status400BadRequest,
+            ChangePasswordException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
 

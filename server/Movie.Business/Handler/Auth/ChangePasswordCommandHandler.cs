@@ -34,7 +34,7 @@ public class ChangePasswordCommandHandler : BaseHandler, IRequestHandler<ChangeP
         var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
         if (!result.Succeeded)
         {
-            throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+            throw new ChangePasswordException(string.Join(", ", result.Errors.Select(e => e.Description)));
         }
 
         // Save changes to the database

@@ -41,13 +41,16 @@ export class MyProfileComponent implements OnInit {
 
   changePasswordForm!: FormGroup;
 
+  isShowOldPassword = false;
+  isShowNewPassword = false;
+  isShowConfirmPassword = false;
+
   constructor(
     @Inject(AUTH_SERVICE)
     private readonly authService: IAuthService,
     @Inject(PROFILE_SERVICE)
     private readonly profileService: IProfileService,
     private readonly toastr: ToastrService,
-    private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {}
 
@@ -114,7 +117,9 @@ export class MyProfileComponent implements OnInit {
           this.changePasswordForm.reset();
         },
         error: (error) => {
-          this.toastr.error(error.error.message, 'Lỗi');
+          if (error.error.message) {
+            this.toastr.error(error.error.message, 'Lỗi');
+          }
         },
       });
     } else {

@@ -132,11 +132,13 @@
           <div class="relative">
             <input
               formControlName="oldPassword"
-              type="password"
+              [type]="isShowOldPassword ? 'text' : 'password'"
               id="current-password"
               class="w-full profile-input px-4 py-2 rounded-md focus:outline-none pr-10"
             />
             <button
+              (mousedown)="isShowOldPassword = true"
+              (mouseup)="isShowOldPassword = false"
               title="Show Password"
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
@@ -153,11 +155,13 @@
           <div class="relative">
             <input
               formControlName="newPassword"
-              type="password"
+              [type]="isShowNewPassword ? 'text' : 'password'"
               id="new-password"
               class="w-full profile-input px-4 py-2 rounded-md focus:outline-none pr-10"
             />
             <button
+              (mousedown)="isShowNewPassword = true"
+              (mouseup)="isShowNewPassword = false"
               title="Show Password"
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
@@ -177,11 +181,13 @@
           <div class="relative">
             <input
               formControlName="confirmPassword"
-              type="password"
+              [type]="isShowConfirmPassword ? 'text' : 'password'"
               id="confirm-password"
               class="w-full profile-input px-4 py-2 rounded-md focus:outline-none pr-10"
             />
             <button
+              (mousedown)="isShowConfirmPassword = true"
+              (mouseup)="isShowConfirmPassword = false"
               title="Show Password"
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
