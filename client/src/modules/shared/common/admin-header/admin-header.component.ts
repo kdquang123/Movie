@@ -11,11 +11,11 @@ import {
   faSignOutAlt,
   faUserCog,
 } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-header',
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, RouterLink],
   templateUrl: './admin-header.component.html',
   styleUrl: './admin-header.component.css',
 })

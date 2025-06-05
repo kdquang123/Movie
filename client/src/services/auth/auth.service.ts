@@ -161,4 +161,11 @@ export class AuthService implements IAuthService {
     const roles = this.getUserRoles();
     return allowedRoles.some((role) => roles.includes(role));
   }
+
+  public changePassword(changePasswordRequest: any): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      ApiEndpoints.changePassword,
+      changePasswordRequest
+    );
+  }
 }

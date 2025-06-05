@@ -20,6 +20,7 @@ import {
   MOVIE_SERVICE,
   NEWS_SERVICE,
   PRODUCT_SERVICE,
+  PROFILE_SERVICE,
   PROMOTION_SERVICE,
   ROOM_SERVICE,
   SEAT_HOLD_SERVICE,
@@ -51,6 +52,7 @@ import { MovieReviewService } from '../services/movie-review/movie-review.servic
 import { BannerService } from '../services/banner/banner.service';
 import { authInterceptor } from '../interceptors/auth.interceptor';
 import { errorInterceptor } from '../interceptors/error.interceptor';
+import { ProfileService } from '../services/profile/profile.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -72,9 +74,12 @@ export const appConfig: ApplicationConfig = {
     { provide: NEWS_SERVICE, useClass: NewsService },
     { provide: MOVIE_REVIEW_SERVICE, useClass: MovieReviewService },
     { provide: BANNER_SERVICE, useClass: BannerService },
+    { provide: PROFILE_SERVICE, useClass: ProfileService },
     importProvidersFrom(NgxSpinnerModule),
     provideAnimations(),
     provideToastr(),
-    provideHttpClient(withInterceptors([loadingInterceptor, authInterceptor,errorInterceptor])),
+    provideHttpClient(
+      withInterceptors([loadingInterceptor, authInterceptor, errorInterceptor])
+    ),
   ],
 };

@@ -78,17 +78,11 @@ export class LoginAndRegisterModalComponent implements OnInit {
     };
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
-        console.log(response.userInfo.roles[0] === 'ADMIN');
-
         if (
           response.userInfo.roles[0] === 'ADMIN' ||
           response.userInfo.roles[0] === 'EMPLOYEE'
         ) {
-          console.log(response.userInfo.roles[0]);
-
-          this.router.navigate(['/admin']).then((success) => {
-            console.log('Navigation success?', success); // <-- kiểm tra xem nó có chạy không
-          });
+          this.router.navigate(['/admin']);
         } else {
           this.closeLoginModal.emit();
         }

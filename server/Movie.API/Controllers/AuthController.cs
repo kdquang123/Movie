@@ -8,7 +8,7 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[AllowAnonymous]
+[Authorize]
 public class AuthController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
@@ -47,6 +47,19 @@ public class AuthController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> LogoutAsync([FromBody] LogoutRequestCommand command)
     {
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpPost("change-password")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordCommand command)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var result = await _mediator.Send(command);
         return Ok(result);
     }
