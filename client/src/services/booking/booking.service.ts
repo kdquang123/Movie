@@ -24,4 +24,14 @@ export class BookingService implements IBookingService {
       bookingCreateModel
     );
   }
+
+  getAllBookings(): Observable<BookingModel[]> {
+    return this.httpClient.get<BookingModel[]>(ApiEndpoints.getAllBookings);
+  }
+
+  getCurrentMonthBookings(): Observable<BookingModel[]> {
+    return this.httpClient.get<BookingModel[]>(
+      ApiEndpoints.getCurrentMonthBookings
+    );
+  }
 }

@@ -70,4 +70,11 @@ public class MembersController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("new")]
+    public async Task<IActionResult> GetNewMembers()
+    {
+        var result = await _mediator.Send(new MemberGetNewQuery());
+        return Ok(result);
+    }
+
 }

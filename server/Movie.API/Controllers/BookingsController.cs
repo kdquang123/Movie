@@ -9,7 +9,6 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class BookingsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -20,6 +19,7 @@ public class BookingsController : ControllerBase
     }
 
     [HttpPost("create")]
+    [Authorize]
     public async Task<IActionResult> CreateBooking([FromBody] BookingCreateCommand command)
     {
         var result = await _mediator.Send(command);
@@ -27,6 +27,7 @@ public class BookingsController : ControllerBase
     }
 
     [HttpGet("payment-callback")]
+    [AllowAnonymous]
     public async Task<IActionResult> VNPayCallback([FromQuery] VNPayCallbackModel model)
     {
         if (model.vnp_ResponseCode == "00")
@@ -42,9 +43,26 @@ public class BookingsController : ControllerBase
     }
 
     [HttpGet("user/{userId}")]
+    [Authorize]
     public async Task<IActionResult> GetBookingByUserId(Guid userId)
     {
         var result = await _mediator.Send(new BookingGetByUserIdQuery { UserId = userId });
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Authorize(Roles = "ADMIN")]
+    public async Task<IActionResult> GetAllBookings()
+    {
+        var result = await _mediator.Send(new BookingGetAllQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("this-month")]
+    [Authorize(Roles = "ADMIN")]
+    public async Task<IActionResult> GetBookingsThisMonth()
+    {
+        var result = await _mediator.Send(new BookingGetCurrentMonthQuery());
         return Ok(result);
     }
 }

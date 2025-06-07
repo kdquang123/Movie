@@ -49,7 +49,8 @@ public class RegisterRequestCommandHandler : BaseHandler, IRequestHandler<Regist
             Email = request.Email,
             FullName = request.FullName,
             IsActive = true,
-            EmailConfirmed = true // In production, implement email confirmation
+            EmailConfirmed = true, // In production, implement email confirmation
+            CreatedAt = DateTime.Now,
         };
 
         // Add the user using UserManager

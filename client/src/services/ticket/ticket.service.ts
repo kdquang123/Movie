@@ -18,10 +18,9 @@ export class TicketService implements ITicketService {
     );
   }
   approveTicket(ticketCode: string): Observable<boolean> {
-    return this.httpClient.post<boolean>(
-      `${ApiEndpoints.approveTicket}`,
-      { ticketCode: ticketCode }
-    );
+    return this.httpClient.post<boolean>(`${ApiEndpoints.approveTicket}`, {
+      ticketCode: ticketCode,
+    });
   }
   getByShowtimeId(showtimeId: string): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(
@@ -31,6 +30,12 @@ export class TicketService implements ITicketService {
   getTicketByBookingId(bookingId: string): Observable<TicketDetailModel[]> {
     return this.httpClient.get<TicketDetailModel[]>(
       `${ApiEndpoints.getTicketByBookingId}/${bookingId}`
+    );
+  }
+
+  getCurrentMonthTickets(): Observable<TicketModel[]> {
+    return this.httpClient.get<TicketModel[]>(
+      ApiEndpoints.getCurrentMonthTickets
     );
   }
 }

@@ -8,4 +8,5 @@ export interface ITicketService {
   getTicketByBookingId(bookingId: string): Observable<TicketDetailModel[]>;
   getTicketByTicketCode(ticketCode: string): Observable<TicketOfBookingModel>;
   approveTicket(ticketCode: string): Observable<boolean>;
+  getCurrentMonthTickets(): Observable<TicketModel[]>;
 }

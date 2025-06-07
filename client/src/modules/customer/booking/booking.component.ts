@@ -3,14 +3,13 @@ import {
   AUTH_SERVICE,
   BOOKING_SERVICE,
   PRODUCT_SERVICE,
+  PROMOTION_SERVICE,
   SEAT_HOLD_SERVICE,
-  SEAT_SERVICE,
   SHOWTIME_SERVICE,
   TICKET_SERVICE,
 } from '../../../constants/injection/injection.constant';
 import { IShowtimeService } from '../../../services/showtime/showtime-service.interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ISeatService } from '../../../services/seat/seat-service.interface';
 import { ShowtimeModel } from '../../../models/showtime/showtime.model';
 import { SeatModel } from '../../../models/seat/seat.model';
 import { CommonModule } from '@angular/common';
@@ -25,10 +24,12 @@ import { ITicketService } from '../../../services/ticket/ticket-service.interfac
 import { IProductService } from '../../../services/product/product-service.interface';
 import { ProductModel } from '../../../models/product/product.model';
 import { BookingDetailModel } from '../../../models/booking/booking-detail.model';
+import { IPromotionService } from '../../../services/promotion/promotion-service.interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-booking',
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, FormsModule],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.css',
 })
@@ -54,8 +55,12 @@ export class BookingComponent implements OnInit, OnDestroy {
   paymentMethod: string = '';
 
   isCountdownStarted: boolean = false;
+  isFirstReceive: boolean = false;
   countdownTime: number = 15 * 60;
   countdownInterval: any;
+
+  promotionCode: string = '';
+  discountValue: number = 0;
 
   constructor(
     @Inject(SHOWTIME_SERVICE)
@@ -64,6 +69,8 @@ export class BookingComponent implements OnInit, OnDestroy {
     private readonly bookingService: IBookingService,
     @Inject(SEAT_HOLD_SERVICE)
     private readonly seatHoldService: ISeatHoldService,
+    @Inject(PROMOTION_SERVICE)
+    private readonly promotionService: IPromotionService,
     @Inject(AUTH_SERVICE) private readonly authService: IAuthService,
     @Inject(TICKET_SERVICE) private readonly ticketService: ITicketService,
     @Inject(PRODUCT_SERVICE) private readonly productService: IProductService,
@@ -114,8 +121,34 @@ export class BookingComponent implements OnInit, OnDestroy {
               this.getMyListHoldSeatId().includes(seat.id)
             );
           }
+          if (!this.isFirstReceive) {
+            this.getRemainingTime();
+            this.isFirstReceive = true;
+          }
         });
     });
+  }
+
+  getRemainingTime(): void {
+    const mySeat = this.heldSeats.find((seat) => seat.userId === this.userId);
+
+    if (mySeat) {
+      this.countdownTime = Math.floor(
+        (new Date(mySeat.expireAt).getTime() - new Date().getTime() - 60000) /
+          1000
+      );
+      this.isCountdownStarted = true;
+
+      this.countdownInterval = setInterval(() => {
+        if (this.countdownTime > 0) {
+          this.countdownTime--;
+        } else {
+          clearInterval(this.countdownInterval);
+          this.toastr.error('Hết giờ', 'Thông báo');
+          this.router.navigate(['/movies', this.showtime.movie?.id]);
+        }
+      }, 1000);
+    }
   }
 
   ngOnDestroy(): void {
@@ -305,7 +338,7 @@ export class BookingComponent implements OnInit, OnDestroy {
             (item) => item.quantity > 0
           ),
           paymentMethod: this.paymentMethod,
-          promotionCode: '',
+          promotionCode: this.promotionCode,
         })
         .subscribe({
           next: (response) => {
@@ -336,5 +369,35 @@ export class BookingComponent implements OnInit, OnDestroy {
     return `${min.toString().padStart(2, '0')}:${sec
       .toString()
       .padStart(2, '0')}`;
+  }
+
+  usePromotion(): void {
+    if (this.promotionCode.trim() === '') {
+      this.toastr.error('Vui lòng nhập mã khuyến mãi', 'Thông báo');
+      return;
+    }
+
+    const orderAmount = this.getTotalSeatPrice() + this.getTotalProductPrice();
+    this.promotionService.getByCode(this.promotionCode, orderAmount).subscribe({
+      next: (response) => {
+        if (response.discountType === 'Percentage') {
+          console.log(response.discountValue);
+          
+          this.discountValue = (orderAmount * response.discountValue) / 100;
+          console.log(orderAmount);
+          
+          console.log(this.discountValue);
+          
+        } else {
+          this.discountValue = response.discountValue;
+        }
+        this.toastr.success('Mã khuyến mãi áp dụng thành công', 'Thành công');
+      },
+      error: (error) => {
+        if (error.error.message) {
+          this.toastr.error(error.error.message, 'Lỗi');
+        }
+      },
+    });
   }
 }

@@ -5,7 +5,8 @@
       <div>
         <p class="text-gray-500 text-sm">Tổng doanh thu</p>
         <h3 class="text-2xl font-bold mt-1">
-          1 <span class="text-lg">triệu</span>
+          {{ convertThousandToMillion(currentMonthRevenue) }}
+          <span class="text-lg">triệu</span>
         </h3>
       </div>
       <div class="bg-red-100 p-3 rounded-full text-primary">
@@ -18,7 +19,7 @@
     <div class="flex justify-between items-start">
       <div>
         <p class="text-gray-500 text-sm">Tổng vé bán</p>
-        <h3 class="text-2xl font-bold mt-1">9</h3>
+        <h3 class="text-2xl font-bold mt-1">{{ currentMonthTickets }}</h3>
       </div>
       <div class="bg-blue-100 p-3 rounded-full text-blue-500">
         <fa-icon [icon]="faTicketAlt" class="fas fa-ticket-alt"></fa-icon>
@@ -30,7 +31,7 @@
     <div class="flex justify-between items-start">
       <div>
         <p class="text-gray-500 text-sm">Phim đang chiếu</p>
-        <h3 class="text-2xl font-bold mt-1">8</h3>
+        <h3 class="text-2xl font-bold mt-1">{{ numOfNowShowingMovies }}</h3>
       </div>
       <div class="bg-purple-100 p-3 rounded-full text-purple-500">
         <fa-icon [icon]="faFilm" class="fas fa-film"></fa-icon>
@@ -42,7 +43,7 @@
     <div class="flex justify-between items-start">
       <div>
         <p class="text-gray-500 text-sm">Thành viên mới</p>
-        <h3 class="text-2xl font-bold mt-1">0</h3>
+        <h3 class="text-2xl font-bold mt-1">{{ newMembers }}</h3>
       </div>
       <div class="bg-green-100 p-3 rounded-full text-green-500">
         <fa-icon [icon]="faUsers" class="fas fa-users"></fa-icon>
@@ -50,4 +51,3 @@
     </div>
   </div>
 </div>
-

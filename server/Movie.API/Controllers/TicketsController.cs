@@ -49,4 +49,11 @@ public class TicketsController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("this-month")]
+    public async Task<IActionResult> GetTicketsThisMonth()
+    {
+        var result = await _mediator.Send(new TicketGetCurrentMonthQuery());
+        return Ok(result);
+    }
+
 }
