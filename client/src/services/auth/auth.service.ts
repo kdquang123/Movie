@@ -168,4 +168,24 @@ export class AuthService implements IAuthService {
       changePasswordRequest
     );
   }
+
+  public refreshToken(): Observable<LoginResponse> {
+    return this.httpClient
+      .post<LoginResponse>(ApiEndpoints.refreshToken, {
+        refreshToken: this.getRefreshToken(),
+      })
+      .pipe(
+        tap((response: LoginResponse) => {
+          localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem('refreshToken', response.refreshToken);
+          localStorage.setItem(
+            'userInformation',
+            JSON.stringify(response.userInfo)
+          );
+
+          this._isAuthenticated.next(true);
+          this._userInformation.next(response.userInfo);
+        })
+      );
+  }
 }

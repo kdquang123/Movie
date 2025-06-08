@@ -8,6 +8,7 @@ export const ApiEndpoints = {
   resetPassword: `${environment.apiUrl}/Auth/reset-password`,
   forgotPassword: `${environment.apiUrl}/Auth/forgot-password`,
   changePassword: `${environment.apiUrl}/Auth/change-password`,
+  refreshToken: `${environment.apiUrl}/Auth/refresh-token`,
 
   //Common api
   getAllCategory: `${environment.apiUrl}/Common/categories`,

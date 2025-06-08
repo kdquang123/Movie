@@ -3,7 +3,6 @@ import { AdminSidebarComponent } from '../../common/admin-sidebar/admin-sidebar.
 import { AdminHeaderComponent } from '../../common/admin-header/admin-header.component';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AdminBreadcrumbComponent } from "../../common/admin-breadcrumb/admin-breadcrumb.component";
 
 @Component({
   selector: 'app-admin-layout',
@@ -12,7 +11,6 @@ import { AdminBreadcrumbComponent } from "../../common/admin-breadcrumb/admin-br
     AdminHeaderComponent,
     RouterOutlet,
     CommonModule,
-    AdminBreadcrumbComponent
 ],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.css',

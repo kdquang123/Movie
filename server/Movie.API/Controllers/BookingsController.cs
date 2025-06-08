@@ -59,7 +59,7 @@ public class BookingsController : ControllerBase
     }
 
     [HttpGet("this-month")]
-    [Authorize(Roles = "ADMIN")]
+    [Authorize(Roles = "ADMIN,EMPLOYEE")]
     public async Task<IActionResult> GetBookingsThisMonth()
     {
         var result = await _mediator.Send(new BookingGetCurrentMonthQuery());

@@ -63,4 +63,17 @@ public class AuthController(IMediator mediator) : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpPost("refresh-token")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenCommand command)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
 }

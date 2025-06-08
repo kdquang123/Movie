@@ -9,7 +9,6 @@ export const adminAuthGuard: CanMatchFn = (route, segments) => {
   const router = inject(Router);
   return authService.getUserInformationFromAccessToken().pipe(
     map((user: UserInformation | null) => {
-      console.log('role:', user?.roles);
       if (user === null || user === undefined) {
         router.navigate(['/']);
         return false;

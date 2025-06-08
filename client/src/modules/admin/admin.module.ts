@@ -33,6 +33,7 @@ import { CreateBookingComponent } from './booking/create-booking/create-booking.
 import { BookingDetailComponent } from './booking/booking-detail/booking-detail.component';
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 import { adminRoleGuard } from '../../guards/admin-role.guard';
+import { adminAuthGuard } from '../../guards/admin-auth.guard';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -65,14 +66,17 @@ const routes: Routes = [
   {
     path: 'members/:id/detail',
     component: UserDetailComponent,
+    canActivate: [adminAuthGuard],
   },
   {
     path: 'members/add',
     component: AddUserComponent,
+    canActivate: [adminAuthGuard],
   },
   {
     path: 'members',
     component: UserListComponent,
+    canActivate: [adminAuthGuard],
   },
   {
     path: 'employees/:id/detail',
@@ -152,9 +156,14 @@ const routes: Routes = [
   {
     path: 'bookings',
     component: BookingListComponent,
+    canActivate: [adminAuthGuard],
   },
   { path: 'bookings/:id/detail', component: BookingDetailComponent },
-  { path: 'bookings/create', component: CreateBookingComponent },
+  {
+    path: 'bookings/create',
+    component: CreateBookingComponent,
+    canActivate: [adminAuthGuard],
+  },
   {
     path: 'banners/:id/detail',
     component: BannerDetailComponent,
