@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movie.Data;
@@ -24,6 +25,12 @@ public class SeatHoldAndBookingCleanUpService : BackgroundService
             var expiredHolds = db.SeatHolds
                 .Where(sh => sh.ExpireAt < DateTime.Now);
             var expiredBookings = db.Bookings.Where(b => b.ExpireAt < DateTime.Now && b.BookingStatus == BookingStatus.Pending);
+            var notUsedBookings = db.Bookings.Include(b=>b.Showtime)
+                .Where(b => b.Showtime!.EndTime < DateTime.Now && b.BookingStatus == BookingStatus.Paid);
+            foreach (var booking in notUsedBookings)
+            {
+                booking.BookingStatus = BookingStatus.Cancelled;
+            }
             db.Bookings.RemoveRange(expiredBookings);
             db.SeatHolds.RemoveRange(expiredHolds);
             await db.SaveChangesAsync();

@@ -8,7 +8,6 @@ namespace Movie.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "ADMIN")]
 public class RoomsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -19,6 +18,7 @@ public class RoomsController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAllRooms()
     {
         var result = await _mediator.Send(new RoomGetAllQuery());
@@ -27,6 +27,7 @@ public class RoomsController : ControllerBase
 
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> GetRoomById(Guid id)
     {
         var result = await _mediator.Send(new RoomGetByIdQuery { Id = id });
@@ -35,6 +36,7 @@ public class RoomsController : ControllerBase
 
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> UpdateRoom(Guid id, [FromBody] RoomUpdateCommand command)
     {
         if (!ModelState.IsValid)
@@ -47,6 +49,7 @@ public class RoomsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> DeleteRoom(Guid id)
     {
         var result = await _mediator.Send(new RoomDeleteCommand { Id = id });
@@ -55,6 +58,7 @@ public class RoomsController : ControllerBase
 
     [HttpPost("search")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> SearchRooms([FromBody] RoomSearchQuery query)
     {
         if (!ModelState.IsValid)
@@ -66,6 +70,7 @@ public class RoomsController : ControllerBase
     }
 
     [HttpPost("add")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> AddRoom([FromBody] RoomCreateCommand command)
     {
         if (!ModelState.IsValid)

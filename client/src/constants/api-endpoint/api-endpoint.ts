@@ -55,7 +55,7 @@ export const ApiEndpoints = {
 
   //Booking api
   createBooking: `${environment.apiUrl}/Bookings/create`,
-  getBookingByUserId: `${environment.apiUrl}/Bookings/user/`,
+  getMyBooking: `${environment.apiUrl}/Bookings/my-bookings`,
   getAllBookings: `${environment.apiUrl}/Bookings`,
   getCurrentMonthBookings: `${environment.apiUrl}/Bookings/this-month`,
 

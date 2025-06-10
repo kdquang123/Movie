@@ -42,11 +42,11 @@ public class BookingsController : ControllerBase
         return Redirect("http://localhost:4200/booking-failed");
     }
 
-    [HttpGet("user/{userId}")]
+    [HttpGet("my-bookings")]
     [Authorize]
-    public async Task<IActionResult> GetBookingByUserId(Guid userId)
+    public async Task<IActionResult> GetBookingByUserId()
     {
-        var result = await _mediator.Send(new BookingGetByUserIdQuery { UserId = userId });
+        var result = await _mediator.Send(new GetMyBookingQuery());
         return Ok(result);
     }
 

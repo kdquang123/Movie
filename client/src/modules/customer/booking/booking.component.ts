@@ -134,8 +134,7 @@ export class BookingComponent implements OnInit, OnDestroy {
 
     if (mySeat) {
       this.countdownTime = Math.floor(
-        (new Date(mySeat.expireAt).getTime() - new Date().getTime() - 60000) /
-          1000
+        (new Date(mySeat.expireAt).getTime() - new Date().getTime()) / 1000
       );
       this.isCountdownStarted = true;
 
@@ -382,12 +381,11 @@ export class BookingComponent implements OnInit, OnDestroy {
       next: (response) => {
         if (response.discountType === 'Percentage') {
           console.log(response.discountValue);
-          
+
           this.discountValue = (orderAmount * response.discountValue) / 100;
           console.log(orderAmount);
-          
+
           console.log(this.discountValue);
-          
         } else {
           this.discountValue = response.discountValue;
         }

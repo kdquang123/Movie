@@ -12,9 +12,9 @@ import { BookingModel } from '../../models/booking/booking.model';
 export class BookingService implements IBookingService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  getBookingByUserId(userId: string): Observable<BookingModel[]> {
+  getMyBooking(): Observable<BookingModel[]> {
     return this.httpClient.get<BookingModel[]>(
-      `${ApiEndpoints.getBookingByUserId}${userId}`
+      ApiEndpoints.getMyBooking
     );
   }
 

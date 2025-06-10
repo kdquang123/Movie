@@ -8,21 +8,25 @@
 
     <div class="flex space-x-2">
       <button
+        (click)="isShowUsedBooking = false"
         id="upcoming-tab"
-        class="tab-active px-4 py-2 text-sm font-medium"
+        class="px-4 py-2 text-sm font-medium"
+        [ngClass]="{ 'text-gray-400': isShowUsedBooking }"
       >
         Sắp chiếu
       </button>
       <button
+        (click)="isShowUsedBooking = true"
         id="past-tab"
-        class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white"
+        class="px-4 py-2 text-sm font-medium hover:text-white"
+        [ngClass]="{ 'text-gray-400': !isShowUsedBooking }"
       >
         Đã xem
       </button>
     </div>
   </div>
 
-  <div id="tickets">
+  <div id="tickets" *ngIf="!isShowUsedBooking">
     <!-- Booking -->
     <div
       *ngFor="let booking of showingBookingList"
@@ -64,7 +68,12 @@
 
             <div class="flex items-start">
               <span
-                class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full"
+                class="text-white text-xs font-bold px-2 py-1 rounded-full"
+                [ngClass]="{
+                  'bg-green-500':booking.bookingStatus==='Paid',
+                  'bg-yellow-400':booking.bookingStatus==='CheckedIn',
+                  'bg-red-500':booking.bookingStatus==='Cancelled',
+                }"
                 >{{ getBoookingStatus(booking) }}</span
               >
             </div>
@@ -85,7 +94,7 @@
                 </li>
                 <li class="flex justify-between">
                   <span class="text-gray-400">Phòng chiếu:</span>
-                  <span>{{ booking.showtime.room!.name }}</span>
+                  <span>{{ getRoomOfBooking(booking) }}</span>
                 </li>
                 <li class="flex justify-between">
                   <span class="text-gray-400">Sản phẩm:</span>
@@ -193,74 +202,81 @@
   </div>
 
   <!-- Past Tickets (Hidden by default) -->
-  <div id="past-tickets" class="hidden">
+  <div id="past-tickets" *ngIf="isShowUsedBooking">
     <!-- Past Ticket 1 -->
     <div
+      *ngFor="let booking of usedBookingList"
       class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
     >
       <div class="flex flex-col md:flex-row">
         <!-- Movie Poster -->
         <div class="w-full md:w-48 flex-shrink-0">
           <img
-            src="https://source.unsplash.com/random/300x450/?movie,poster,action"
+            [src]="booking.showtime.movie?.imageUrl"
             alt="Movie Poster"
             class="w-full h-full object-cover"
           />
         </div>
 
-        <!-- Ticket Info -->
+        <!-- Booking Info -->
         <div class="p-6 flex-1">
           <div class="flex flex-col md:flex-row md:justify-between">
             <div class="mb-4 md:mb-0">
-              <span class="text-gray-500 text-sm font-medium"
-                >PHIM ĐÃ CHIẾU</span
+              <span class="text-primary text-sm font-medium"
+                >PHIM ĐANG CHIẾU</span
               >
-              <h2 class="text-xl font-bold mt-1">Avatar: The Way of Water</h2>
-              <div class="flex items-center mt-2 text-gray-500 text-sm">
+              <h2 class="text-xl font-bold mt-1">
+                {{ booking.showtime.movie?.name }}
+              </h2>
+              <div class="flex items-center mt-2 text-gray-400 text-sm">
                 <span
                   ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
-                  05/03/2023</span
+                  {{ formatDate(booking.showtime.startTime) }}</span
                 >
                 <span class="mx-3">|</span>
                 <span
-                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon> 20:00</span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon>
+                  {{ getStartTimeOfShowTime(booking.showtime.startTime) }}</span
                 >
                 <span class="mx-3">|</span>
-                <span
-                  ><fa-icon [icon]="faMapMarkerAlt" class="mr-2"></fa-icon> CGV
-                  Vincom Nguyễn Chí Thanh</span
-                >
               </div>
             </div>
 
             <div class="flex items-start">
               <span
-                class="bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-full"
-                >ĐÃ XEM</span
+                class="text-white text-xs font-bold px-2 py-1 rounded-full"
+                [ngClass]="{
+                  'bg-green-500':booking.bookingStatus==='Paid',
+                  'bg-yellow-400':booking.bookingStatus==='CheckedIn',
+                  'bg-red-500':booking.bookingStatus==='Cancelled',
+                }"
+                >{{ getBoookingStatus(booking) }}</span
               >
             </div>
           </div>
 
-          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Ticket Details -->
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Booking Details -->
             <div>
               <h3 class="font-bold mb-3">Thông tin vé</h3>
-              <ul class="space-y-2 text-sm text-gray-400">
+              <ul class="space-y-2 text-sm text-gray-300">
                 <li class="flex justify-between">
-                  <span>Loại vé:</span>
-                  <span>Vé 3D</span>
+                  <span class="text-gray-400">Số lượng:</span>
+                  <span>{{ booking.tickets.length }}</span>
                 </li>
                 <li class="flex justify-between">
-                  <span>Số lượng:</span>
-                  <span>3 vé</span>
+                  <span class="text-gray-400">Ghế:</span>
+                  <span>{{ getSeatList(booking) }}</span>
                 </li>
                 <li class="flex justify-between">
-                  <span>Ghế:</span>
-                  <span>K5, K6, K7</span>
+                  <span class="text-gray-400">Phòng chiếu:</span>
+                  <span>{{ getRoomOfBooking(booking) }}</span>
                 </li>
                 <li class="flex justify-between">
-                  <span>Phòng chiếu:</span>
-                  <span>Cinema 2</span>
+                  <span class="text-gray-400">Sản phẩm:</span>
+                  <span>{{
+                    showSeletedProduct(booking) || "Chưa chọn sản phẩm"
+                  }}</span>
                 </li>
               </ul>
             </div>
@@ -268,39 +284,20 @@
             <!-- Payment Details -->
             <div>
               <h3 class="font-bold mb-3">Thanh toán</h3>
-              <ul class="space-y-2 text-sm text-gray-400">
+              <ul class="space-y-2 text-sm text-gray-300">
                 <li class="flex justify-between">
-                  <span>Mã đặt vé:</span>
-                  <span>CD23030501</span>
+                  <span class="text-gray-400">Mã đơn:</span>
+                  <span>{{ booking.bookingCode }}</span>
                 </li>
                 <li class="flex justify-between">
-                  <span>Phương thức:</span>
-                  <span>Thẻ ghi nợ</span>
+                  <span class="text-gray-400">Tổng tiền:</span>
+                  <span class="font-bold">{{ booking.totalPrice }}đ</span>
                 </li>
                 <li class="flex justify-between">
-                  <span>Tổng tiền:</span>
-                  <span class="font-bold">420.000đ</span>
-                </li>
-                <li class="flex justify-between">
-                  <span>Ngày đặt:</span>
-                  <span>01/03/2023</span>
+                  <span class="text-gray-400">Ngày đặt:</span>
+                  <span>{{ formatDate(booking.createdAt) }}</span>
                 </li>
               </ul>
-            </div>
-
-            <!-- Rating -->
-            <div class="flex flex-col items-start justify-center">
-              <h3 class="font-bold mb-3">Đánh giá của bạn</h3>
-              <div class="flex items-center mb-2">
-                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
-                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
-                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
-                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
-                <fa-icon [icon]="faStar" class="text-yellow-400"></fa-icon>
-              </div>
-              <button class="text-primary text-sm font-medium hover:underline">
-                <fa-icon [icon]="faEdit" class="mr-1"></fa-icon> Sửa đánh giá
-              </button>
             </div>
           </div>
         </div>
@@ -312,13 +309,70 @@
         <button
           class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
         >
-          <fa-icon [icon]="faRedoAlt" class="mr-1"></fa-icon> Đặt lại
+          <fa-icon [icon]="faPrint" class="mr-1"></fa-icon> In vé
         </button>
         <button
           class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
         >
-          <fa-icon [icon]="faCommentAlt" class="mr-1"></fa-icon> Viết review
+          <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
         </button>
+        <button
+          (click)="showTicketDetail(booking.id)"
+          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          {{
+            checkShowTicketDetail(booking.id) ? "Ẩn chi tiết" : "Xem chi tiết"
+          }}
+        </button>
+      </div>
+
+      <!-- Ticket Detail Section (Accordion) -->
+      <div
+        *ngIf="checkShowTicketDetail(booking.id)"
+        class="border-t border-gray-800 transition-all duration-300 overflow-hidden"
+      >
+        <div class="p-6 bg-gray-900 bg-opacity-50">
+          <h3 class="font-bold mb-4">CHI TIẾT VÉ</h3>
+
+          <!-- Tickets List -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div
+              *ngFor="let ticket of booking.tickets"
+              class="bg-gray-800 rounded-lg p-4"
+            >
+              <div class="flex justify-between">
+                <div>
+                  <div class="font-medium">
+                    Vé:
+                    {{ ticket.seat!.type === "Vip" ? "VIP" : "Thường" }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Ghế: {{ ticket.seat!.seatName }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Trạng thái:
+                    {{ ticket.isUsed ? "Đã sử dụng" : "Chưa sử dụng" }}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-gray-400 mt-1">
+                    Mã vé: {{ ticket.ticketCode }}
+                  </div>
+                  <!-- QR Code -->
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="qr-code p-2 rounded-lg mb-3">
+                      <img
+                        [src]="`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticket.ticketCode}`"
+                        alt="QR Code"
+                        class="w-24 h-24"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
