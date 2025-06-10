@@ -3,4 +3,6 @@ export class SeatHoldModel {
   seatId!: string;
   userId!: string;
   showtimeId!: string;
+  expireAt!: Date;
+  createdAt!: Date;
 }

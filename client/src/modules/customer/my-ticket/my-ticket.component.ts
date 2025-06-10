@@ -17,12 +17,13 @@ import {
   faUndoAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  AUTH_SERVICE,
   BOOKING_SERVICE,
+  ROOM_SERVICE,
 } from '../../../constants/injection/injection.constant';
-import { IAuthService } from '../../../services/auth/auth-service.interface';
 import { IBookingService } from '../../../services/booking/booking-service.interface';
 import { BookingModel } from '../../../models/booking/booking.model';
+import { IRoomService } from '../../../services/room/room-service.interface';
+import { RoomModel } from '../../../models/room/room.model';
 
 @Component({
   selector: 'app-my-ticket',
@@ -45,28 +46,36 @@ export class MyTicketComponent implements OnInit {
   faHistory = faHistory;
   faStar = faStar;
 
-  userId!: string;
   bookingList: BookingModel[] = [];
   showingBookingList: BookingModel[] = [];
+  usedBookingList: BookingModel[] = [];
 
   isShowTicketDetail: string[] = [];
 
+  roomList: RoomModel[] = [];
+
+  isShowUsedBooking: boolean = false;
+
   constructor(
-    @Inject(AUTH_SERVICE) private readonly authService: IAuthService,
-    @Inject(BOOKING_SERVICE) private readonly bookingService: IBookingService
+    @Inject(BOOKING_SERVICE) private readonly bookingService: IBookingService,
+    @Inject(ROOM_SERVICE) private readonly roomService: IRoomService
   ) {}
 
   ngOnInit(): void {
-    this.authService.getUserInformation().subscribe((response) => {
-      this.userId = response!.id;
-      this.bookingService
-        .getBookingByUserId(this.userId)
-        .subscribe((response) => {
-          this.bookingList = response;
-          this.showingBookingList = this.bookingList;
-          console.log('bookingList:', this.bookingList);
-          console.log('showing:', this.showingBookingList);
-        });
+    this.bookingService.getMyBooking().subscribe((response) => {
+      this.bookingList = response;
+      this.showingBookingList = this.bookingList.filter(
+        (b) => b.bookingStatus === 'Paid'
+      );
+      this.usedBookingList = this.bookingList.filter(
+        (b) =>
+          b.bookingStatus === 'CheckedIn' || b.bookingStatus === 'Cancelled'
+      );
+      console.log('bookingList:', this.bookingList);
+      console.log('showing:', this.showingBookingList);
+    });
+    this.roomService.getAllRoom().subscribe((response) => {
+      this.roomList = response;
     });
   }
 
@@ -108,7 +117,7 @@ export class MyTicketComponent implements OnInit {
       case 'CheckedIn':
         return 'ĐÃ CHECK-IN';
       case 'Cancelled':
-        return 'ĐÃ HỦY';
+        return 'ĐÃ HẾT HẠN';
       default:
         return 'CHƯA THANH TOÁN';
     }
@@ -126,5 +135,10 @@ export class MyTicketComponent implements OnInit {
 
   checkShowTicketDetail(bookingId: string): boolean {
     return this.isShowTicketDetail.includes(bookingId);
+  }
+
+  getRoomOfBooking(booking: BookingModel): string {
+    const room = this.roomList.find((r) => r.id === booking.showtime.roomId);
+    return room ? room.name : 'Không xác định';
   }
 }

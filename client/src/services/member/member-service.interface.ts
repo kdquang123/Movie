@@ -9,5 +9,6 @@ export interface IMemberService {
   updateMember(id: string, employee: any): Observable<boolean>;
   createMember(employee: any): Observable<boolean>;
   searchMember(filter: any): Observable<PaginatedResult<MemberModel>>;
-  changeStatus(userId:string): Observable<boolean>;
+  changeStatus(userId: string): Observable<boolean>;
+  getNewMembers(): Observable<MemberModel[]>;
 }

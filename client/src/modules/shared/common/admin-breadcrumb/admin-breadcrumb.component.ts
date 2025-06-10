@@ -27,37 +27,39 @@ export class AdminBreadcrumbComponent implements OnInit {
     private readonly route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.createBreadcrumbs();
+        this.breadcrumbs = this.buildBreadcrumbs(this.route.root);
       });
-    this.createBreadcrumbs();
   }
 
-  private createBreadcrumbs(): void {
-    this.breadcrumbs = [];
-    let currentRoute = this.route.root;
-    let url = '';
-    console.log('currentRoute:' + currentRoute);
+  buildBreadcrumbs(
+    route: ActivatedRoute,
+    url: string = '',
+    breadcrumbs: { label: string; url: string }[] = []
+  ): { label: string; url: string }[] {
+    const children: ActivatedRoute[] = route.children;
 
-    while (currentRoute.children.length) {
-      let child = currentRoute.children[0];
-      console.log(child);
+    if (children.length === 0) return breadcrumbs;
 
-      let routeURL = child.snapshot.url.map((seg) => seg.path).join('/');
+    for (const child of children) {
+      const routeURL: string = child.snapshot.url
+        .map((segment) => segment.path)
+        .join('/');
       if (routeURL) {
         url += `/${routeURL}`;
       }
 
-      const label = 'test';
+      const label = child.snapshot.data['breadcrumb'];
       if (label) {
-        this.breadcrumbs.push({ label, url });
+        breadcrumbs.push({ label, url });
       }
 
-      currentRoute = child;
+      breadcrumbs = this.buildBreadcrumbs(child, url, breadcrumbs);
     }
-    console.log(this.breadcrumbs);
+
+    return breadcrumbs;
   }
 }

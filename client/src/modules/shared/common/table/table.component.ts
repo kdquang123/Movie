@@ -64,18 +64,25 @@ export class TableComponent {
 
   private selectedId: string = '';
 
-  public generatePageItems(): number[] {
-    if (!this.data) {
-      return [];
+  public generatePageItems(maxVisible: number = 5): number[] {
+    if (!this.data) return [];
+
+    const totalPages = this.data.totalPages;
+
+    let start = Math.max(this.currentPage - Math.floor(maxVisible / 2), 1);
+    let end = start + maxVisible - 1;
+
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(end - maxVisible + 1, 1);
     }
 
-    const totalPage = this.data.totalPages;
-    return Array.from({ length: totalPage }, (_, i) => i + 1);
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
   public generatePageInfo(): string {
     if (this.data) {
-      return `Page ${this.currentPageSize * (this.data.pageNumber - 1) + 1} -
+      return `${this.currentPageSize * (this.data.pageNumber - 1) + 1} -
        ${
          this.currentPageSize * this.data.pageNumber > this.data.totalCount
            ? this.data.totalCount

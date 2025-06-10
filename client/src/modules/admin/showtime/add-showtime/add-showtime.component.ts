@@ -180,7 +180,15 @@ export class AddShowtimeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.showtimeForm.valid) {
+    if (
+      this.showtimeForm.get('movieId')?.value &&
+      this.showtimeForm.get('roomId')?.value &&
+      this.showtimeForm.get('startDate')?.value &&
+      this.showtimeForm.get('startTime')?.value &&
+      this.showtimeForm.get('duration')?.value &&
+      this.showtimeForm.get('basePrice')?.value &&
+      this.showtimeForm.get('weekendPrice')?.value
+    ) {
       this.showtimeService.createShowtime(this.showtimeForm.value).subscribe({
         next: () => {
           this.toastr.success('Thêm lịch chiếu thành công!', 'Thành công');
@@ -191,7 +199,7 @@ export class AddShowtimeComponent implements OnInit {
         },
       });
     } else {
-      this.toastr.error('Vui lòng điền đầy đủ thông tin', 'Lỗi');
+      this.toastr.error('Vui lòng điền đầy đủ thông tin!', 'Lỗi');
     }
   }
 }

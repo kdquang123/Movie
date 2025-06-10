@@ -87,6 +87,12 @@
               <p class="text-gray-500">Loại vé:</p>
               <p>{{ ticket.seat.type === "Vip" ? "VIP" : "Thường" }}</p>
             </div>
+            <div>
+              <p class="text-gray-500">Sản phẩm:</p>
+              <p>
+                {{ showSeletedProduct(ticket.booking) }}
+              </p>
+            </div>
           </div>
         </div>
 

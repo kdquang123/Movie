@@ -23,7 +23,7 @@ public class TicketCreateCommandHandler : BaseHandler, IRequestHandler<TicketCre
         foreach (var seatHold in listHoldingSeats)
         {
             var uniqueTicketCode = await GenerateUniqueTicketCodeAsync();
-            var ticket = new Ticket { TicketCode = uniqueTicketCode, SeatId = seatHold.SeatId, BookingId = booking.Id };
+            var ticket = new Ticket { TicketCode = uniqueTicketCode, SeatId = seatHold.SeatId, BookingId = booking.Id, CreatedAt = DateTime.Now };
             booking.Tickets.Add(ticket);
         }
         await _unitOfWork.SaveChangesAsync();

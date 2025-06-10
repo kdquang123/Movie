@@ -232,7 +232,9 @@
         <div class="space-y-3 text-sm">
           <div class="flex justify-between">
             <span class="text-gray-400">Phim:</span>
-            <span class="font-medium">{{ showtime.movie?.name }}</span>
+            <span *ngIf="showtime.movie !== undefined" class="font-medium">{{
+              showtime.movie.name
+            }}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-gray-400">Suất chiếu:</span>
@@ -294,7 +296,7 @@
             <span
               id="total-price"
               class="text-primary font-bold text-lg"
-              >{{`${getTotalProductPrice() + getTotalSeatPrice()} đ`}}</span
+              >{{`${getTotalProductPrice() + getTotalSeatPrice() - discountValue} đ`}}</span
             >
           </div>
         </div>
@@ -306,8 +308,10 @@
             type="text"
             placeholder="Nhập mã khuyến mãi"
             class="flex-grow bg-dark border border-gray-700 rounded-l-md px-4 py-2 focus:outline-none focus:border-primary text-sm"
+            [(ngModel)]="promotionCode"
           />
           <button
+            (click)="usePromotion()"
             class="bg-primary hover:bg-red-700 px-4 py-2 rounded-r-md text-sm font-medium transition"
           >
             Áp dụng

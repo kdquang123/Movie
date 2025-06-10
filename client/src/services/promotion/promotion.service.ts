@@ -42,4 +42,10 @@ export class PromotionService implements IPromotionService {
       filter
     );
   }
+  getByCode(code: string, orderAmount: number): Observable<PromotionModel> {
+    return this.httpClient.post<PromotionModel>(
+      `${ApiEndpoints.getPromotionByCode}/${code}`,
+      { orderAmount }
+    );
+  }
 }

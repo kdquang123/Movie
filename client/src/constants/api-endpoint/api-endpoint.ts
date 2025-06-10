@@ -8,6 +8,7 @@ export const ApiEndpoints = {
   resetPassword: `${environment.apiUrl}/Auth/reset-password`,
   forgotPassword: `${environment.apiUrl}/Auth/forgot-password`,
   changePassword: `${environment.apiUrl}/Auth/change-password`,
+  refreshToken: `${environment.apiUrl}/Auth/refresh-token`,
 
   //Common api
   getAllCategory: `${environment.apiUrl}/Common/categories`,
@@ -54,7 +55,9 @@ export const ApiEndpoints = {
 
   //Booking api
   createBooking: `${environment.apiUrl}/Bookings/create`,
-  getBookingByUserId: `${environment.apiUrl}/Bookings/user/`,
+  getMyBooking: `${environment.apiUrl}/Bookings/my-bookings`,
+  getAllBookings: `${environment.apiUrl}/Bookings`,
+  getCurrentMonthBookings: `${environment.apiUrl}/Bookings/this-month`,
 
   //Product api
   getAllProduct: `${environment.apiUrl}/Products`,
@@ -69,6 +72,7 @@ export const ApiEndpoints = {
   getTicketByBookingId: `${environment.apiUrl}/Tickets/booking`,
   getTicketByTicketCode: `${environment.apiUrl}/Tickets/code`,
   approveTicket: `${environment.apiUrl}/Tickets/approve`,
+  getCurrentMonthTickets: `${environment.apiUrl}/Tickets/this-month`,
 
   //Employee api
   getAllEmployee: `${environment.apiUrl}/Employees`,
@@ -85,6 +89,7 @@ export const ApiEndpoints = {
   updateMember: `${environment.apiUrl}/Members`,
   createMember: `${environment.apiUrl}/Members/add`,
   searchMember: `${environment.apiUrl}/Members/search`,
+  getNewMembers: `${environment.apiUrl}/Members/new`,
 
   //Promotion api
   getAllPromotion: `${environment.apiUrl}/Promotions`,
@@ -93,6 +98,7 @@ export const ApiEndpoints = {
   updatePromotion: `${environment.apiUrl}/Promotions`,
   createPromotion: `${environment.apiUrl}/Promotions/add`,
   searchPromotion: `${environment.apiUrl}/Promotions/search`,
+  getPromotionByCode: `${environment.apiUrl}/Promotions/get-by-code`,
 
   //News api
   getAllNews: `${environment.apiUrl}/News`,

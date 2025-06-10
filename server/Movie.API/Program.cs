@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
@@ -81,6 +82,36 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
             builder.Configuration["JWT:Secret"] ?? throw new InvalidOperationException("JWT:Secret is not configured.")))
     };
+
+    // options.Events = new JwtBearerEvents
+    // {
+    //     OnAuthenticationFailed = context =>
+    //     {
+    //         if (context.Exception is SecurityTokenExpiredException)
+    //         {
+    //             // Dừng pipeline xử lý mặc định của JWT Bearer
+    //             context.NoResult();
+
+    //             if (!context.Response.HasStarted)
+    //             {
+    //                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+    //                 context.Response.ContentType = "application/json";
+
+    //                 var result = JsonSerializer.Serialize(new
+    //                 {
+    //                     error = "invalid_token",
+    //                     error_description = "The token has expired"
+    //                 });
+
+    //                 return context.Response.WriteAsync(result);
+    //             }
+
+    //             // Nếu response đã bắt đầu, không làm gì cả
+    //         }
+
+    //         return Task.CompletedTask;
+    //     }
+    // };
 });
 
 
@@ -90,6 +121,7 @@ builder.Services.AddCors(options =>
       .WithOrigins(builder.Configuration.GetSection("CORs:AllowedOrigins").Get<string[]>() ?? [])
       .AllowAnyHeader()
       .WithMethods(builder.Configuration.GetSection("CORs:AllowedMethods").Get<string[]>() ?? [])
+        .WithExposedHeaders("Www-Authenticate")
       .AllowCredentials());
 
     options.AddPolicy("AllowAnyOrigin", opt => opt

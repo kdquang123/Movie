@@ -21,7 +21,7 @@ public class ProfileGetQueryHandler : BaseHandler,
     public async Task<ProfileViewModel> Handle(ProfileGetQuery request, CancellationToken cancellationToken)
     {
         var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
-        var user = _unitOfWork.UserRepository.GetById(Guid.Parse(userId));
+        var user =await _unitOfWork.UserRepository.GetByIdAsync(Guid.Parse(userId));
         if (user == null)
         {
             throw new NotFoundException("Tài khoản không tồn tại");

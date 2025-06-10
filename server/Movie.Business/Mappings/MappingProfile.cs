@@ -2,7 +2,6 @@ using System;
 using System.Formats.Tar;
 using AutoMapper;
 using Movie.Business.ViewModels;
-using Movie.Business.ViewModels;
 using Movie.Models;
 
 namespace Movie.Business.Mappings;

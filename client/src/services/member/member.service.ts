@@ -48,4 +48,8 @@ export class MemberService implements IMemberService {
       filter
     );
   }
+
+  getNewMembers(): Observable<MemberModel[]> {
+    return this.httpClient.get<MemberModel[]>(ApiEndpoints.getNewMembers);
+  }
 }

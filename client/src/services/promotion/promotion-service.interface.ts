@@ -9,4 +9,5 @@ export interface IPromotionService {
   update(id: string, promotion: any): Observable<boolean>;
   delete(id: string): Observable<boolean>;
   search(filter: any): Observable<PaginatedResult<PromotionModel>>;
+  getByCode(code: string, orderAmount: number): Observable<PromotionModel>;
 }

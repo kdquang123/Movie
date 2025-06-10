@@ -9,10 +9,12 @@ namespace Movie.API.Hubs;
 public class SeatHub : Hub
 {
     private readonly IMediator _mediator;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public SeatHub(IMediator mediator)
+    public SeatHub(IHttpContextAccessor httpContextAccessor, IMediator mediator)
     {
         _mediator = mediator;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task JoinShowtimeGroup(string showtimeId)

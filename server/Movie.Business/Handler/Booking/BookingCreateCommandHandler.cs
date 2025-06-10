@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Movie.Business.Services;
+using Movie.Core.Exceptions;
 using Movie.Data.UnitOfWorks;
 using Movie.Models;
 
@@ -44,12 +45,49 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
             }
         }
 
-        if (request.PromotionCode != null)
-        {
+        decimal totalPrice = seatTotalPrice + productTotalPrice;
 
+        if (!String.IsNullOrEmpty(request.PromotionCode))
+        {
+            var promotion = await _unitOfWork.PromotionRepository.GetQuery()
+           .FirstOrDefaultAsync(x => x.Code == request.PromotionCode && x.IsDelete == false, cancellationToken: cancellationToken)
+           ?? throw new NotFoundException("Khuyến mãi không tồn tại");
+
+            if (promotion.EndDate < DateTime.Now)
+            {
+                throw new NotFoundException("Khuyến mãi đã kết thúc");
+            }
+
+            if (promotion.StartDate > DateTime.Now)
+            {
+                throw new NotFoundException("Khuyến mãi chưa bắt đầu");
+            }
+
+            if (promotion.MinOrderAmount != null && promotion.MinOrderAmount > totalPrice)
+            {
+                throw new NotFoundException("Giá trị đơn hàng không đủ để áp dụng khuyến mãi");
+            }
+
+            if (promotion.UsageLimit != null)
+            {
+                var usageCount = await _unitOfWork.BookingRepository.GetQuery()
+                    .CountAsync(b => b.PromotionCode == request.PromotionCode && b.BookingStatus == BookingStatus.Paid, cancellationToken);
+                if (usageCount >= promotion.UsageLimit)
+                    throw new NotFoundException("Khuyến mãi đã hết lượt sử dụng");
+            }
+
+
+            if (promotion.DiscountType == PromotionType.Percentage.ToString())
+            {
+                totalPrice -= totalPrice * (promotion.DiscountValue / 100);
+            }
+            else if (promotion.DiscountType == PromotionType.FixedAmount.ToString())
+            {
+                totalPrice -= promotion.DiscountValue;
+            }
         }
 
-        decimal totalPrice = seatTotalPrice + productTotalPrice;
+
         var bookingCode = "ORD" + DateTime.UtcNow.Ticks.ToString().Substring(0, 10);
         var existSeatHold = await _unitOfWork.SeatHoldRepository.GetQuery().Where(sh => sh.ShowtimeId == request.Showtime.Id && sh.UserId == request.UserId).FirstOrDefaultAsync(cancellationToken);
         var newBooking = new Booking
@@ -62,7 +100,7 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
             CreatedAt = DateTime.Now
         };
 
-        if (request.PromotionCode != null)
+        if (!String.IsNullOrEmpty(request.PromotionCode))
         {
             newBooking.PromotionCode = request.PromotionCode;
         }

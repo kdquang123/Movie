@@ -1,17 +1,22 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ISeatHoldService } from './seathold-service.interface';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ApiEndpoints } from '../../constants/api-endpoint/api-endpoint';
+import { IAuthService } from '../auth/auth-service.interface';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SeatHoldService implements ISeatHoldService {
   private readonly hubConnection!: HubConnection;
+  private readonly authService: IAuthService = inject(AuthService);
 
   constructor() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(ApiEndpoints.seatHubUrl)
+      .withUrl(ApiEndpoints.seatHubUrl, {
+        accessTokenFactory: () => this.authService.getAccessToken(),
+      })
       .build();
   }
 

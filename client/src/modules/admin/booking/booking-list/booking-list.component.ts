@@ -12,6 +12,7 @@ import { TicketOfBookingModel } from '../../../../models/ticket/ticket-of-bookin
 import { TICKET_SERVICE } from '../../../../constants/injection/injection.constant';
 import { ITicketService } from '../../../../services/ticket/ticket-service.interface';
 import { ToastrService } from 'ngx-toastr';
+import { BookingModel } from '../../../../models/booking/booking.model';
 
 @Component({
   selector: 'app-booking-list',
@@ -23,7 +24,7 @@ export class BookingListComponent {
   faSearch = faSearch;
   faQrcode = faQrcode;
   faCheckCircle = faCheckCircle;
-  faPrint=faPrint
+  faPrint = faPrint;
 
   ticketCode: string = '';
   ticket!: TicketOfBookingModel;
@@ -39,11 +40,12 @@ export class BookingListComponent {
     this.ticketService.getTicketByTicketCode(this.ticketCode).subscribe({
       next: (response) => {
         this.ticket = response;
-        console.log(this.ticket);
-        
         this.notFound = false;
       },
-      error: () => {
+      error: (error) => {
+        if (error.error.message) {
+          this.toastr.error(error.error.message, 'Lỗi');
+        }
         this.notFound = true;
       },
     });
@@ -82,5 +84,26 @@ export class BookingListComponent {
     const hour = new Date(dateTime).getHours().toString().padStart(2, '0');
     const minute = new Date(dateTime).getMinutes().toString().padStart(2, '0');
     return `${hour}:${minute}`;
+  }
+
+  showSeletedProduct(booking: BookingModel): string {
+    if (!booking.bookingDetails || booking.bookingDetails.length === 0) {
+      return 'Không có sản phẩm';
+    }
+    let selectedProduct = '';
+    for (let bookingDetail of booking.bookingDetails) {
+      if (bookingDetail.quantity > 0) {
+        selectedProduct += `${bookingDetail.product.name} x ${bookingDetail.quantity}, `;
+      }
+    }
+    return `${selectedProduct.slice(0, -2)} (${this.getBoookingStatus(booking)})`;
+  }
+
+  getBoookingStatus(booking: BookingModel): string {
+    if (booking.bookingStatus == 'CheckedIn') {
+      return 'ĐÃ NHẬN';
+    } else {
+      return 'CHƯA NHẬN';
+    }
   }
 }
