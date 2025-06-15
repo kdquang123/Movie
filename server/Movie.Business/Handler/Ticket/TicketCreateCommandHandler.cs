@@ -26,6 +26,8 @@ public class TicketCreateCommandHandler : BaseHandler, IRequestHandler<TicketCre
             var ticket = new Ticket { TicketCode = uniqueTicketCode, SeatId = seatHold.SeatId, BookingId = booking.Id, CreatedAt = DateTime.Now };
             booking.Tickets.Add(ticket);
         }
+
+        _unitOfWork.Context.SeatHolds.RemoveRange(listHoldingSeats);
         await _unitOfWork.SaveChangesAsync();
         return true;
     }

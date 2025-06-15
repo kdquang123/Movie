@@ -2,6 +2,7 @@ using System;
 using System.Formats.Tar;
 using AutoMapper;
 using Movie.Business.ViewModels;
+using Movie.Business.ViewModels.Booking;
 using Movie.Models;
 
 namespace Movie.Business.Mappings;
@@ -28,6 +29,7 @@ public class MappingProfile : Profile
         CreateMap<Ticket, TicketViewModel>().ReverseMap();
         CreateMap<Booking, BookingViewModel>().ForMember(dest => dest.BookingStatus, opt => opt.MapFrom(src => src.BookingStatus.ToString())).ReverseMap();
         CreateMap<BookingDetail, BookingDetailViewModel>().ReverseMap();
+        CreateMap<Booking, BookingOfTicketViewModel>().ReverseMap();
         CreateMap<Ticket, TicketDetailViewModel>().ReverseMap();
         CreateMap<Ticket, TicketOfBookingViewModel>().ReverseMap();
         CreateMap<Product, ProductViewModel>().ReverseMap();

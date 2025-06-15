@@ -11,7 +11,13 @@ import {
   faSignOutAlt,
   faUserCog,
 } from '@fortawesome/free-solid-svg-icons';
-import { Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { filter, map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-header',
@@ -29,15 +35,34 @@ export class AdminHeaderComponent implements OnInit {
 
   isDropdownOpen = false;
 
+  headerTitle!: string;
+
   constructor(
     @Inject(AUTH_SERVICE) private readonly authService: IAuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.authService.getUserInformation().subscribe((userInfo) => {
       this.currentUser = userInfo;
     });
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => {
+          let route = this.route;
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        mergeMap((route) => route.data)
+      )
+      .subscribe((data) => {
+        this.headerTitle = data['title'] || '';
+      });
   }
 
   public logout(): void {

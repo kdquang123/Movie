@@ -9,4 +9,5 @@ export interface IRoomService {
   updateRoom(id: string, room: any): Observable<boolean>;
   deleteRoom(id: string): Observable<boolean>;
   search(filter: any): Observable<PaginatedResult<RoomModel>>;
+  changeStatus(roomId: string): Observable<boolean>;
 }

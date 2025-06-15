@@ -1,3 +1,4 @@
+import { BookingModel } from '../booking/booking.model';
 import { SeatModel } from '../seat/seat.model';
 
 export class TicketDetailModel {
@@ -6,4 +7,5 @@ export class TicketDetailModel {
   seat!: SeatModel;
   bookingId!: string;
   isUsed!: boolean;
+  booking?:BookingModel;
 }

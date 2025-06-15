@@ -31,11 +31,11 @@ public class VNPayService : IVNPayService
         pay.AddRequestData("vnp_TmnCode", _config.TmnCode);
         pay.AddRequestData("vnp_Amount", ((long)booking.TotalPrice * 100).ToString()); // nhân 100 vì VNPAY dùng đơn vị là đồng
         pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
-        pay.AddRequestData("vnp_ExpireDate", booking.ExpireAt.AddMinutes(-1).ToString("yyyyMMddHHmmss"));
+        pay.AddRequestData("vnp_ExpireDate", booking.ExpireAt.ToString("yyyyMMddHHmmss"));
         pay.AddRequestData("vnp_CurrCode", "VND");
         pay.AddRequestData("vnp_IpAddr", _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString());
         pay.AddRequestData("vnp_Locale", "vn");
-        pay.AddRequestData("vnp_BankCode", "NCB");
+        // pay.AddRequestData("vnp_BankCode", "NCB");
         pay.AddRequestData("vnp_OrderInfo", booking.BookingCode);
         pay.AddRequestData("vnp_OrderType", "other");
         pay.AddRequestData("vnp_ReturnUrl", _config.ReturnUrl);

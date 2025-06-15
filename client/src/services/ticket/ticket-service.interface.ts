@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { TicketModel } from '../../models/ticket/ticket.model';
 import { TicketDetailModel } from '../../models/ticket/ticket-detail.model';
 import { TicketOfBookingModel } from '../../models/ticket/ticket-of-booking.model';
+import { PaginatedResult } from '../../models/paginated-result.model';
 
 export interface ITicketService {
   getByShowtimeId(showtimeId: string): Observable<TicketModel[]>;
@@ -9,4 +10,5 @@ export interface ITicketService {
   getTicketByTicketCode(ticketCode: string): Observable<TicketOfBookingModel>;
   approveTicket(ticketCode: string): Observable<boolean>;
   getCurrentMonthTickets(): Observable<TicketModel[]>;
+  search(filter: any): Observable<PaginatedResult<TicketModel>>;
 }

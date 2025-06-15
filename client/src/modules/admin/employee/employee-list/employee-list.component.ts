@@ -44,6 +44,10 @@ export class EmployeeListComponent extends MasterDataComponent<EmployeeModel> {
       value: 'isActive',
       formatter: (e: EmployeeModel) =>
         e.isActive ? 'Hoạt động' : 'Ngừng hoạt động',
+      style: (e: EmployeeModel) =>
+        e.isActive
+          ? 'text-white text-center rounded-full bg-green-500 inline px-2 py-1'
+          : 'text-white text-center rounded-full bg-red-500 inline px-2 py-1',
     },
   ];
 

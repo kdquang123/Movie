@@ -1,16 +1,12 @@
 using System;
-using AutoMapper.Execution;
-using Movie.Models;
 
-namespace Movie.Business.ViewModels;
+namespace Movie.Business.ViewModels.Booking;
 
-public class BookingViewModel
+public class BookingOfTicketViewModel
 {
     public Guid Id { get; set; }
     public Guid ShowTimeId { get; set; }
     public ShowtimeViewModel? Showtime { get; set; }
-    public ICollection<TicketDetailViewModel> Tickets { get; set; } = [];
-    public ICollection<BookingDetailViewModel> BookingDetails { get; set; } = [];
     public string? PromotionCode { get; set; }
     public decimal TotalPrice { get; set; }
     public string? BookingStatus { get; set; }

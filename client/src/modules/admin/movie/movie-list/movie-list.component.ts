@@ -61,6 +61,12 @@ export class MovieListComponent
           : movie.status === 'ComingSoon'
           ? 'Sắp chiếu'
           : 'Ngừng chiếu',
+      style: (movie: MovieModel) =>
+        movie.status === 'NowPlaying'
+          ? 'text-white text-center rounded-full bg-green-500 inline px-2 py-1'
+          : movie.status === 'ComingSoon'
+          ? 'text-white text-center rounded-full bg-yellow-500 inline px-2 py-1'
+          : 'text-white text-center rounded-full bg-red-500 inline px-2 py-1',
     },
   ];
 

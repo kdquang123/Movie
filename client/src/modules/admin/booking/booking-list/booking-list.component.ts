@@ -1,27 +1,45 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   faCheckCircle,
   faPrint,
   faQrcode,
-  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import { TicketOfBookingModel } from '../../../../models/ticket/ticket-of-booking.model';
-import { TICKET_SERVICE } from '../../../../constants/injection/injection.constant';
+import {
+  BOOKING_SERVICE,
+  TICKET_SERVICE,
+} from '../../../../constants/injection/injection.constant';
 import { ITicketService } from '../../../../services/ticket/ticket-service.interface';
 import { ToastrService } from 'ngx-toastr';
 import { BookingModel } from '../../../../models/booking/booking.model';
+import { MasterDataComponent } from '../../master-data/master-data.component';
+import { TableComponent } from '../../../shared/common/table/table.component';
+import { TableColumn } from '../../../shared/common/table/table-column.model';
+import { TicketModel } from '../../../../models/ticket/ticket.model';
+import { IBookingService } from '../../../../services/booking/booking-service.interface';
+import { OrderDirection } from '../../../../models/search.model';
 
 @Component({
   selector: 'app-booking-list',
-  imports: [CommonModule, FontAwesomeModule, FormsModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    TableComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './booking-list.component.html',
   styleUrl: './booking-list.component.css',
 })
-export class BookingListComponent {
-  faSearch = faSearch;
+export class BookingListComponent extends MasterDataComponent<BookingModel> {
   faQrcode = faQrcode;
   faCheckCircle = faCheckCircle;
   faPrint = faPrint;
@@ -32,8 +50,54 @@ export class BookingListComponent {
 
   constructor(
     @Inject(TICKET_SERVICE) private readonly ticketService: ITicketService,
+    @Inject(BOOKING_SERVICE) private readonly bookingService: IBookingService,
     private readonly toastr: ToastrService
-  ) {}
+  ) {
+    super();
+  }
+
+  public override columns: TableColumn[] = [
+    { name: 'Mã đơn', value: 'bookingCode' },
+    {
+      name: 'Người đặt',
+      value: 'user',
+      formatter: (b) => b.user.fullName,
+    },
+    {
+      name: 'Phim',
+      value: 'showtime',
+      formatter: (b) => b.showtime.movie.name,
+    },
+    {
+      name: 'Ghế',
+      value: 'tickets',
+      formatter: this.getSeatList.bind(this),
+    },
+    {
+      name: 'Trạng thái',
+      value: 'bookingStatus',
+      formatter: this.getBoookingStatus.bind(this),
+      style: this.getStatusStyle.bind(this),
+    },
+  ];
+
+  override ngOnInit(): void {
+    this.createForm();
+    this.searchData();
+  }
+
+  protected override searchData(): void {
+    this.bookingService.search(this.filter).subscribe((res) => {
+      this.data = res;
+    });
+  }
+
+  protected override createForm(): void {
+    this.searchForm = new FormGroup({
+      keyword: new FormControl(''),
+      status: new FormControl(''),
+    });
+  }
 
   searchTicket() {
     if (!this.ticketCode) return;
@@ -96,14 +160,50 @@ export class BookingListComponent {
         selectedProduct += `${bookingDetail.product.name} x ${bookingDetail.quantity}, `;
       }
     }
-    return `${selectedProduct.slice(0, -2)} (${this.getBoookingStatus(booking)})`;
+    return `${selectedProduct.slice(0, -2)} (${this.getBoookingStatus(
+      booking
+    )})`;
+  }
+
+  detail(id: string) {}
+
+  delete(id: string) {}
+
+  createBooking(): void {
+    alert('Chức năng tạo vé thủ công sẽ được triển khai sau');
+  }
+
+  getSeatList(booking: BookingModel): string {
+    return booking.tickets.map((t) => t.seat.seatName).join(', ');
   }
 
   getBoookingStatus(booking: BookingModel): string {
-    if (booking.bookingStatus == 'CheckedIn') {
-      return 'ĐÃ NHẬN';
-    } else {
-      return 'CHƯA NHẬN';
+    switch (booking.bookingStatus) {
+      case 'Pending':
+        return 'CHƯA THANH TOÁN';
+      case 'Paid':
+        return 'ĐÃ THANH TOÁN';
+      case 'CheckedIn':
+        return 'ĐÃ CHECK-IN';
+      case 'Cancelled':
+        return 'ĐÃ HẾT HẠN';
+      default:
+        return 'CHƯA THANH TOÁN';
+    }
+  }
+
+  getStatusStyle(booking: BookingModel): string {
+    switch (booking.bookingStatus) {
+      case 'Pending':
+        return 'text-white text-center rounded-full bg-green-500 inline px-2 py-1';
+      case 'Paid':
+        return 'text-white text-center rounded-full bg-yellow-500 inline px-2 py-1';
+      case 'CheckedIn':
+        return 'text-white text-center rounded-full bg-green-500 inline px-2 py-1';
+      case 'Cancelled':
+        return 'text-white text-center rounded-full bg-red-500 inline px-2 py-1';
+      default:
+        return 'text-white text-center rounded-full bg-green-500 inline px-2 py-1';
     }
   }
 }

@@ -56,4 +56,10 @@ public class TicketsController : ControllerBase
         return Ok(result);
     }
 
+    [HttpPost("search")]
+    public async Task<IActionResult> SearchTicket([FromBody] TicketSearchQuery query)
+    {
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 }

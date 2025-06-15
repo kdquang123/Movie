@@ -11,11 +11,11 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { EMPLOYEE_SERVICE } from '../../../../constants/injection/injection.constant';
 import { IEmployeeService } from '../../../../services/employee/employee-service.interface';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employee-detail',
-  imports: [ReactiveFormsModule, FontAwesomeModule, CommonModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule, CommonModule, RouterLink],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.css',
 })
