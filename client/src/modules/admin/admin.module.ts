@@ -34,129 +34,163 @@ import { BookingDetailComponent } from './booking/booking-detail/booking-detail.
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 import { adminRoleGuard } from '../../guards/admin-role.guard';
 import { adminAuthGuard } from '../../guards/admin-auth.guard';
+import { Title } from '@angular/platform-browser';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    data: { title: 'Tổng quan hệ thống' },
+  },
   {
     path: 'movies/:id/detail',
     component: MovieDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý phim' },
   },
   {
     path: 'movies/add',
     component: AddMovieComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý phim' },
   },
   {
     path: 'movies',
     component: MovieListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý phim' },
   },
   {
     path: 'news/:id/detail',
     component: NewsDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý tin tức' },
   },
   {
     path: 'news/add',
     component: AddNewsComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý tin tức' },
   },
-  { path: 'news', component: NewsListComponent, canActivate: [adminRoleGuard] },
+  {
+    path: 'news',
+    component: NewsListComponent,
+    canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý tin tức' },
+  },
   {
     path: 'members/:id/detail',
     component: UserDetailComponent,
     canActivate: [adminAuthGuard],
+    data: { title: 'Quản lý thành viên' },
   },
   {
     path: 'members/add',
     component: AddUserComponent,
     canActivate: [adminAuthGuard],
+    data: { title: 'Quản lý thành viên' },
   },
   {
     path: 'members',
     component: UserListComponent,
     canActivate: [adminAuthGuard],
+    data: { title: 'Quản lý thành viên' },
   },
   {
     path: 'employees/:id/detail',
     component: EmployeeDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý nhân viên' },
   },
   {
     path: 'employees/add',
     component: AddEmployeeComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý nhân viên' },
   },
   {
     path: 'employees',
     component: EmployeeListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý nhân viên' },
   },
   {
     path: 'showtimes/:id/detail',
     component: ShowtimeDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý suất chiếu' },
   },
   {
     path: 'showtimes/add',
     component: AddShowtimeComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý suất chiếu' },
   },
   {
     path: 'showtimes',
     component: ShowtimeListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý suất chiếu' },
   },
   {
     path: 'rooms/:id/detail',
     component: RoomDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý phòng chiếu' },
   },
   {
     path: 'rooms/add',
     component: AddRoomComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý phòng chiếu' },
   },
   {
     path: 'rooms',
     component: RoomListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý phòng chiếu' },
   },
   {
     path: 'promotions/:id/detail',
     component: PromotionDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý khuyến mãi' },
   },
   {
     path: 'promotions/add',
     component: AddPromotionComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý khuyến mãi' },
   },
   {
     path: 'promotions',
     component: PromotionListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý khuyến mãi' },
   },
   {
     path: 'products/:id/detail',
     component: ProductDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý sản phẩm' },
   },
   {
     path: 'products/add',
     component: AddProductComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý sản phẩm' },
   },
   {
     path: 'products',
     component: ProductListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý sản phẩm' },
   },
   {
     path: 'bookings',
     component: BookingListComponent,
     canActivate: [adminAuthGuard],
+    data: { title: 'Quản lý vé đặt' },
   },
   { path: 'bookings/:id/detail', component: BookingDetailComponent },
   {
@@ -168,16 +202,19 @@ const routes: Routes = [
     path: 'banners/:id/detail',
     component: BannerDetailComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý banner' },
   },
   {
     path: 'banners/add',
     component: AddBannerComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý banner' },
   },
   {
     path: 'banners',
     component: BannerListComponent,
     canActivate: [adminRoleGuard],
+    data: { title: 'Quản lý banner' },
   },
   { path: '**', redirectTo: 'dashboard' },
 ];

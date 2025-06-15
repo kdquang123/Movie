@@ -22,11 +22,22 @@
             {{ currentPageSize * (currentPage - 1) + i + 1 }}
           </td>
           <td *ngFor="let column of columns">
-            {{
-              column.formatter
-                ? column.formatter(item, column)
-                : item[column.value]
-            }}
+            <ng-container *ngIf="column.style; else noStyle">
+              <div [ngClass]="column.style(item, column)">
+                {{
+                  column.formatter
+                    ? column.formatter(item, column)
+                    : item[column.value]
+                }}
+              </div>
+            </ng-container>
+            <ng-template #noStyle>
+              {{
+                column.formatter
+                  ? column.formatter(item, column)
+                  : item[column.value]
+              }}
+            </ng-template>
           </td>
           <td>
             <div class="flex space-x-2 *:cursor-pointer">

@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Business.Handler;
+
 using Movie.Core.Models;
 
 namespace Movie.API.Controllers;
@@ -63,6 +63,13 @@ public class BookingsController : ControllerBase
     public async Task<IActionResult> GetBookingsThisMonth()
     {
         var result = await _mediator.Send(new BookingGetCurrentMonthQuery());
+        return Ok(result);
+    }
+
+    [HttpPost("search")]
+    public async Task<IActionResult> SearchBookings([FromBody] BookingSearchQuery query)
+    {
+        var result = await _mediator.Send(query);
         return Ok(result);
     }
 }

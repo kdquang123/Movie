@@ -49,6 +49,10 @@ export class RoomListComponent
     {
       name: 'Trạng thái',
       value: 'status',
+      style: (room: RoomModel) =>
+        room.status === 'Hoạt động'
+          ? 'text-white text-center rounded-full bg-green-500 inline px-2 py-1'
+          : 'text-white text-center rounded-full bg-red-500 inline px-2 py-1',
     },
   ];
 

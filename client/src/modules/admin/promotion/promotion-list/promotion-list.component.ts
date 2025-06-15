@@ -44,6 +44,13 @@ export class PromotionListComponent
             new Date() <= new Date(promotion.endDate)
           ? 'Đang diễn ra'
           : 'Đã kết thúc',
+      style: (promotion: PromotionModel) =>
+        new Date(promotion.startDate) > new Date()
+          ? 'text-white text-center rounded-full bg-yellow-500 inline px-2 py-1'
+          : new Date(promotion.startDate) <= new Date() &&
+            new Date() <= new Date(promotion.endDate)
+          ? 'text-white text-center rounded-full bg-green-500 inline px-2 py-1'
+          : 'text-white text-center rounded-full bg-red-500 inline px-2 py-1',
     },
   ];
 

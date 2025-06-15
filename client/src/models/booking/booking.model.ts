@@ -1,3 +1,4 @@
+import { MemberModel } from '../member/member.model';
 import { ShowtimeModel } from '../showtime/showtime.model';
 import { TicketDetailModel } from '../ticket/ticket-detail.model';
 import { BookingDetailModel } from './booking-detail.model';
@@ -13,4 +14,5 @@ export class BookingModel {
   bookingStatus!: string;
   bookingCode!: string;
   createdAt!: Date;
+  user?: MemberModel;
 }

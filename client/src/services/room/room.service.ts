@@ -41,4 +41,10 @@ export class RoomService implements IRoomService {
   deleteRoom(id: string): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${ApiEndpoints.deleteRoom}/${id}`);
   }
+
+  changeStatus(roomId: string): Observable<boolean> {
+    return this.httpClient.post<boolean>(ApiEndpoints.changeRoomStatus, {
+      roomId,
+    });
+  }
 }

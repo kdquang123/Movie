@@ -36,6 +36,7 @@ export const ApiEndpoints = {
   searchRoom: `${environment.apiUrl}/Rooms/search`,
   getRoomByShowTimeId: `${environment.apiUrl}/Rooms/showtime`,
   getAllRoomType: `${environment.apiUrl}/Common/room-types`,
+  changeRoomStatus: `${environment.apiUrl}/Rooms/change-status`,
 
   //Seat api
   changeSeatType: `${environment.apiUrl}/Seats/change-type`,
@@ -58,6 +59,7 @@ export const ApiEndpoints = {
   getMyBooking: `${environment.apiUrl}/Bookings/my-bookings`,
   getAllBookings: `${environment.apiUrl}/Bookings`,
   getCurrentMonthBookings: `${environment.apiUrl}/Bookings/this-month`,
+  searchBooking: `${environment.apiUrl}/Bookings/search`,
 
   //Product api
   getAllProduct: `${environment.apiUrl}/Products`,
@@ -73,6 +75,8 @@ export const ApiEndpoints = {
   getTicketByTicketCode: `${environment.apiUrl}/Tickets/code`,
   approveTicket: `${environment.apiUrl}/Tickets/approve`,
   getCurrentMonthTickets: `${environment.apiUrl}/Tickets/this-month`,
+  searchTicket: `${environment.apiUrl}/Tickets/search`,
+
 
   //Employee api
   getAllEmployee: `${environment.apiUrl}/Employees`,

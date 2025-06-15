@@ -42,8 +42,12 @@ export class UserListComponent extends MasterDataComponent<MemberModel> {
     {
       name: 'Trạng thái',
       value: 'isActive',
-      formatter: (e: MemberModel) =>
-        e.isActive ? 'Hoạt động' : 'Ngừng hoạt động',
+      formatter: (m: MemberModel) =>
+        m.isActive ? 'Hoạt động' : 'Ngừng hoạt động',
+      style: (m: MemberModel) =>
+        m.isActive
+          ? 'text-white text-center rounded-full bg-green-500 inline px-2 py-1'
+          : 'text-white text-center rounded-full bg-red-500 inline px-2 py-1',
     },
   ];
 

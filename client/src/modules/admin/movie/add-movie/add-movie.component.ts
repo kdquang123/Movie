@@ -18,11 +18,11 @@ import {
   FormArray,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-movie',
-  imports: [FontAwesomeModule, CommonModule, ReactiveFormsModule],
+  imports: [FontAwesomeModule, CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-movie.component.html',
   styleUrl: './add-movie.component.css',
 })

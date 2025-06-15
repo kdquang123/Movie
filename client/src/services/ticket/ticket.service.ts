@@ -6,6 +6,7 @@ import { TicketModel } from '../../models/ticket/ticket.model';
 import { ApiEndpoints } from '../../constants/api-endpoint/api-endpoint';
 import { HttpClient } from '@angular/common/http';
 import { TicketOfBookingModel } from '../../models/ticket/ticket-of-booking.model';
+import { PaginatedResult } from '../../models/paginated-result.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,13 @@ export class TicketService implements ITicketService {
   getCurrentMonthTickets(): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(
       ApiEndpoints.getCurrentMonthTickets
+    );
+  }
+
+  search(filter: any): Observable<PaginatedResult<TicketModel>> {
+    return this.httpClient.post<PaginatedResult<TicketModel>>(
+      ApiEndpoints.searchTicket,
+      filter
     );
   }
 }
