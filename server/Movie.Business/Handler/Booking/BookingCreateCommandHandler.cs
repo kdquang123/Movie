@@ -12,10 +12,13 @@ namespace Movie.Business.Handler;
 public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingCreateCommand, string>
 {
     private readonly IVNPayService _vnPayService;
+    private readonly IMomoService _momoService;
 
-    public BookingCreateCommandHandler(IVNPayService vnPayService, IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+
+    public BookingCreateCommandHandler(IVNPayService vnPayService, IMomoService momoService, IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
     {
         _vnPayService = vnPayService;
+        _momoService = momoService;
     }
 
     public async Task<string> Handle(BookingCreateCommand request, CancellationToken cancellationToken)
@@ -122,7 +125,14 @@ public class BookingCreateCommandHandler : BaseHandler, IRequestHandler<BookingC
         _unitOfWork.BookingRepository.Add(newBooking);
         await _unitOfWork.SaveChangesAsync();
 
-        string paymentUrl = _vnPayService.CreatePaymentUrl(newBooking);
+        string paymentUrl;
+
+        if (request.PaymentMethod == "Momo")
+        {
+            paymentUrl = await _momoService.CreatePaymentAsync(newBooking);
+            return paymentUrl;
+        }
+        paymentUrl = _vnPayService.CreatePaymentUrl(newBooking);
 
         return paymentUrl;
     }
