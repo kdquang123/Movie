@@ -18,7 +18,7 @@ public class MomoService : IMomoService
         QuickPayRequest request = new QuickPayRequest();
         request.orderInfo = "pay with MoMo";
         request.partnerCode = "MOMO";
-        request.redirectUrl = "http://localhost:5095/api/Bookings/payment-callback";
+        request.redirectUrl = "http://localhost:5095/api/Bookings/momo-payment-callback";
         request.ipnUrl = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
         request.amount = (long)model.TotalPrice;
         request.orderId = model.BookingCode;

@@ -195,7 +195,7 @@ export class BookingListComponent extends MasterDataComponent<BookingModel> {
   getStatusStyle(booking: BookingModel): string {
     switch (booking.bookingStatus) {
       case 'Pending':
-        return 'text-white text-center rounded-full bg-green-500 inline px-2 py-1';
+        return 'text-white text-center rounded-full bg-red-500 inline px-2 py-1';
       case 'Paid':
         return 'text-white text-center rounded-full bg-yellow-500 inline px-2 py-1';
       case 'CheckedIn':
