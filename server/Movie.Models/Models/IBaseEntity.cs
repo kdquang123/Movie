@@ -1,10 +1,10 @@
 using System;
 
-namespace Movie.Models.Models;
+namespace Movie.Models;
 
 public interface IBaseEntity
 {
-    int Id { get; set; }
+    Guid Id { get; set; }
     DateTime? CreatedAt { get; set; }
     DateTime? DeletedAt { get; set; }
     DateTime? UpdatedAt { get; set; }

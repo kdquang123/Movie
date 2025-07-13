@@ -1,0 +1,18 @@
+<!-- Admin Layout -->
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <app-admin-sidebar (emitToggleSidebar)="toggleSidebar()"></app-admin-sidebar>
+
+  <!-- Main Content -->
+  <div
+    [ngClass]="isSidebarToggle ? 'ml-[80px]' : 'ml-[250px]'"
+    class="content-area flex-1 overflow-y-auto"
+  >
+    <!-- Admin Header -->
+    <app-admin-header></app-admin-header>
+    <!-- Content Area -->
+    <main class="bg-white min-h-[calc(100vh-72px)] p-6 text-black">
+      <router-outlet />
+    </main>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+.seat {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.seat.available {
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+}
+
+.seat.available:hover {
+  background-color: #2f2f2f;
+}
+
+/* .seat.selected {
+  background-color: #e50914;
+  border: 1px solid #e50914;
+} */
+
+.seat.vip {
+  background-color: #c19a6b;
+  border: 1px solid #c19a6b;
+}
+
+.seat.selected {
+  background-color: #e50914;
+  border: 1px solid #e50914;
+}
+
+.seat.reserved {
+  background-color: #b2b2b2;
+  border: 1px solid #555;
+  cursor: not-allowed;
+}
+
+.seat.vip.reserved {
+  background-color: #b2b2b2;
+  border: 1px solid #555;
+  cursor: not-allowed;
+}
+
+.seat.sold {
+  background-color: #b2b2b2;
+  border: 1px solid #555;
+  cursor: not-allowed;
+}
+
+.progress-step.active {
+  border-color: #e50914;
+  color: #e50914;
+}
+
+.progress-step.completed {
+  border-color: #e50914;
+  background-color: #e50914;
+  color: white;
+}

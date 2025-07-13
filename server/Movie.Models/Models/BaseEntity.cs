@@ -1,10 +1,10 @@
 using System;
 
-namespace Movie.Models.Models;
+namespace Movie.Models;
 
 public class BaseEntity : IBaseEntity
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public DateTime? CreatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }

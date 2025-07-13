@@ -1,0 +1,123 @@
+<header class="bg-darker sticky top-0 z-40 border-b border-gray-800">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <fa-icon [icon]="faFilm" class="text-primary text-2xl"></fa-icon>
+      <span class="text-2xl font-bold">
+        KD<span class="text-primary">Cinema</span>
+      </span>
+    </div>
+
+    <nav class="hidden md:flex space-x-8 items-center">
+      <a
+        [routerLink]="['/home']"
+        class="hover:text-primary transition cursor-pointer"
+        >Trang chủ</a
+      >
+      <a
+        [routerLink]="['/movies/now-showing']"
+        class="hover:text-primary transition cursor-pointer"
+        >Phim đang chiếu</a
+      >
+      <a
+        [routerLink]="['/movies/coming-soon']"
+        class="hover:text-primary transition cursor-pointer"
+        >Phim sắp chiếu</a
+      >
+      <a
+        [routerLink]="['/news']"
+        class="hover:text-primary transition cursor-pointer"
+        >Tin tức và khuyến mãi</a
+      >
+    </nav>
+
+    <div class="flex items-center space-x-4">
+      <ng-container *ngIf="currentUser; else loginBtn">
+        <div
+          class="flex items-center space-x-2 cursor-pointer group relative"
+          (mouseenter)="showDropdown = true"
+        >
+          <div class="flex items-center space-x-2">
+            <img
+              src="./assets/avatar.png"
+              alt="Avatar"
+              class="w-9 h-9 rounded-full border-2 border-primary object-cover bg-white"
+            />
+            <span class="text-white font-medium">
+              Xin chào, {{ currentUser!.fullName }}
+            </span>
+            <fa-icon
+              [icon]="faChevronDown"
+              class="text-gray-400 text-xs transition-transform duration-200"
+              [ngClass]="{ 'rotate-180': showDropdown }"
+            ></fa-icon>
+          </div>
+
+          <!-- Dropdown Menu -->
+          <div
+            *ngIf="showDropdown"
+            (mouseenter)="showDropdown = true"
+            (mouseleave)="showDropdown = false"
+            class="absolute top-full right-0 mt-3 bg-darker border border-gray-700 rounded-lg shadow-xl w-56 z-50 overflow-hidden"
+          >
+            <div class="px-4 py-3 border-b border-gray-700">
+              <p class="font-medium text-white">{{ currentUser!.fullName }}</p>
+              <p class="text-sm text-gray-400 truncate">
+                {{ currentUser!.email }}
+              </p>
+            </div>
+            <a
+              routerLink="/my-profile"
+              class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-primary transition"
+            >
+              <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
+              Thông tin cá nhân
+            </a>
+
+            <a
+              *ngIf="
+                currentUser.roles[0] == 'ADMIN' ||
+                currentUser.roles[0] == 'EMPLOYEE'
+              "
+              routerLink="/admin"
+              class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-primary transition"
+            >
+              <fa-icon [icon]="faCog" class="mr-3"></fa-icon>
+              Quản lý hệ thống
+            </a>
+
+            <a
+              routerLink="/my-ticket"
+              class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-primary transition"
+            >
+              <fa-icon [icon]="faTicketAlt" class="mr-3"></fa-icon>
+              Vé của tôi
+            </a>
+
+            <div class="border-t border-gray-700">
+              <button
+                (click)="logout()"
+                class="w-full flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-red-500 transition"
+              >
+                <fa-icon [icon]="faSignOutAlt" class="mr-3"></fa-icon>
+                Đăng xuất
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #loginBtn>
+        <button
+          id="login-btn"
+          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md font-medium transition"
+          (click)="openLogin.emit()"
+        >
+          Đăng nhập
+        </button>
+      </ng-template>
+
+      <button title="menu-bar" class="md:hidden text-gray-400">
+        <fa-icon [icon]="faBars" class="text-xl"></fa-icon>
+      </button>
+    </div>
+  </div>
+</header>

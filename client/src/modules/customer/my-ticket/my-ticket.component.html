@@ -1,0 +1,415 @@
+<!-- Main Content Area -->
+<div class="flex-1 p-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold">
+      <fa-icon [icon]="faTicketAlt" class="text-primary mr-2"></fa-icon> Vé Đã
+      Đặt
+    </h1>
+
+    <div class="flex space-x-2">
+      <button
+        (click)="isShowUsedBooking = false"
+        id="upcoming-tab"
+        class="px-4 py-2 text-sm font-medium"
+        [ngClass]="{ 'text-gray-400': isShowUsedBooking }"
+      >
+        Sắp chiếu
+      </button>
+      <button
+        (click)="isShowUsedBooking = true"
+        id="past-tab"
+        class="px-4 py-2 text-sm font-medium hover:text-white"
+        [ngClass]="{ 'text-gray-400': !isShowUsedBooking }"
+      >
+        Đã xem
+      </button>
+    </div>
+  </div>
+
+  <div id="tickets" *ngIf="!isShowUsedBooking">
+    <!-- Booking -->
+    <div
+      *ngFor="let booking of showingBookingList"
+      class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Movie Poster -->
+        <div class="w-full md:w-48 flex-shrink-0">
+          <img
+            [src]="booking.showtime.movie?.imageUrl"
+            alt="Movie Poster"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Booking Info -->
+        <div class="p-6 flex-1">
+          <div class="flex flex-col md:flex-row md:justify-between">
+            <div class="mb-4 md:mb-0">
+              <span class="text-primary text-sm font-medium"
+                >PHIM ĐANG CHIẾU</span
+              >
+              <h2 class="text-xl font-bold mt-1">
+                {{ booking.showtime.movie?.name }}
+              </h2>
+              <div class="flex items-center mt-2 text-gray-400 text-sm">
+                <span
+                  ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
+                  {{ formatDate(booking.showtime.startTime) }}</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon>
+                  {{ getStartTimeOfShowTime(booking.showtime.startTime) }}</span
+                >
+                <span class="mx-3">|</span>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span
+                class="text-white text-xs font-bold px-2 py-1 rounded-full"
+                [ngClass]="{
+                  'bg-green-500':booking.bookingStatus==='Paid',
+                  'bg-yellow-400':booking.bookingStatus==='CheckedIn',
+                  'bg-red-500':booking.bookingStatus==='Cancelled',
+                }"
+                >{{ getBoookingStatus(booking) }}</span
+              >
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Booking Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thông tin vé</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Số lượng:</span>
+                  <span>{{ booking.tickets.length }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ghế:</span>
+                  <span>{{ getSeatList(booking) }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Phòng chiếu:</span>
+                  <span>{{ getRoomOfBooking(booking) }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Sản phẩm:</span>
+                  <span>{{
+                    showSeletedProduct(booking) || "Chưa chọn sản phẩm"
+                  }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Payment Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thanh toán</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Mã đơn:</span>
+                  <span>{{ booking.bookingCode }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Tổng tiền:</span>
+                  <span class="font-bold">{{ booking.totalPrice }}đ</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ngày đặt:</span>
+                  <span>{{ formatDate(booking.createdAt) }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-800 px-6 py-3 bg-gray-900 bg-opacity-50 flex justify-end space-x-3"
+      >
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faPrint" class="mr-1"></fa-icon> In vé
+        </button>
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
+        </button>
+        <button
+          (click)="showTicketDetail(booking.id)"
+          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          {{
+            checkShowTicketDetail(booking.id) ? "Ẩn chi tiết" : "Xem chi tiết"
+          }}
+        </button>
+      </div>
+
+      <!-- Ticket Detail Section (Accordion) -->
+      <div
+        *ngIf="checkShowTicketDetail(booking.id)"
+        class="border-t border-gray-800 transition-all duration-300 overflow-hidden"
+      >
+        <div class="p-6 bg-gray-900 bg-opacity-50">
+          <h3 class="font-bold mb-4">CHI TIẾT VÉ</h3>
+
+          <!-- Tickets List -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div
+              *ngFor="let ticket of booking.tickets"
+              class="bg-gray-800 rounded-lg p-4"
+            >
+              <div class="flex justify-between">
+                <div>
+                  <div class="font-medium">
+                    Vé:
+                    {{ ticket.seat!.type === "Vip" ? "VIP" : "Thường" }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Ghế: {{ ticket.seat!.seatName }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Trạng thái:
+                    {{ ticket.isUsed ? "Đã sử dụng" : "Chưa sử dụng" }}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-gray-400 mt-1">
+                    Mã vé: {{ ticket.ticketCode }}
+                  </div>
+                  <!-- QR Code -->
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="qr-code p-2 rounded-lg mb-3">
+                      <img
+                        [src]="`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticket.ticketCode}`"
+                        alt="QR Code"
+                        class="w-24 h-24"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Past Tickets (Hidden by default) -->
+  <div id="past-tickets" *ngIf="isShowUsedBooking">
+    <!-- Past Ticket 1 -->
+    <div
+      *ngFor="let booking of usedBookingList"
+      class="bg-darker rounded-lg border border-gray-800 overflow-hidden mb-6 ticket-card"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Movie Poster -->
+        <div class="w-full md:w-48 flex-shrink-0">
+          <img
+            [src]="booking.showtime.movie?.imageUrl"
+            alt="Movie Poster"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Booking Info -->
+        <div class="p-6 flex-1">
+          <div class="flex flex-col md:flex-row md:justify-between">
+            <div class="mb-4 md:mb-0">
+              <span class="text-primary text-sm font-medium"
+                >PHIM ĐANG CHIẾU</span
+              >
+              <h2 class="text-xl font-bold mt-1">
+                {{ booking.showtime.movie?.name }}
+              </h2>
+              <div class="flex items-center mt-2 text-gray-400 text-sm">
+                <span
+                  ><fa-icon [icon]="faCalendarAlt" class="mr-2"></fa-icon>
+                  {{ formatDate(booking.showtime.startTime) }}</span
+                >
+                <span class="mx-3">|</span>
+                <span
+                  ><fa-icon [icon]="faClock" class="mr-2"></fa-icon>
+                  {{ getStartTimeOfShowTime(booking.showtime.startTime) }}</span
+                >
+                <span class="mx-3">|</span>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span
+                class="text-white text-xs font-bold px-2 py-1 rounded-full"
+                [ngClass]="{
+                  'bg-green-500':booking.bookingStatus==='Paid',
+                  'bg-yellow-400':booking.bookingStatus==='CheckedIn',
+                  'bg-red-500':booking.bookingStatus==='Cancelled',
+                }"
+                >{{ getBoookingStatus(booking) }}</span
+              >
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Booking Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thông tin vé</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Số lượng:</span>
+                  <span>{{ booking.tickets.length }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ghế:</span>
+                  <span>{{ getSeatList(booking) }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Phòng chiếu:</span>
+                  <span>{{ getRoomOfBooking(booking) }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Sản phẩm:</span>
+                  <span>{{
+                    showSeletedProduct(booking) || "Chưa chọn sản phẩm"
+                  }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Payment Details -->
+            <div>
+              <h3 class="font-bold mb-3">Thanh toán</h3>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Mã đơn:</span>
+                  <span>{{ booking.bookingCode }}</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Tổng tiền:</span>
+                  <span class="font-bold">{{ booking.totalPrice }}đ</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-gray-400">Ngày đặt:</span>
+                  <span>{{ formatDate(booking.createdAt) }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-800 px-6 py-3 bg-gray-900 bg-opacity-50 flex justify-end space-x-3"
+      >
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faPrint" class="mr-1"></fa-icon> In vé
+        </button>
+        <button
+          class="border border-gray-600 hover:border-primary hover:text-primary px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          <fa-icon [icon]="faShareAlt" class="mr-1"></fa-icon> Chia sẻ
+        </button>
+        <button
+          (click)="showTicketDetail(booking.id)"
+          class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-sm font-medium transition"
+        >
+          {{
+            checkShowTicketDetail(booking.id) ? "Ẩn chi tiết" : "Xem chi tiết"
+          }}
+        </button>
+      </div>
+
+      <!-- Ticket Detail Section (Accordion) -->
+      <div
+        *ngIf="checkShowTicketDetail(booking.id)"
+        class="border-t border-gray-800 transition-all duration-300 overflow-hidden"
+      >
+        <div class="p-6 bg-gray-900 bg-opacity-50">
+          <h3 class="font-bold mb-4">CHI TIẾT VÉ</h3>
+
+          <!-- Tickets List -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div
+              *ngFor="let ticket of booking.tickets"
+              class="bg-gray-800 rounded-lg p-4"
+            >
+              <div class="flex justify-between">
+                <div>
+                  <div class="font-medium">
+                    Vé:
+                    {{ ticket.seat!.type === "Vip" ? "VIP" : "Thường" }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Ghế: {{ ticket.seat!.seatName }}
+                  </div>
+                  <div class="text-sm text-gray-400 mt-1">
+                    Trạng thái:
+                    {{ ticket.isUsed ? "Đã sử dụng" : "Chưa sử dụng" }}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-gray-400 mt-1">
+                    Mã vé: {{ ticket.ticketCode }}
+                  </div>
+                  <!-- QR Code -->
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="qr-code p-2 rounded-lg mb-3">
+                      <img
+                        [src]="`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticket.ticketCode}`"
+                        alt="QR Code"
+                        class="w-24 h-24"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div id="empty-upcoming" class="hidden text-center py-12">
+    <div class="max-w-md mx-auto">
+      <fa-icon
+        [icon]="faTicketAlt"
+        class="text-5xl text-gray-600 mb-4"
+      ></fa-icon>
+      <h3 class="text-xl font-bold mb-2">Bạn chưa có vé sắp chiếu</h3>
+      <p class="text-gray-400 mb-6">
+        Hãy khám phá các bộ phim đang hot và đặt vé ngay hôm nay!
+      </p>
+      <a
+        href="#"
+        class="bg-primary hover:bg-red-700 px-6 py-3 rounded-md font-medium inline-block"
+      >
+        Xem phim đang chiếu
+      </a>
+    </div>
+  </div>
+
+  <div id="empty-past" class="hidden text-center py-12">
+    <div class="max-w-md mx-auto">
+      <fa-icon [icon]="faHistory" class="text-5xl text-gray-600 mb-4"></fa-icon>
+      <h3 class="text-xl font-bold mb-2">Bạn chưa xem phim nào gần đây</h3>
+      <p class="text-gray-400 mb-6">
+        Các bộ phim bạn đã xem sẽ xuất hiện tại đây.
+      </p>
+      <a
+        href="#"
+        class="bg-primary hover:bg-red-700 px-6 py-3 rounded-md font-medium inline-block"
+      >
+        Xem phim đang chiếu
+      </a>
+    </div>
+  </div>
+</div>

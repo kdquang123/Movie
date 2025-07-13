@@ -1,0 +1,105 @@
+<!-- Add Theater Form -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+  <form  [formGroup]="roomForm" >
+    <div class="grid grid-cols-1 gap-8">
+      <!-- Left Column - Basic Info -->
+      <div>
+        <div class="space-y-6">
+          <!-- Theater Name -->
+          <div>
+            <label
+              for="theater-name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Tên phòng chiếu <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="name"
+              type="text"
+              id="theater-name"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="VD: Phòng 1, Phòng IMAX"
+              required
+            />
+          </div>
+
+          <!-- Theater Type -->
+          <div>
+            <label
+              for="theater-type"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Loại phòng <span class="text-red-500">*</span></label
+            >
+            <select
+              formControlName="roomTypeId"
+              id="theater-type"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              required
+            >
+              <option value="">-- Chọn loại phòng --</option>
+              <option
+                *ngFor="let roomType of roomTypeList"
+                [value]="roomType.id"
+              >
+                {{ roomType.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Row -->
+          <div>
+            <label
+              for="row"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Số hàng ghế <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="totalRows"
+              type="number"
+              id="row"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số hàng ghế"
+              required
+            />
+          </div>
+
+          <!-- Column -->
+          <div>
+            <label
+              for="column"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Sức ghế mỗi hàng <span class="text-red-500">*</span></label
+            >
+            <input
+              formControlName="totalColumns"
+              type="number"
+              id="column"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Nhập số ghế mỗi hàng"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 flex justify-end space-x-3">
+      <button
+        routerLink="/admin/rooms"
+        type="button"
+        class="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700 transition"
+      >
+        Hủy bỏ
+      </button>
+      <button
+        (click)="onSubmit()"
+        type="submit"
+        class="bg-primary hover:bg-red-700 px-6 py-2 rounded-md font-medium text-white transition"
+      >
+        <fa-icon [icon]="faSave" class="mr-2"></fa-icon> Tạo phòng chiếu
+      </button>
+    </div>
+  </form>
+</div>

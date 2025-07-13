@@ -1,0 +1,45 @@
+<div class="container mx-auto py-12 px-4 max-w-4xl">
+  <!-- Article Header -->
+  <article>
+    <header class="mb-10">
+      <span class="text-primary font-medium">TIN NỔI BẬT</span>
+      <h1 class="text-3xl md:text-4xl font-bold my-4">
+        {{ news.title }}
+      </h1>
+
+      <div
+        class="flex flex-col md:flex-row md:items-center md:justify-between text-gray-400 text-sm"
+      >
+        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+          <span
+            ><fa-icon [icon]="faClock" class="mr-1"></fa-icon>
+            {{ formatDate(news.createdAt) }}</span
+          >
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-primary"
+            ><fa-icon [icon]="faFacebookF"></fa-icon
+          ></a>
+          <a href="#" class="hover:text-primary"
+            ><fa-icon [icon]="faTwitter"></fa-icon
+          ></a>
+          <a href="#" class="hover:text-primary"
+            ><fa-icon [icon]="faLinkedinIn"></fa-icon
+          ></a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Featured Image -->
+    <figure class="mb-8">
+      <img
+        [src]="news.imageUrl"
+        alt="Lễ trao giải Oscar 2023"
+        class="w-full h-auto rounded-lg"
+      />
+    </figure>
+
+    <!-- Article Content -->
+    <div class="article-content text-gray-300" [innerHTML]="news.content"></div>
+  </article>
+</div>

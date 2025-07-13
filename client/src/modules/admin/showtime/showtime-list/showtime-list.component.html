@@ -1,0 +1,89 @@
+<!-- Header và Search Tools -->
+<div
+  class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 gap-4"
+>
+  <div>
+    <h2 class="text-lg font-semibold text-gray-800">Quản lý lịch chiếu phim</h2>
+    <p class="text-sm text-gray-500">
+      Thiết lập và quản lý lịch chiếu cho các phim tại các rạp
+    </p>
+  </div>
+  <button
+    routerLink="/admin/showtimes/add"
+    id="add-showtime-btn"
+    class="bg-primary hover:bg-red-700 px-4 py-2 rounded-md text-white font-medium transition"
+  >
+    <fa-icon [icon]="faPlus"></fa-icon> Thêm lịch chiếu mới
+  </button>
+</div>
+
+<!-- Search and Filter Tools -->
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+  <div [formGroup]="searchForm" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div class="relative">
+      <input
+        formControlName="startDate"
+        title="showtimeDate"
+        type="date"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+        value="2025-04-24"
+      />
+    </div>
+
+    <div>
+      <select
+        formControlName="movieId"
+        title="movie"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+      >
+        <option value="">Tất cả phim</option>
+        <option *ngFor="let movie of movieList" [value]="movie.id">
+          {{ movie.name }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <select
+        formControlName="roomId"
+        title="showtimeRoom"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+      >
+        <option value="">Tất cả phòng</option>
+        <option *ngFor="let room of roomList" [value]="room.id">
+          {{`${room.name} - ${room.roomType!.name}`}}
+        </option>
+      </select>
+    </div>
+
+    <div class="flex space-x-2">
+      <button
+        (click)="onSubmit()"
+        class="bg-primary px-4 py-2 rounded-md text-white font-medium hover:bg-red-700 transition"
+      >
+        <fa-icon [icon]="faFilter"></fa-icon> Lọc
+      </button>
+      <button
+        (click)="createForm()"
+        class="border border-gray-300 px-4 py-2 rounded-md text-gray-700 font-medium hover:bg-gray-100 transition"
+      >
+        <fa-icon [icon]="faRedoAlt"></fa-icon> Đặt lại
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Table -->
+<app-table
+  [data]="data"
+  [columns]="columns"
+  [isShowNumber]="true"
+  [currentPage]="currentPage"
+  [currentPageSize]="currentPageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (onPageChange)="onPageChange($event)"
+  (onPageSizeChange)="onPageSizeChange($event)"
+  (onDelete)="delete($event)"
+  (onView)="detail($event)"
+>
+</app-table>

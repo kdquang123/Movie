@@ -1,0 +1,8 @@
+<!--Header-->
+<app-user-header (openLogin)="openLoginModal()"></app-user-header>
+
+<router-outlet />
+<app-login-and-register-modal *ngIf="isModalOpen" (closeLoginModal)="closeLoginModal()"></app-login-and-register-modal>
+
+<!-- Footer -->
+<app-user-footer></app-user-footer>

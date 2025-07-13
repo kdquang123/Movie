@@ -1,0 +1,48 @@
+<!-- News Section -->
+<section id="news-section" class="py-12">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8">TIN TỨC MỚI NHẤT</h2>
+    <!-- News List -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- News 1 -->
+      <div
+        *ngFor="let news of newsList"
+        class="bg-darker rounded-lg overflow-hidden border border-gray-800 news-card transition duration-300 cursor-pointer"
+        [routerLink]="['/news', news.id]"
+      >
+        <img
+          [src]="news.imageUrl"
+          alt="News"
+          class="w-full h-48 object-cover"
+        />
+        <div class="p-6">
+          <span class="text-primary text-sm font-medium">{{
+            news.category == "News"
+              ? "TIN MỚI"
+              : news.category == "Event"
+              ? "SỰ KIỆN"
+              : "KHUYẾN MÃI"
+          }}</span>
+          <h3 class="font-bold text-xl my-3">
+            {{ news.title }}
+          </h3>
+          <div class="flex items-center text-sm text-gray-500">
+            <span
+              ><fa-icon [icon]="faClock" class="mr-1"></fa-icon>
+              {{ formatDate(news.createdAt) }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <button
+        (click)="showMoreNews()"
+        class="border border-gray-600 hover:border-primary hover:text-primary px-8 py-3 rounded-md font-medium"
+      >
+        Xem thêm tin tức
+      </button>
+    </div>
+  </div>
+</section>

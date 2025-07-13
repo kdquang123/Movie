@@ -13,8 +13,16 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.0.1" />
+    <PackageReference Include="MailKit" Version="4.12.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handler\Banner\" />
+    <Folder Include="Handler\Category\RoomType\" />
+    <Folder Include="Handler\News\" />
   </ItemGroup>
 
 </Project>

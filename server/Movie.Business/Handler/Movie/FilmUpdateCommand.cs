@@ -1,0 +1,49 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+
+namespace Movie.Business.Handler;
+
+public class FilmUpdateCommand : IRequest<bool>
+{
+    public Guid Id { get; set; }
+
+    [Required]
+    [StringLength(100, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters.")]
+    public required string Name { get; set; }
+
+    [Required]
+    public required string Description { get; set; }
+
+    [Required]
+    [StringLength(100, MinimumLength = 1, ErrorMessage = "Director must be between 1 and 100 characters.")]
+    public required string Director { get; set; }
+
+    public string? Actors { get; set; }
+
+    [Range(1, 600, ErrorMessage = "Duration must be between 1 and 600 minutes.")]
+    public int Duration { get; set; }
+
+    [Required]
+    [DataType(DataType.Date, ErrorMessage = "Invalid Release Date format.")]
+    public DateTime ReleaseDate { get; set; }
+
+    [Required]
+    [DataType(DataType.Date, ErrorMessage = "Invalid End Date format.")]
+    public DateTime EndDate { get; set; }
+
+    public IFormFile? Poster { get; set; }
+
+    [Url(ErrorMessage = "Invalid Trailer URL format.")]
+    public string? TrailerUrl { get; set; }
+
+    [Range(0, 10, ErrorMessage = "IMDb Score must be between 0 and 10.")]
+    public decimal IMDbScore { get; set; }
+
+    [Required(ErrorMessage = "CategoryId is required.")]
+    public List<Guid> Categories { get; set; } = [];
+
+    [Required(ErrorMessage = "AgeRestrictionId is required.")]
+    public Guid AgeRestrictionId { get; set; }
+}
