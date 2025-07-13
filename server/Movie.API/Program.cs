@@ -51,6 +51,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IVNPayService, VNPayService>();
+builder.Services.AddScoped<IMomoService, MomoService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddHostedService<SeatHoldAndBookingCleanUpService>();

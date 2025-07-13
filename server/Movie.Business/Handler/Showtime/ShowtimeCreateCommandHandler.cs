@@ -14,17 +14,23 @@ public class ShowtimeCreateCommandHandler : BaseHandler, IRequestHandler<Showtim
 
     public async Task<bool> Handle(ShowtimeCreateCommand request, CancellationToken cancellationToken)
     {
-        if (request.StartDate < DateTime.Now)
-        {
-            return false;
-        }
+        var date1= DateTime.Now;
+        
         var movie = _unitOfWork.FilmRepository.GetById(request.MovieId);
         if (movie == null) return false;
-        if (request.StartDate < movie.ReleaseDate || request.StartDate > movie.EndDate) return false;
+        if (request.StartDate < movie.ReleaseDate || request.StartDate > movie.EndDate)
+        {
+            throw new InvalidOperationException("Thời gian chiếu không hợp lệ");
+        }
 
         string[] time = request.StartTime.Split(":");
         request.StartDate = request.StartDate.AddHours(int.Parse(time[0]));
         request.StartDate = request.StartDate.AddMinutes(int.Parse(time[1]));
+
+        if (request.StartDate < DateTime.Now)
+        {
+            throw new InvalidOperationException("Thời gian chiếu không hợp lệ");
+        }
 
         var showtime = new Showtime
         {

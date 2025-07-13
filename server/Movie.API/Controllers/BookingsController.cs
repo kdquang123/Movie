@@ -42,6 +42,28 @@ public class BookingsController : ControllerBase
         return Redirect("http://localhost:4200/booking-failed");
     }
 
+    [HttpGet("momo-payment-callback")]
+    [AllowAnonymous]
+    public async Task<IActionResult> MomoCallback([FromQuery] MomoCallbackModel model)
+    {
+        if (model.ResultCode == 0)
+        {
+            // Giao dịch thành công
+            // var result = await _mediator.Send(new TicketCreateCommand { BookingCode = model.vnp_TxnRef! });
+            // if (result == true)
+            // {
+            //     return Redirect("http://localhost:4200/booking-success");
+            // }
+        }
+
+        var result = await _mediator.Send(new TicketCreateCommand { BookingCode = model.OrderId! });
+        if (result == true)
+        {
+            return Redirect("http://localhost:4200/booking-success");
+        }
+        return Redirect("http://localhost:4200/booking-failed");
+    }
+
     [HttpGet("my-bookings")]
     [Authorize]
     public async Task<IActionResult> GetBookingByUserId()

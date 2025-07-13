@@ -24,6 +24,6 @@ public class MemberGetNewQueryHandler : UserBaseHandler, IRequestHandler<MemberG
 
         var date= DateTime.Now.AddDays(-7);
         query = query.Where(x => DateTime.Now.AddDays(-7) <= x.CreatedAt);
-        return _mapper.Map<IEnumerable<MemberViewModel>>(members);
+        return _mapper.Map<IEnumerable<MemberViewModel>>(query);
     }
 }
